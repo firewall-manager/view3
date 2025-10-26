@@ -1,6 +1,16 @@
+/**
+ * 滑块组件样式
+ * 提供滑块的样式定义，包括滑块轨道、按钮、标记等
+ */
+
+/**
+ * 滑块组件基础样式
+ * 设置滑块的整体布局和交互效果
+ */
 .#{$slider-prefix-cls} {
   line-height: normal;
 
+  // 滑块包装器：轨道背景，圆角，指针光标
   &-wrap {
     background-color: $border-color-split;
     border-radius: $btn-border-radius-small;
@@ -12,6 +22,7 @@
     width: 100%;
   }
 
+  // 滑块按钮包装器：正方形，透明背景，绝对定位
   &-button-wrap {
     @include square($slider-button-wrap-size);
     background-color: transparent;
@@ -20,12 +31,14 @@
     top: $slider-button-wrap-offset;
     transform: translateX(-50%);
 
+    // 工具提示：块级显示，禁用选择
     .#{$tooltip-prefix-cls} {
       display: block;
       user-select: none;
     }
   }
 
+  // 滑块按钮：白色背景，圆形边框，过渡动画
   &-button {
     background-color: #fff;
     border: 2px solid $slider-color;
@@ -35,6 +48,7 @@
     transition: all $transition-time linear;
     width: 12px;
 
+    // 焦点、悬停、拖拽状态：主色调边框，放大1.5倍
     &:focus,
     &:hover,
     &-dragging {
@@ -42,16 +56,19 @@
       transform: scale(1.5);
     }
 
+    // 悬停状态：抓取光标
     &:hover {
       cursor: grab;
     }
 
+    // 拖拽状态：抓取中光标
     &-dragging,
     &-dragging:hover {
       cursor: grabbing;
     }
   }
 
+  // 滑块条：主色调背景，圆角，绝对定位
   &-bar {
     background: $slider-color;
     border-radius: $btn-border-radius-small;
@@ -59,6 +76,7 @@
     position: absolute;
   }
 
+  // 滑块停止点：正方形，白色背景，圆形，绝对定位
   &-stop {
     @include square($slider-height);
     background-color: #fff;
@@ -67,12 +85,14 @@
     transform: translateX(-50%);
   }
 
+  // 滑块标记：全高，左边距，顶部对齐
   &-marks {
     height: 100%;
     left: 12px;
     top: 0;
     width: 18px;
 
+    // 标记项：辅助色，基础字体，顶部边距，绝对定位
     &-item {
       color: $subsidiary-color;
       font-size: $font-size-base;
@@ -83,29 +103,40 @@
   }
 }
 
+/**
+ * 滑块禁用状态样式
+ * 设置滑块禁用时的样式效果
+ */
 .#{$slider-prefix-cls}-disabled {
   cursor: $cursor-disabled;
 
+  // 禁用状态包装器：禁用色背景，禁用光标
   .#{$slider-prefix-cls}-wrap {
     background-color: $slider-disabled-color;
     cursor: $cursor-disabled;
   }
+  
+  // 禁用状态滑块条：禁用色背景
   .#{$slider-prefix-cls}-bar {
     background-color: $slider-disabled-color;
   }
 
+  // 禁用状态滑块按钮：禁用色边框
   .#{$slider-prefix-cls}-button {
     border-color: $slider-disabled-color;
 
+    // 悬停和拖拽状态：保持禁用色边框
     &:hover,
     &-dragging {
       border-color: $slider-disabled-color;
     }
 
+    // 悬停状态：禁用光标
     &:hover {
       cursor: $cursor-disabled;
     }
 
+    // 拖拽状态：禁用光标
     &-dragging,
     &-dragging:hover {
       cursor: $cursor-disabled;
@@ -113,12 +144,18 @@
   }
 }
 
+/**
+ * 滑块输入框样式
+ * 设置滑块与输入框组合的布局
+ */
 .#{$slider-prefix-cls}-input {
+  // 输入框模式包装器：右边距，自动宽度
   .#{$slider-prefix-cls}-wrap {
     margin-right: 100px;
     width: auto;
   }
 
+  // 数字输入框：右浮动，负上边距
   .#{$input-number-prefix-cls} {
     float: right;
     margin-top: -14px;

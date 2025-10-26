@@ -1,8 +1,18 @@
+/**
+ * 加载组件样式
+ * 提供加载动画的样式定义，包括不同尺寸和显示模式
+ */
+
+/**
+ * 加载组件基础样式
+ * 设置加载动画的整体布局和视觉效果
+ */
 .#{$spin-prefix-cls} {
   color: $primary-color;
   text-align: center;
   vertical-align: middle;
 
+  // 加载点：正方形，弹跳动画，主色调背景，圆形
   &-dot {
     @include square($spin-dot-size);
     animation: ani-spin-bounce 1s 0s ease-in-out infinite;
@@ -12,14 +22,17 @@
     position: relative;
   }
 
+  // 大尺寸加载点：大尺寸正方形
   &-large &-dot {
     @include square($spin-dot-size-large);
   }
 
+  // 小尺寸加载点：小尺寸正方形
   &-small &-dot {
     @include square($spin-dot-size-small);
   }
 
+  // 固定加载：全尺寸，半透明白色背景，绝对定位
   &-fix {
     @include square(100%);
     background-color: rgba(255, 255, 255, 0.9);
@@ -29,9 +42,11 @@
     z-index: $zindex-spin;
   }
 
+  // 全屏加载：全屏层级
   &-fullscreen {
     z-index: $zindex-spin-fullscreen;
 
+    // 全屏包装器：固定定位，全屏覆盖
     &-wrapper {
       bottom: 0;
       left: 0;
@@ -41,6 +56,7 @@
     }
   }
 
+  // 固定加载主内容：居中定位
   &-fix &-main {
     left: 50%;
     position: absolute;
@@ -49,25 +65,37 @@
     transform: translate(-50%, -50%);
   }
 
+  // 固定加载点：内联块级显示
   &-fix &-dot {
     display: inline-block;
   }
 
+  // 加载文字和显示文字模式：初始显示
   &-text,
   &-show-text &-dot {
     display: initial;
   }
 
+  // 显示文字模式：块级显示
   &-show-text &-text {
     display: block;
   }
 }
 
+/**
+ * 表格包装器中的加载组件
+ * 设置表格中的加载组件样式
+ */
 .#{$table-prefix-cls}-wrapper {
   > .#{$spin-prefix-cls}-fix {
     border: 0;
   }
 }
+
+/**
+ * 带边框表格包装器中的加载组件
+ * 设置带边框表格中的加载组件样式
+ */
 .#{$table-prefix-cls}-wrapper-with-border {
   > .#{$spin-prefix-cls}-fix {
     border: 1px solid $border-color-base;
@@ -76,6 +104,10 @@
   }
 }
 
+/**
+ * 加载弹跳动画
+ * 定义加载点的弹跳效果动画
+ */
 @keyframes ani-spin-bounce {
   0% {
     transform: scale(0);

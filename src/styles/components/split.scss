@@ -1,41 +1,59 @@
+/**
+ * 分割面板组件样式
+ * 提供可拖拽分割面板的样式定义，包括水平和垂直分割
+ */
+
+/**
+ * 分割面板组件基础样式
+ * 设置分割面板的整体布局和交互效果
+ */
 .#{$split-prefix-cls} {
+  // 分割面板包装器：全尺寸，相对定位
   &-wrapper {
     height: 100%;
     position: relative;
     width: 100%;
   }
 
+  // 分割面板：绝对定位
   &-pane {
     position: absolute;
 
+    // 左右面板：上下填满
     &.left-pane,
     &.right-pane {
       bottom: 0;
       top: 0;
     }
 
+    // 左面板：左边对齐
     &.left-pane {
       left: 0;
     }
 
+    // 右面板：右边对齐
     &.right-pane {
       right: 0;
     }
 
+    // 上下面板：左右填满
     &.top-pane,
     &.bottom-pane {
       left: 0;
       right: 0;
     }
 
+    // 上面板：顶部对齐
     &.top-pane {
       top: 0;
     }
 
+    // 下面板：底部对齐
     &.bottom-pane {
       bottom: 0;
     }
 
+    // 移动状态：禁用选择
     &-moving {
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -44,19 +62,23 @@
     }
   }
 
+  // 分割触发器：边框
   &-trigger {
     border: 1px solid $border-color-base;
 
+    // 触发器容器：绝对定位，居中，高层级
     &-con {
       position: absolute;
       transform: translate(-50%, -50%);
       z-index: 10;
     }
 
+    // 触发器条容器：隐藏溢出，绝对定位
     &-bar-con {
       overflow: hidden;
       position: absolute;
 
+      // 垂直条容器：固定高度，左边距，垂直居中
       &.vertical {
         height: $trigger-bar-con-height;
         left: $trigger-bar-offset;
@@ -64,6 +86,7 @@
         transform: translate(0, -50%);
       }
 
+      // 水平条容器：左边居中，顶部边距，水平居中
       &.horizontal {
         left: 50%;
         top: $trigger-bar-offset;
@@ -72,6 +95,7 @@
       }
     }
 
+    // 垂直触发器：背景色，去除上下边框，列调整光标
     &-vertical {
       background: $trigger-background;
       border-bottom: 0;
@@ -79,6 +103,8 @@
       cursor: col-resize;
       height: 100%;
       width: $trigger-width;
+      
+      // 垂直触发器条：背景色，左浮动，水平条
       .#{$split-prefix-cls}-trigger-bar {
         background: $trigger-bar-background;
         float: left;
@@ -88,6 +114,7 @@
       }
     }
 
+    // 水平触发器：背景色，去除左右边框，行调整光标
     &-horizontal {
       background: $trigger-background;
       border-left: 0;
@@ -95,6 +122,8 @@
       cursor: row-resize;
       height: $trigger-width;
       width: 100%;
+      
+      // 水平触发器条：背景色，左浮动，垂直条
       .#{$split-prefix-cls}-trigger-bar {
         background: $trigger-bar-background;
         float: left;
@@ -105,6 +134,7 @@
     }
   }
 
+  // 水平分割：触发器容器全高，顶部居中
   &-horizontal {
     > .#{$split-prefix-cls}-trigger-con {
       height: 100%;
@@ -113,6 +143,7 @@
     }
   }
 
+  // 垂直分割：触发器容器全宽，左边居中
   &-vertical {
     > .#{$split-prefix-cls}-trigger-con {
       height: 0;
@@ -121,6 +152,7 @@
     }
   }
 
+  // 无选择：禁用所有选择方式
   .no-select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
