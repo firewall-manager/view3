@@ -1,10 +1,12 @@
 <template>
+  <!-- 下拉菜单组件容器 -->
   <div
     v-click-outside="onClickoutside"
     :class="[prefixCls]"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
+    <!-- 下拉菜单触发器 -->
     <div
       ref="reference"
       :class="relClasses"
@@ -13,6 +15,7 @@
     >
       <slot />
     </div>
+    <!-- 下拉菜单面板 -->
     <transition name="transition-drop">
       <Drop
         v-show="currentVisible"
@@ -39,42 +42,52 @@ import Emitter from '../mixins/emitter'
 
 const prefixCls = 'ivu-dropdown'
 
+/**
+ * 下拉菜单组件
+ * 支持多种触发方式的下拉菜单
+ */
 export default {
   name: 'Dropdown',
   directives: { clickOutside, TransferDom },
   components: { Drop },
   mixins: [Emitter],
   props: {
+    // 触发方式
     trigger: {
       validator (value) {
         return oneOf(value, ['click', 'hover', 'custom', 'contextMenu'])
       },
       default: 'hover'
     },
+    // 下拉面板位置
     placement: {
       validator (value) {
         return oneOf(value, ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'])
       },
       default: 'bottom'
     },
+    // 是否显示下拉面板
     visible: {
       type: Boolean,
       default: false
     },
+    // 是否将下拉面板转移到body
     transfer: {
       type: Boolean,
       default () {
         return false
       }
     },
+    // 转移容器的自定义类名
     transferClassName: {
       type: String
     },
+    // 是否阻止事件冒泡
     stopPropagation: {
       type: Boolean,
       default: false
     },
-    // 4.0.0
+    // 是否捕获事件
     capture: {
       type: Boolean,
       default () {

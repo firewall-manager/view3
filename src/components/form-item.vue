@@ -1,16 +1,20 @@
 <template>
+  <!-- 表单项容器 -->
   <div :class="classes">
+    <!-- 表单项标签 -->
     <label
       v-if="label || $slots.label"
       :class="[prefixCls + '-label']"
       :for="labelFor"
       :style="labelStyles"
     ><slot name="label">{{ label }}{{ FormInstance.colon }}</slot></label>
+    <!-- 表单项内容区域 -->
     <div
       :class="[prefixCls + '-content']"
       :style="contentStyles"
     >
       <slot />
+      <!-- 验证错误提示 -->
       <transition name="fade">
         <div
           v-if="validateState === 'error' && showMessage && FormInstance.showMessage"
@@ -28,6 +32,12 @@ import Emitter from '../mixins/emitter'
 
 const prefixCls = 'ivu-form-item'
 
+/**
+ * 根据路径获取对象属性
+ * @param {Object} obj - 目标对象
+ * @param {String} path - 属性路径
+ * @returns {Object} 包含对象、键名和值的对象
+ */
 function getPropByPath (obj, path) {
   let tempObj = obj
   path = path.replace(/\[(\w+)\]/g, '.$1')
@@ -51,38 +61,51 @@ function getPropByPath (obj, path) {
   }
 }
 
+/**
+ * 表单项组件
+ * 表单中的单个表单项，支持验证和标签显示
+ */
 export default {
   name: 'FormItem',
   mixins: [Emitter],
   inject: ['FormInstance'],
   props: {
+    // 标签文本
     label: {
       type: String,
       default: ''
     },
+    // 标签宽度
     labelWidth: {
       type: Number
     },
+    // 表单字段名
     prop: {
       type: String
     },
+    // 是否必填
     required: {
       type: Boolean,
       default: false
     },
+    // 验证规则
     rules: {
       type: [Object, Array]
     },
+    // 错误信息
     error: {
       type: String
     },
+    // 验证状态
     validateStatus: {
       type: Boolean
     },
+    // 是否显示错误信息
     showMessage: {
       type: Boolean,
       default: true
     },
+    // 标签关联的输入框ID
     labelFor: {
       type: String
     }

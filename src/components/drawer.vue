@@ -1,8 +1,10 @@
 <template>
+  <!-- 抽屉组件容器 -->
   <div
     v-transfer-dom
     :data-transfer="transfer"
   >
+    <!-- 遮罩层 -->
     <transition name="fade">
       <div
         v-show="visible"
@@ -12,20 +14,24 @@
         @click="handleMask"
       />
     </transition>
+    <!-- 抽屉包装器 -->
     <div
       :class="wrapClasses"
       @click="handleWrapClick"
     >
+      <!-- 抽屉主体 -->
       <transition :name="'move-' + placement">
         <div
           v-show="visible"
           :class="classes"
           :style="mainStyles"
         >
+          <!-- 抽屉内容 -->
           <div
             ref="content"
             :class="contentClasses"
           >
+            <!-- 关闭按钮 -->
             <a
               v-if="closable"
               class="ivu-drawer-close"
@@ -35,6 +41,7 @@
                 <Icon type="ios-close" />
               </slot>
             </a>
+            <!-- 抽屉头部 -->
             <div
               v-if="showHead"
               :class="[prefixCls + '-header']"
@@ -45,6 +52,7 @@
                 </div>
               </slot>
             </div>
+            <!-- 抽屉主体内容 -->
             <div
               :class="[prefixCls + '-body']"
               :style="styles"
@@ -52,6 +60,7 @@
               <slot />
             </div>
           </div>
+          <!-- 拖拽调整宽度触发器 -->
           <div
             v-if="draggable"
             class="ivu-drawer-drag"
@@ -82,79 +91,99 @@ import { on, off } from '../utils/dom'
 
 const prefixCls = 'ivu-drawer'
 
+/**
+ * 抽屉组件
+ * 从页面边缘滑出的面板，支持拖拽调整宽度
+ */
 export default {
   name: 'Drawer',
   components: { Icon },
   directives: { TransferDom },
   mixins: [Emitter, ScrollbarMixins],
   props: {
+    // 是否显示抽屉
     modelValue: {
       type: Boolean,
       default: false
     },
+    // 抽屉标题
     title: {
       type: String
     },
+    // 抽屉宽度
     width: {
       type: [Number, String],
       default: 256
     },
+    // 是否显示关闭按钮
     closable: {
       type: Boolean,
       default: true
     },
+    // 点击遮罩是否关闭
     maskClosable: {
       type: Boolean,
       default: true
     },
+    // 是否显示遮罩
     mask: {
       type: Boolean,
       default: true
     },
+    // 遮罩样式
     maskStyle: {
       type: Object
     },
+    // 抽屉内容样式
     styles: {
       type: Object
     },
+    // 是否可滚动
     scrollable: {
       type: Boolean,
       default: false
     },
+    // 点击外部处理函数
     handleClickOutside: {
       type: Function,
       default () {
         this.close()
       }
     },
+    // 抽屉位置
     placement: {
       validator (value) {
         return oneOf(value, ['left', 'right'])
       },
       default: 'right'
     },
+    // 层级
     zIndex: {
       type: Number,
       default: 1000
     },
+    // 是否转移到body
     transfer: {
       type: Boolean,
       default () {
         return true
       }
     },
+    // 自定义类名
     className: {
       type: String
     },
+    // 是否内嵌模式
     inner: {
       type: Boolean,
       default: false
     },
-    // Whether drag and drop is allowed to adjust width
+    // 是否可拖拽调整宽度
     draggable: {
       type: Boolean,
       default: false
     },
+    // 关闭前回调
     beforeClose: Function
   },
   emits: ['visible-change', 'close', 'update:modelValue'],

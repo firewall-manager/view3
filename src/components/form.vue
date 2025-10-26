@@ -1,8 +1,10 @@
 <template>
+  <!-- 表单容器 -->
   <form
     :class="classes"
     :autocomplete="autocomplete"
   >
+    <!-- 通用错误提示 -->
     <Alert
       v-if="genericErrors.length"
       type="error"
@@ -19,6 +21,10 @@ import Alert from '../components/alert'
 
 const prefixCls = 'ivu-form'
 
+/**
+ * 表单组件
+ * 提供表单验证、布局和错误处理功能
+ */
 export default {
   name: 'VForm',
   components: {
@@ -29,46 +35,53 @@ export default {
     return { FormInstance: this }
   },
   props: {
+    // 表单数据模型
     model: {
       type: Object
     },
+    // 验证规则
     rules: {
       type: Object
     },
+    // 标签宽度
     labelWidth: {
       type: Number
     },
+    // 标签位置
     labelPosition: {
       validator (value) {
         return oneOf(value, ['left', 'right', 'top'])
       },
       default: 'right'
     },
+    // 是否内联表单
     inline: {
       type: Boolean,
       default: false
     },
+    // 是否显示错误信息
     showMessage: {
       type: Boolean,
       default: true
     },
+    // 自动完成
     autocomplete: {
       validator (value) {
         return oneOf(value, ['on', 'off'])
       },
       default: 'off'
     },
-    // 4.0.0
+    // 是否隐藏必填标记
     hideRequiredMark: {
       type: Boolean,
       default: false
     },
-    // 4.0.0
+    // 标签冒号
     labelColon: {
       type: [Boolean, String],
       default: false
     },
-    // 4.0.0
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
