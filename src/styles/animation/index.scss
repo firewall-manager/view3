@@ -1,32 +1,61 @@
+/**
+ * 动画系统入口文件
+ * 提供统一的动画混入和所有动画类型的导入
+ */
+
+/**
+ * 动画通用样式混入
+ * 设置动画的持续时间和填充模式
+ * @param {string} $time - 动画持续时间
+ */
 @mixin motion-common($time) {
   animation-duration: $time;
   animation-fill-mode: both;
 }
 
+/**
+ * 创建动画混入
+ * 为Vue过渡动画创建完整的动画类结构
+ * @param {string} $className - 动画类名前缀
+ * @param {string} $keyframeName - 关键帧名称前缀
+ * @param {string} $time - 动画持续时间，默认为$animation-time
+ */
 @mixin make-motion($className, $keyframeName, $time: $animation-time) {
+  // 进入和出现状态：暂停状态，等待触发
   .#{$className}-enter-active, .#{$className}-appear {
     @include motion-common($time);
     animation-play-state: paused;
   }
+  
+  // 离开状态：暂停状态，等待触发
   .#{$className}-leave-active {
     @include motion-common($time);
     animation-play-state: paused;
   }
+  
+  // 进入和出现状态：运行动画，使用进入关键帧
   .#{$className}-enter-active, .#{$className}-appear {
     animation-name: '#{$keyframeName}In';
     animation-play-state: running;
   }
+  
+  // 离开状态：运行动画，使用离开关键帧
   .#{$className}-leave-active {
     animation-name: '#{$keyframeName}Out';
     animation-play-state: running;
   }
 }
 
-@import 'fade';
-@import 'move';
-@import 'ease';
-@import 'slide';
+// 导入所有动画类型
+@import 'fade';    // 淡入淡出动画
+@import 'move';    // 移动动画
+@import 'ease';    // 缓动动画
+@import 'slide';   // 滑动动画
 
+/**
+ * 折叠过渡动画
+ * 为折叠面板提供高度和内边距的平滑过渡效果
+ */
 .collapse-transition {
   transition: $transition-time height ease-in-out, $transition-time padding-top ease-in-out, $transition-time padding-bottom ease-in-out;
 }

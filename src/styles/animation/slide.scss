@@ -1,20 +1,40 @@
+/**
+ * 滑动动画样式
+ * 提供基于缩放和透明度的滑动动画效果
+ */
+
+/**
+ * 滑动动画混入
+ * 创建带有缩放和透明度变化的滑动动画
+ * @param {string} $className - 动画类名
+ * @param {string} $keyframeName - 关键帧名称
+ */
 @mixin slide-motion($className, $keyframeName) {
   @include make-motion($className, $keyframeName);
+  
+  // 进入和出现状态：缓动时间函数，初始透明度为0
   .#{$className}-enter-active, .#{$className}-appear {
     animation-timing-function: $ease-in-out;
     opacity: 0;
   }
+  
+  // 离开状态：缓动时间函数
   .#{$className}-leave-active {
     animation-timing-function: $ease-in-out;
   }
 }
 
-@include slide-motion(transition-drop, ivuTransitionDrop);
-@include slide-motion(slide-up, ivuSlideUp);
-@include slide-motion(slide-down, ivuSlideDown);
-@include slide-motion(slide-left, ivuSlideLeft);
-@include slide-motion(slide-right, ivuSlideRight);
+// 应用滑动动画到各个方向和效果
+@include slide-motion(transition-drop, ivuTransitionDrop); // 下拉过渡
+@include slide-motion(slide-up, ivuSlideUp);              // 向上滑动
+@include slide-motion(slide-down, ivuSlideDown);          // 向下滑动
+@include slide-motion(slide-left, ivuSlideLeft);          // 向左滑动
+@include slide-motion(slide-right, ivuSlideRight);        // 向右滑动
 
+/**
+ * 下拉过渡进入动画关键帧
+ * 从80%垂直缩放淡入到100%缩放
+ */
 @keyframes ivuTransitionDropIn {
   0% {
     opacity: 0;
@@ -27,6 +47,10 @@
   }
 }
 
+/**
+ * 下拉过渡离开动画关键帧
+ * 从100%垂直缩放淡出到80%缩放
+ */
 @keyframes ivuTransitionDropOut {
   0% {
     opacity: 1;
@@ -39,6 +63,10 @@
   }
 }
 
+/**
+ * 向上滑动进入动画关键帧
+ * 从顶部80%垂直缩放淡入到100%缩放
+ */
 @keyframes ivuSlideUpIn {
   0% {
     opacity: 0;
@@ -53,6 +81,10 @@
   }
 }
 
+/**
+ * 向上滑动离开动画关键帧
+ * 从100%垂直缩放淡出到顶部80%缩放
+ */
 @keyframes ivuSlideUpOut {
   0% {
     opacity: 1;
@@ -67,6 +99,10 @@
   }
 }
 
+/**
+ * 向下滑动进入动画关键帧
+ * 从底部80%垂直缩放淡入到100%缩放
+ */
 @keyframes ivuSlideDownIn {
   0% {
     opacity: 0;
@@ -81,6 +117,10 @@
   }
 }
 
+/**
+ * 向下滑动离开动画关键帧
+ * 从100%垂直缩放淡出到底部80%缩放
+ */
 @keyframes ivuSlideDownOut {
   0% {
     opacity: 1;
@@ -95,6 +135,10 @@
   }
 }
 
+/**
+ * 向左滑动进入动画关键帧
+ * 从左侧80%水平缩放淡入到100%缩放
+ */
 @keyframes ivuSlideLeftIn {
   0% {
     opacity: 0;
@@ -109,6 +153,10 @@
   }
 }
 
+/**
+ * 向左滑动离开动画关键帧
+ * 从100%水平缩放淡出到左侧80%缩放
+ */
 @keyframes ivuSlideLeftOut {
   0% {
     opacity: 1;
@@ -123,6 +171,10 @@
   }
 }
 
+/**
+ * 向右滑动进入动画关键帧
+ * 从右侧80%水平缩放淡入到100%缩放
+ */
 @keyframes ivuSlideRightIn {
   0% {
     opacity: 0;
@@ -137,6 +189,10 @@
   }
 }
 
+/**
+ * 向右滑动离开动画关键帧
+ * 从100%水平缩放淡出到右侧80%缩放
+ */
 @keyframes ivuSlideRightOut {
   0% {
     opacity: 1;

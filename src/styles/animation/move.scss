@@ -1,19 +1,39 @@
+/**
+ * 移动动画样式
+ * 提供基于位移和透明度的移动动画效果
+ */
+
+/**
+ * 移动动画混入
+ * 创建带有位移和透明度变化的移动动画
+ * @param {string} $className - 动画类名
+ * @param {string} $keyframeName - 关键帧名称
+ */
 @mixin move-motion($className, $keyframeName) {
   @include make-motion($className, $keyframeName);
+  
+  // 进入和出现状态：缓动时间函数，初始透明度为0
   .#{$className}-enter-active, .#{$className}-appear {
     animation-timing-function: $ease-in-out;
     opacity: 0;
   }
+  
+  // 离开状态：缓动时间函数
   .#{$className}-leave-active {
     animation-timing-function: $ease-in-out;
   }
 }
 
-@include move-motion(move-up, ivuMoveUp);
-@include move-motion(move-down, ivuMoveDown);
-@include move-motion(move-left, ivuMoveLeft);
-@include move-motion(move-right, ivuMoveRight);
+// 应用移动动画到各个方向
+@include move-motion(move-up, ivuMoveUp);      // 向上移动
+@include move-motion(move-down, ivuMoveDown);  // 向下移动
+@include move-motion(move-left, ivuMoveLeft);  // 向左移动
+@include move-motion(move-right, ivuMoveRight); // 向右移动
 
+/**
+ * 向下移动进入动画关键帧
+ * 从下方100%位置淡入到正常位置
+ */
 @keyframes ivuMoveDownIn {
   0% {
     opacity: 0;
@@ -28,6 +48,10 @@
   }
 }
 
+/**
+ * 向下移动离开动画关键帧
+ * 从正常位置淡出到下方100%位置
+ */
 @keyframes ivuMoveDownOut {
   0% {
     opacity: 1;
@@ -42,6 +66,10 @@
   }
 }
 
+/**
+ * 向左移动进入动画关键帧
+ * 从左侧100%位置淡入到正常位置
+ */
 @keyframes ivuMoveLeftIn {
   0% {
     opacity: 0;
@@ -56,6 +84,10 @@
   }
 }
 
+/**
+ * 向左移动离开动画关键帧
+ * 从正常位置淡出到左侧100%位置
+ */
 @keyframes ivuMoveLeftOut {
   0% {
     opacity: 1;
@@ -70,6 +102,10 @@
   }
 }
 
+/**
+ * 向右移动进入动画关键帧
+ * 从右侧100%位置淡入到正常位置
+ */
 @keyframes ivuMoveRightIn {
   0% {
     opacity: 0;
@@ -84,6 +120,10 @@
   }
 }
 
+/**
+ * 向右移动离开动画关键帧
+ * 从正常位置淡出到右侧100%位置
+ */
 @keyframes ivuMoveRightOut {
   0% {
     opacity: 1;
@@ -98,6 +138,10 @@
   }
 }
 
+/**
+ * 向上移动进入动画关键帧
+ * 从上方100%位置淡入到正常位置
+ */
 @keyframes ivuMoveUpIn {
   0% {
     opacity: 0;
@@ -112,6 +156,10 @@
   }
 }
 
+/**
+ * 向上移动离开动画关键帧
+ * 从正常位置淡出到上方100%位置
+ */
 @keyframes ivuMoveUpOut {
   0% {
     opacity: 1;
@@ -126,10 +174,14 @@
   }
 }
 
-// specific transition for Notice
+// 通知组件的特殊移动动画
 
 @include move-motion(move-notice, ivuMoveNotice);
 
+/**
+ * 通知进入动画关键帧
+ * 从右侧100%位置淡入到正常位置
+ */
 @keyframes ivuMoveNoticeIn {
   0% {
     opacity: 0;
@@ -144,6 +196,11 @@
   }
 }
 
+/**
+ * 通知离开动画关键帧
+ * 包含高度和内边距的复杂过渡效果
+ * 70%时开始收缩高度和内边距，100%时完全消失
+ */
 @keyframes ivuMoveNoticeOut {
   0% {
     opacity: 1;
