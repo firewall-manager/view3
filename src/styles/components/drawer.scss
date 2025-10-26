@@ -1,25 +1,39 @@
+/**
+ * 抽屉组件样式
+ * 提供侧边抽屉面板的样式定义
+ */
+
+/**
+ * 抽屉组件基础样式
+ * 设置抽屉的整体布局和交互效果
+ */
 .#{$drawer-prefix-cls} {
   height: 100%;
   position: fixed;
   top: 0;
   width: auto;
 
+  // 抽屉内部：绝对定位
   &-inner {
     position: absolute;
   }
 
+  // 左侧抽屉：左对齐
   &-left {
     left: 0;
   }
 
+  // 右侧抽屉：右对齐
   &-right {
     right: 0;
   }
 
+  // 隐藏状态：不显示
   &-hidden {
     display: none !important;
   }
 
+  // 抽屉包装器：全屏覆盖，高层级
   &-wrap {
     bottom: 0;
     left: 0;
@@ -31,29 +45,35 @@
     top: 0;
     z-index: $zindex-drawer;
 
+    // 包装器内部：溢出隐藏，绝对定位
     &-inner {
       overflow: hidden;
       position: absolute;
     }
 
+    // 拖拽状态：禁用文本选择
     &-dragging {
       user-select: none;
     }
   }
 
+  // 包装器内所有元素：盒模型，去除点击高亮
   &-wrap * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
+  // 遮罩层：使用遮罩混入
   &-mask {
     @include mask;
 
+    // 遮罩内部：绝对定位
     &-inner {
       position: absolute;
     }
   }
 
+  // 抽屉内容：白色背景，阴影，全尺寸
   &-content {
     background-clip: padding-box;
     background-color: #fff;
@@ -65,20 +85,24 @@
     top: 0;
     width: 100%;
 
+    // 无遮罩模式：允许指针事件
     &-no-mask {
       pointer-events: auto;
     }
   }
 
+  // 抽屉头部：使用内容头部混入
   &-header {
     @include content-header;
   }
 
+  // 关闭按钮：使用内容关闭混入，高层级
   &-close {
     @include content-close(1px, 31px);
     z-index: 1;
   }
 
+  // 抽屉主体：基础字体，计算高度，滚动
   &-body {
     font-size: $font-size-base;
     height: calc(100% - 51px);
@@ -90,28 +114,34 @@
     word-wrap: break-word;
   }
 
+  // 无头部时：主体占满全高
   &-no-header &-body {
     height: 100%;
   }
 
+  // 无遮罩模式：禁用指针事件
   &-no-mask {
     pointer-events: none;
 
+    // 拖拽区域：允许指针事件
     .#{$drawer-prefix-cls}-drag {
       pointer-events: auto;
     }
   }
 
+  // 拖拽区域：全高，绝对定位
   &-drag {
     height: 100%;
     position: absolute;
     top: 0;
     width: 0;
 
+    // 左侧拖拽：右对齐
     &-left {
       right: 0;
     }
 
+    // 拖拽触发器：灰色背景，圆角，可调整大小光标
     &-move-trigger {
       background: rgb(243, 243, 243);
       border-radius: unquote('4px / 6px');
@@ -124,11 +154,13 @@
       transform: translate(-50%, -50%);
       width: 8px;
 
+      // 拖拽点：内联块级，变换位置
       &-point {
         display: inline-block;
         transform: translateX(50%);
         width: 50%;
 
+        // 拖拽点图标：底部边框，块级显示
         i {
           border-bottom: 1px solid rgb(192, 192, 192);
           display: block;

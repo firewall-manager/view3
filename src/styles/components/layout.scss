@@ -1,9 +1,19 @@
+/**
+ * 布局组件样式
+ * 提供页面布局的样式定义，包括头部、侧边栏、内容区域、底部等
+ */
+
+/**
+ * 布局组件基础样式
+ * 设置布局的整体结构和响应式布局
+ */
 .#{$layout-prefix-cls} {
   background: $layout-body-background;
   display: flex;
   flex: auto;
   flex-direction: column;
     
+  // 有侧边栏时：水平布局
   &#{&}-has-sider {
     flex-direction: row;
     > .#{$layout-prefix-cls},
@@ -12,11 +22,13 @@
     }
   }
 
+  // 头部和底部：固定尺寸
   &-header,
   &-footer {
     flex: 0 0 auto;
   }
 
+  // 布局头部：固定高度，背景色
   &-header {
     background: $layout-header-background;
     height: $layout-header-height;
@@ -24,6 +36,7 @@
     padding: $layout-header-padding;
   }
 
+  // 侧边栏：背景色，相对定位，过渡动画
   &-sider {
     background: $layout-sider-background;
 
@@ -31,16 +44,19 @@
     position: relative;
     transition: all 0.2s $ease-in-out;
 
+    // 侧边栏子元素：全高，微调边距
     &-children {
       height: 100%;
       margin-top: -0.1px;
       padding-top: 0.1px;
     }
 
+    // 有触发器时：底部内边距
     &-has-trigger {
       padding-bottom: $layout-trigger-height;
     }
 
+    // 侧边栏触发器：固定定位，可点击
     &-trigger {
       background: $layout-sider-background;
       bottom: 0;
@@ -53,14 +69,17 @@
       transition: all 0.2s $ease-in-out;
       z-index: 1000;
 
+      // 触发器图标：固定字体大小
       .ivu-icon {
         font-size: 16px;
       }
 
+      // 触发器子元素：过渡动画
       >* {
         transition: all 0.2s;
       }
 
+      // 折叠状态：图标旋转180度
       &-collapsed {
         .#{$layout-prefix-cls}-sider-trigger-icon {
           transform: rotateZ(180deg);
@@ -68,11 +87,13 @@
       }
     }
 
+    // 零宽度侧边栏：隐藏溢出
     &-zero-width {
       & > * {
         overflow: hidden;
       }
 
+      // 零宽度触发器：绝对定位，圆角
       &-trigger {
         background: $layout-sider-background;
         border-radius: 0 $border-radius-base $border-radius-base 0;
@@ -88,10 +109,12 @@
         transition: background 0.3s ease;
         width: $layout-zero-trigger-width;
         
+        // 悬停状态：背景色变亮
         &:hover {
           background: tint($layout-sider-background, 10%);
         }
 
+        // 左侧触发器：调整圆角和位置
         &#{&}-left {
           border-radius: $border-radius-base 0 0 $border-radius-base;
           left: -$layout-zero-trigger-width;
@@ -101,6 +124,7 @@
     }
   }
 
+  // 布局底部：背景色，文字颜色，内边距
   &-footer {
     background: $layout-footer-background;
     color: $text-color;
@@ -108,6 +132,7 @@
     padding: $layout-footer-padding;
   }
 
+  // 布局内容：自动填充剩余空间
   &-content {
     flex: auto;
   }

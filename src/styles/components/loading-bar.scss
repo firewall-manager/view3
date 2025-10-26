@@ -1,3 +1,12 @@
+/**
+ * 加载条组件样式
+ * 提供页面顶部加载进度条的样式定义
+ */
+
+/**
+ * 加载条组件基础样式
+ * 设置加载条的位置和动画效果
+ */
 .#{$loading-bar-prefix-cls} {
   left: 0;
   position: fixed;
@@ -6,13 +15,16 @@
   width: 100%;
   z-index: $zindex-loading-bar;
 
+  // 加载条内部：宽度过渡动画
   &-inner {
     transition: width $transition-time linear;
 
+    // 主色调加载条：主色调背景
     &-color-primary {
       background-color: $primary-color;
     }
 
+    // 错误状态加载条：错误色背景
     &-failed-color-error {
       background-color: $error-color;
     }

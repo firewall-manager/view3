@@ -1,35 +1,51 @@
+/**
+ * 列表组件样式
+ * 提供列表展示的样式定义，包括列表项、元数据、操作等
+ */
+
+/**
+ * 列表组件基础样式
+ * 设置列表的整体布局和交互效果
+ */
 .#{$list-prefix-cls} {
   position: relative;
 
+  // 列表项容器：去除默认样式
   &-items {
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
+  // 列表项：弹性布局，垂直居中
   &-item {
     align-items: center;
     display: flex;
     padding: $list-item-padding;
 
+    // 列表项内容：文字颜色
     &-content {
       color: $text-color;
     }
 
+    // 列表项元数据：弹性布局，头像和内容
     &-meta {
       align-items: flex-start;
       display: flex;
       flex: 1;
       font-size: 0;
 
+      // 头像：右边距
       &-avatar {
         margin-right: $list-item-meta-avatar-margin-right;
       }
 
+      // 元数据内容：弹性填充
       &-content {
         flex: 1 0;
       }
 
+      // 元数据标题：粗体，悬停变色
       &-title {
         color: $text-color;
         font-size: $font-size-base;
@@ -47,6 +63,7 @@
         }
       }
 
+      // 元数据描述：次要文字颜色
       &-description {
         color: $text-color-secondary;
         font-size: $font-size-base;
@@ -54,6 +71,7 @@
       }
     }
 
+    // 列表项操作：右侧操作按钮
     &-action {
       flex: 0 0 auto;
       font-size: 0;
@@ -61,6 +79,7 @@
       margin-left: 48px;
       padding: 0;
 
+      // 操作项：内联块级，分隔线
       li {
         color: $text-color-secondary;
         cursor: pointer;
@@ -71,6 +90,7 @@
         position: relative;
         text-align: center;
 
+        // 分隔线：右侧竖线
         &::after {
           background-color: $border-color-split;
           content: '';
@@ -83,10 +103,12 @@
         }
       }
 
+      // 第一个操作项：去除左内边距
       li:first-child {
         padding-left: 0;
       }
 
+      // 最后一个操作项：去除分隔线
       li:last-child {
         &::after {
           display: none;
@@ -95,20 +117,24 @@
     }
   }
 
+  // 列表头部：背景色
   &-header {
     background: $list-header-background;
   }
 
+  // 列表底部：背景色
   &-footer {
     background: $list-footer-background;
   }
 
+  // 头部和底部：上下内边距
   &-header,
   &-footer {
     padding-bottom: 12px;
     padding-top: 12px;
   }
 
+  // 分割线模式：列表项底部边框
   &-split &-item {
     border-bottom: 1px solid $border-color-split;
 
@@ -117,39 +143,48 @@
     }
   }
 
+  // 分割线模式：头部底部边框
   &-split &-header {
     border-bottom: 1px solid $border-color-split;
   }
 
+  // 分割线模式：底部顶部边框
   &-split &-footer {
     border-top: 1px solid $border-color-split;
   }
 
+  // 大尺寸：增加内边距
   &-large &-item {
     padding-bottom: 16px;
     padding-top: 16px;
   }
 
+  // 小尺寸：减少内边距
   &-small &-item {
     padding-bottom: 8px;
     padding-top: 8px;
   }
 
+  // 垂直布局：调整对齐方式
   &-vertical &-item {
     align-items: initial;
 
+    // 主要内容：块级显示
     &-main {
       display: block;
       flex: 1;
     }
 
+    // 额外内容：左边距
     &-extra {
       margin-left: 40px;
     }
 
+    // 垂直布局元数据：底部边距
     &-meta {
       margin-bottom: $list-item-meta-margin-bottom;
 
+      // 垂直布局标题：更大字体，标题色
       &-title {
         color: $heading-color;
         font-size: $font-size-large;
@@ -158,6 +193,7 @@
       }
     }
 
+    // 垂直布局操作：右对齐，顶部边距
     &-action {
       margin-left: auto;
       margin-top: $padding-md;
@@ -172,12 +208,12 @@
     }
   }
 
-  // without flex
+  // 无弹性布局：块级显示
   &-item-no-flex {
     display: block;
   }
 
-  // Horizontal
+  // 水平布局：操作按钮右浮动
   &:not(.#{$list-prefix-cls}-vertical) {
     .#{$list-prefix-cls}-item-no-flex {
       .#{$list-prefix-cls}-item-action {
@@ -187,29 +223,39 @@
   }
 }
 
+/**
+ * 带边框的列表样式
+ * 为列表添加边框和圆角效果
+ */
 .#{$list-prefix-cls}-bordered {
   border: 1px solid $border-color-base;
   border-radius: $border-radius-base;
+  
+  // 带边框列表头部：左右内边距
   .#{$list-prefix-cls}-header {
     padding-left: 24px;
     padding-right: 24px;
   }
 
+  // 带边框列表底部：左右内边距
   .#{$list-prefix-cls}-footer {
     padding-left: 24px;
     padding-right: 24px;
   }
 
+  // 带边框列表项：底部边框，左右内边距
   .#{$list-prefix-cls}-item {
     border-bottom: 1px solid $border-color-split;
     padding-left: 24px;
     padding-right: 24px;
   }
 
+  // 带边框列表分页：边距
   .#{$list-prefix-cls}-pagination {
     margin: 16px 24px;
   }
 
+  // 小尺寸带边框列表：调整内边距
   &.#{$list-prefix-cls}-small {
     .#{$list-prefix-cls}-item {
       padding-left: 16px;
@@ -221,6 +267,7 @@
     }
   }
 
+  // 大尺寸带边框列表：调整头部和底部内边距
   &.#{$list-prefix-cls}-large {
     .#{$list-prefix-cls}-header,
     .#{$list-prefix-cls}-footer {
@@ -229,8 +276,9 @@
   }
 }
 
-// responsive
+// 响应式设计
 
+// 中等屏幕：调整操作按钮边距
 @media screen and (max-width: $screen-md) {
   .#{$list-prefix-cls} {
     &-item {
@@ -249,6 +297,7 @@
   }
 }
 
+// 小屏幕：调整布局和边距
 @media screen and (max-width: $screen-sm) {
   .#{$list-prefix-cls} {
     &-item {

@@ -1,3 +1,12 @@
+/**
+ * 菜单组件样式
+ * 提供导航菜单的样式定义，包括水平、垂直菜单和不同主题
+ */
+
+/**
+ * 菜单组件基础样式
+ * 设置菜单的整体布局和交互效果
+ */
 .#{$menu-prefix-cls} {
   color: $text-color;
   display: block;
@@ -8,10 +17,12 @@
   padding: 0;
   position: relative;
 
+  // 水平菜单：固定高度，底部边框
   &-horizontal {
     height: 60px;
     line-height: 60px;
 
+    // 浅色水平菜单：底部边框线
     &.#{$menu-prefix-cls}-light {
       &::after {
         background: $border-color-base;
@@ -26,7 +37,9 @@
     }
   }
 
+  // 垂直菜单：右侧边框
   &-vertical {
+    // 浅色垂直菜单：右侧边框线
     &.#{$menu-prefix-cls}-light {
       &::after {
         background: $border-color-base;
@@ -43,18 +56,22 @@
     }
   }
 
+  // 浅色主题：白色背景
   &-light {
     background: #fff;
   }
 
+  // 深色主题：深色背景
   &-dark {
     background: $menu-dark-title;
   }
 
+  // 主色调主题：主色调背景
   &-primary {
     background: $primary-color;
   }
 
+  // 菜单项：可点击，过渡动画
   &-item {
     cursor: pointer;
     display: block;
@@ -66,19 +83,23 @@
     z-index: 1;
   }
 
+  // 链接菜单项：继承颜色
   a.#{$menu-prefix-cls}-item, a.#{$menu-prefix-cls}-submenu-title {
     color: inherit;
   }
 
+  // 菜单项图标：右边距
   &-item > i {
     margin-right: 6px;
   }
 
+  // 子菜单标题图标：右边距
   &-submenu-title > i,
   &-submenu-title span > i {
     margin-right: 8px;
   }
 
+  // 水平菜单项和子菜单：左浮动，内边距
   &-horizontal &-item,
   &-horizontal &-submenu {
     cursor: pointer;
@@ -89,6 +110,7 @@
     z-index: 3;
   }
 
+  // 浅色水平菜单项：底部边框，悬停效果
   &-light.#{$menu-prefix-cls}-horizontal &-item,
   &-light.#{$menu-prefix-cls}-horizontal &-submenu {
     border-bottom: 2px solid transparent;
@@ -96,6 +118,7 @@
     height: inherit;
     line-height: inherit;
 
+    // 激活和悬停状态：主色调边框和文字
     &-active,
     &:hover {
       border-bottom: 2px solid $primary-color;
@@ -103,26 +126,31 @@
     }
   }
 
+  // 深色水平菜单项：深色文字，悬停变白
   &-dark.#{$menu-prefix-cls}-horizontal &-item,
   &-dark.#{$menu-prefix-cls}-horizontal &-submenu {
     color: $menu-dark-subsidiary-color;
 
+    // 激活和悬停状态：白色文字
     &-active,
     &:hover {
       color: #fff;
     }
   }
 
+  // 主色调水平菜单项：白色文字
   &-primary.#{$menu-prefix-cls}-horizontal &-item,
   &-primary.#{$menu-prefix-cls}-horizontal &-submenu {
     color: #fff;
 
+    // 激活和悬停状态（已注释）
     &-active,
     &:hover {
       //background: $link-active-color;
     }
   }
 
+  // 水平子菜单下拉框：调整尺寸和布局
   &-horizontal &-submenu .#{$select-dropdown-prefix-cls} {
     max-height: none;
     min-width: 100%;
@@ -135,9 +163,11 @@
     }
   }
 
+  // 菜单项组：正常行高
   &-item-group {
     line-height: normal;
 
+    // 菜单项组标题：图例色，小字体
     &-title {
       color: $legend-color;
       font-size: $font-size-small;
@@ -146,6 +176,7 @@
       padding-left: 8px;
     }
 
+    // 菜单项组列表：去除默认样式
     & > ul {
       list-style: none !important;
       padding: 0 !important;

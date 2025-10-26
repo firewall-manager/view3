@@ -187,14 +187,17 @@
     }
   }
 
+  // 显示周数的单元格：调整宽度
   &-cells-show-week-numbers {
     width: $date-picker-cells-width-with-weeknumbers;
   }
 
+  // 年份和月份选择单元格
   &-cells-year,
   &-cells-month {
     margin-top: 14px;
 
+    // 年份/月份单元格：更大尺寸
     span {
       border-radius: $btn-border-radius-small;
       height: 28px;
@@ -210,18 +213,21 @@
       }
     }
 
+    // 聚焦的年份/月份单元格：浅色背景
     .#{$date-picker-prefix-cls}-cells-cell-focused {
       background-color: tint($primary-color, 80%);
     }
 
   }
 
+  // 日期选择器头部：底边框，居中文本
   &-header {
     border-bottom: 1px solid $border-color-split;
     height: 32px;
     line-height: 32px;
     text-align: center;
 
+    // 头部标签：可点击，悬停变色
     &-label {
       cursor: pointer;
       transition: color $transition-time $ease-in-out;
@@ -232,6 +238,7 @@
     }
   }
 
+  // 按钮脉冲效果：浅色背景，过渡动画
   &-btn-pulse {
     background-color: tint($primary-color, 80%) !important;
     border-radius: $border-radius-small;

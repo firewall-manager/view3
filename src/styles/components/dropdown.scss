@@ -1,19 +1,33 @@
+/**
+ * 下拉菜单组件样式
+ * 提供下拉菜单的样式定义
+ */
+
+/**
+ * 下拉菜单组件基础样式
+ * 设置下拉菜单的整体布局和交互效果
+ */
 .#{$dropdown-prefix-cls} {
   display: inline-block;
   //position: relative;
 
+  // 选择器下拉框：去除高度限制，可见溢出
   .#{$select-dropdown-prefix-cls} {
     max-height: none;
     overflow: visible;
   }
+  
+  // 嵌套下拉菜单：全宽
   .#{$dropdown-prefix-cls} {
     width: 100%;
   }
 
+  // 相对定位容器：相对定位
   &-rel {
     //display: inline-block;
     position: relative;
 
+    // 禁用文本选择：跨浏览器兼容
     &-user-select-none {
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -21,18 +35,25 @@
     }
   }
 
+  // 下拉菜单：最小宽度
   &-menu {
     min-width: 100px;
   }
 
+  // 传送模式：自动宽度
   &-transfer {
     width: auto;
   }
 
+  // 选中项：浅色背景，包括悬停状态
   &-item-selected,
   &-item.#{$dropdown-prefix-cls}-item-selected:hover {
     background: tint($primary-color, 90%);
   }
 }
 
+/**
+ * 下拉菜单选择项样式
+ * 使用选择器选项项混入
+ */
 @include select-item($dropdown-prefix-cls, $dropdown-item-prefix-cls);

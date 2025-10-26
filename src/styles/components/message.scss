@@ -1,3 +1,12 @@
+/**
+ * 消息提示组件样式
+ * 提供全局消息提示的样式定义，包括成功、错误、警告、信息等类型
+ */
+
+/**
+ * 消息提示组件基础样式
+ * 设置消息提示的位置和布局
+ */
 .#{$message-prefix-cls} {
   font-size: $font-size-base;
   left: 0;
@@ -7,15 +16,18 @@
   width: 100%;
   z-index: $zindex-message;
 
+  // 消息通知：居中布局，过渡动画
   &-notice {
     padding: 8px;
     text-align: center;
     transition: height $animation-time $ease-in-out, padding $animation-time $ease-in-out;
 
+    // 第一个通知：调整顶部边距
     &:first-child {
       margin-top: -8px;
     }
 
+    // 关闭按钮：绝对定位，灰色
     &-close {
       color: #999;
       outline: none;
@@ -29,6 +41,7 @@
     }
   }
 
+  // 消息内容：白色背景，阴影，内联块级
   &-notice-content {
     background: #fff;
     //border: 1px solid $border-color-split;
@@ -39,70 +52,84 @@
     pointer-events: all;
     position: relative;
 
+    // 消息文本：内联块级
     &-text {
       display: inline-block;
     }
   }
 
+  // 可关闭消息：调整文本右边距
   &-notice-closable {
     .#{$message-prefix-cls}-notice-content-text {
       padding-right: 32px;
     }
   }
 
+  // 成功消息图标：成功色
   &-success .#{$icon-prefix-cls} {
     color: $success-color;
   }
 
+  // 错误消息图标：错误色
   &-error .#{$icon-prefix-cls} {
     color: $error-color;
   }
 
+  // 警告消息图标：警告色
   &-warning .#{$icon-prefix-cls} {
     color: $warning-color;
   }
 
+  // 信息和加载消息图标：主色调
   &-info .#{$icon-prefix-cls},
   &-loading .#{$icon-prefix-cls} {
     color: $primary-color;
   }
 
+  // 消息图标：大字体，右边距，垂直居中
   .#{$icon-prefix-cls} {
     font-size: $font-size-large;
     margin-right: 4px;
     vertical-align: middle;
   }
 
+  // 自定义内容：垂直居中
   &-custom-content {
     span {
       vertical-align: middle;
     }
   }
 
+  // 带背景的消息：去除阴影
   &-notice-with-background {
     .#{$message-prefix-cls}-notice-content {
+      // 背景消息：去除阴影
       &-background {
         box-shadow: none;
       }
 
+      // 信息背景（已注释）
       &-info {
         // background: ~`colorPalette('#{$primary-color}', 1)`;
         // border: 1px solid ~`colorPalette('#{$primary-color}', 2)`;
         // color: ~`colorPalette('#{$primary-color}', 6)`;
       }
 
+      // 成功背景（已注释）
       &-success {
         // background: ~`colorPalette('#{$success-color}', 1)`;
         // border: 1px solid ~`colorPalette('#{$success-color}', 2)`;
         // color: ~`colorPalette('#{$success-color}', 6)`;
       }
 
+      // 警告背景（已注释）
       &-warning {
         // background: ~`colorPalette('#{$warning-color}', 1)`;
         // border: 1px solid ~`colorPalette('#{$warning-color}', 2)`;
         // color: ~`colorPalette('#{$warning-color}', 6)`;
       }
 
+      // 错误背景（已注释）
       &-error {
         // background: ~`colorPalette('#{$error-color}', 1)`;
         // border: 1px solid ~`colorPalette('#{$error-color}', 2)`;

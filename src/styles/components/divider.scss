@@ -1,7 +1,17 @@
+/**
+ * 分割线组件样式
+ * 提供水平和垂直分割线的样式定义
+ */
+
+/**
+ * 分割线组件基础样式
+ * 设置分割线的外观和布局
+ */
 .#{$divider-prefix-cls} {
   @include reset-component;
   background: $border-color-split;
 
+  // 垂直分割线：内联块级，固定高度和宽度
   &,
   &-vertical {
     display: inline-block;
@@ -13,6 +23,7 @@
     width: 1px;
   }
 
+  // 水平分割线：块级，清除浮动，全宽
   &-horizontal {
     clear: both;
     display: block;
@@ -22,6 +33,7 @@
     width: 100%;
   }
 
+  // 带文字的水平分割线：透明背景，表格布局
   &-horizontal.#{$divider-prefix-cls}-with-text-center,
   &-horizontal.#{$divider-prefix-cls}-with-text-left,
   &-horizontal.#{$divider-prefix-cls}-with-text-right {
@@ -34,6 +46,7 @@
     text-align: center;
     white-space: nowrap;
 
+    // 前后伪元素：创建分割线
     &::before,
     &::after {
       border-top: 1px solid $border-color-split;
@@ -46,6 +59,7 @@
     }
   }
 
+  // 小尺寸带文字分割线：调整字体大小和边距
   &-horizontal.#{$divider-prefix-cls}-small.#{$divider-prefix-cls}-with-text-center,
   &-horizontal.#{$divider-prefix-cls}-small.#{$divider-prefix-cls}-with-text-left,
   &-horizontal.#{$divider-prefix-cls}-small.#{$divider-prefix-cls}-with-text-right {
@@ -53,6 +67,7 @@
     margin: 8px 0;
   }
 
+  // 左对齐和右对齐文字：内联块级，内边距
   &-horizontal.#{$divider-prefix-cls}-with-text-left,
   &-horizontal.#{$divider-prefix-cls}-with-text-right {
     .#{$divider-prefix-cls}-inner-text {
@@ -61,6 +76,7 @@
     }
   }
 
+  // 左对齐文字：调整伪元素宽度比例
   &-horizontal.#{$divider-prefix-cls}-with-text-left {
     &::before {
       top: 50%;
@@ -73,6 +89,7 @@
     }
   }
 
+  // 右对齐文字：调整伪元素宽度比例
   &-horizontal.#{$divider-prefix-cls}-with-text-right {
     &::before {
       top: 50%;
@@ -85,16 +102,19 @@
     }
   }
 
+  // 内部文字：内联块级，左右内边距
   &-inner-text {
     display: inline-block;
     padding: 0 24px;
   }
 
+  // 虚线分割线：去除背景，使用虚线边框
   &-dashed {
     background: none;
     border-top: 1px dashed $border-color-split;
   }
 
+  // 带文字的虚线分割线：调整边框样式
   &-horizontal.#{$divider-prefix-cls}-with-text.#{$divider-prefix-cls}-dashed,
   &-horizontal.#{$divider-prefix-cls}-with-text-left.#{$divider-prefix-cls}-dashed,
   &-horizontal.#{$divider-prefix-cls}-with-text-right.#{$divider-prefix-cls}-dashed {
@@ -106,6 +126,7 @@
     }
   }
 
+  // 朴素样式：普通文字颜色和字体
   &-plain.#{$divider-prefix-cls}-with-text,
   &-plain.#{$divider-prefix-cls}-with-text-left,
   &-plain.#{$divider-prefix-cls}-with-text-right {
