@@ -132,92 +132,130 @@ $menu-dark-group-title-color: rgba(255, 255, 255, 0.36) !default;
 // 日期选择器单元格悬停背景色：浅蓝色
 $date-picker-cell-hover-bg: #e1f0fe !default;
 
-// Shadow
+// ==================== 阴影系统 ====================
+// 阴影颜色：黑色20%透明度
 $shadow-color: rgba(0, 0, 0, 0.2) !default;
+// 向下阴影：1px垂直偏移，6px模糊
 $shadow-down: 0 1px 6px $shadow-color !default;
+// 基础阴影：使用向下阴影
 $shadow-base: $shadow-down !default;
+// 卡片阴影：1px垂直偏移，1px模糊，0.1透明度
 $shadow-card: 0 1px 1px 0 rgba(0, 0, 0, 0.1) !default;
+// 向上阴影：-1px垂直偏移，6px模糊
 $shadow-up: 0 -1px 6px $shadow-color !default;
+// 向左阴影：-1px水平偏移，6px模糊
 $shadow-left: -1px 0 6px $shadow-color !default;
+// 向右阴影：1px水平偏移，6px模糊
 $shadow-right: 1px 0 6px $shadow-color !default;
 
-// Button
+// ==================== 按钮系统 ====================
+// 按钮高度：基础32px，大40px，小24px
 $btn-height-base: 32px !default;
 $btn-height-large: 40px !default;
 $btn-height-small: 24px !default;
 
+// 按钮内边距：水平内边距减去1px
 $btn-padding-base: 0 $padding-md - 1px !default;
 $btn-padding-large: $btn-padding-base !default;
 $btn-padding-small: 0 $padding-xs - 1px !default;
 
+// 按钮字体：正常粗细
 $btn-font-weight: normal !default;
+// 按钮图标内边距：不同尺寸的图标内边距
 $btn-padding-base-icon: 5px 15px 6px !default;
 $btn-padding-large-icon: 6px 15px 6px 15px !default;
 $btn-padding-small-icon: 1px 7px 2px !default;
+// 按钮字体大小：基础字体大小
 $btn-font-size: $font-size-base !default;
 $btn-font-size-large: $font-size-large !default;
 $btn-font-size-small: $font-size-base !default;
+// 按钮圆角：基础4px，小3px
 $btn-border-radius: 4px !default;
 $btn-border-radius-small: 3px !default;
+// 按钮组边框：主色调加深5%
 $btn-group-border: shade($primary-color, 5%) !default;
 
+// 按钮禁用状态：灰色文字，基础背景，基础边框
 $btn-disable-color: #c5c8ce !default;
 $btn-disable-bg: $background-color-base !default;
 $btn-disable-border: $border-color-base !default;
 
+// 默认按钮：文字色，白色背景，基础边框
 $btn-default-color: $text-color !default;
 $btn-default-bg: #fff !default;
 $btn-default-border: $border-color-base !default;
 
+// 主要按钮：白色文字，主色调背景
 $btn-primary-color: #fff !default;
 $btn-primary-bg: $primary-color !default;
 
+// 幽灵按钮：文字色，白色背景，基础边框
 $btn-ghost-color: $text-color !default;
 $btn-ghost-bg: #fff !default;
 $btn-ghost-border: $border-color-base !default;
 
+// 圆形按钮尺寸：与高度相同
 $btn-circle-size: $btn-height-base !default;
 $btn-circle-size-large: $btn-height-large !default;
 $btn-circle-size-small: $btn-height-small !default;
 
+// 方形按钮尺寸：与高度相同
 $btn-square-size: $btn-height-base !default;
 $btn-square-size-large: $btn-height-large !default;
 $btn-square-size-small: $btn-height-small !default;
 
-// Layout and Grid
+// ==================== 布局和网格系统 ====================
+// 网格列数：24列
 $grid-columns: 24 !default;
+// 网格间距：0px
 $grid-gutter-width: 0 !default;
+// 布局主体背景：浅色
 $layout-body-background: #f5f7f9 !default;
+// 布局头部背景：中灰色
 $layout-header-background: #515a6e !default;
+// 布局头部高度：64px
 $layout-header-height: 64px !default;
+// 布局头部内边距：左右50px
 $layout-header-padding: 0 50px !default;
+// 布局底部内边距：上下24px，左右50px
 $layout-footer-padding: 24px 50px !default;
+// 布局底部背景：与主体背景相同
 $layout-footer-background: $layout-body-background !default;
+// 布局侧边栏背景：与头部背景相同
 $layout-sider-background: $layout-header-background !default;
+// 布局触发器高度：48px
 $layout-trigger-height: 48px !default;
+// 布局触发器颜色：白色
 $layout-trigger-color: #fff !default;
+// 零触发器宽度：36px
 $layout-zero-trigger-width: 36px !default;
+// 零触发器高度：42px
 $layout-zero-trigger-height: 42px !default;
 
-// Legend
+// ==================== 图例系统 ====================
+// 图例颜色：灰色
 $legend-color: #999 !default;
 
-// Input
+// ==================== 输入框系统 ====================
+// 输入框高度：基础32px，大40px，小24px
 $input-height-base: 32px !default;
 $input-height-large: 40px !default;
 $input-height-small: 24px !default;
 
+// 输入框内边距：水平7px，垂直不同尺寸
 $input-padding-horizontal: 7px !default;
 $input-padding-vertical-base: 4px !default;
 $input-padding-vertical-small: 1px !default;
 $input-padding-vertical-large: 6px !default;
 
+// 输入框颜色：占位符使用按钮禁用色，文字使用文字色
 $input-placeholder-color: $btn-disable-color !default;
 $input-color: $text-color !default;
 $input-border-color: $border-color-base !default;
 $input-bg: #fff !default;
 $input-group-bg: #f8f8f9 !default;
 
+// 输入框交互状态：悬停和焦点使用主色调边框
 $input-hover-border-color: $primary-color !default;
 $input-focus-border-color: $primary-color !default;
 

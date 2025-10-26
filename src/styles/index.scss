@@ -1,65 +1,77 @@
+/**
+ * 主样式入口文件
+ * 统一导入所有样式文件，构建完整的UI组件库样式系统
+ */
+
+// ==================== 基础配置 ====================
+// 导入自定义变量和混入
 @import './custom';
 @import './mixins/index';
 
+// 导入CSS重置样式
 @import 'normalize.css';
 
+// ==================== 通用样式 ====================
+// 导入基础样式、布局、文章、图标等通用样式
 @import './common/base';
 @import './common/layout';
 @import './common/article';
 @import './common/icons';
 @import './animation/index';
 
-@import './components/affix';
-@import './components/alert';
-@import './components/anchor';
-@import './components/auto-complete';
-@import './components/avatar';
-@import './components/back-top';
-@import './components/badge';
-@import './components/breadcrumb';
-@import './components/button';
-@import './components/card';
-@import './components/carousel';
-@import './components/cascader';
-@import './components/cell';
-@import './components/checkbox';
-@import './components/circle';
-@import './components/collapse';
-@import './components/color-picker';
-@import './components/date-picker';
-@import './components/divider';
-@import './components/drawer';
-@import './components/dropdown';
-@import './components/form';
-@import './components/input-number';
-@import './components/input';
-@import './components/layout';
-@import './components/list';
-@import './components/loading-bar';
-@import './components/menu';
-@import './components/message';
-@import './components/modal';
-@import './components/notice';
-@import './components/page';
-@import './components/poptip';
-@import './components/progress';
-@import './components/radio';
-@import './components/rate';
-@import './components/scroll';
-@import './components/select-dropdown';
-@import './components/select';
-@import './components/slider';
-@import './components/spin';
-@import './components/split';
-@import './components/steps';
-@import './components/switch';
-@import './components/table';
-@import './components/tabs';
-@import './components/tag';
-@import './components/time-picker';
-@import './components/time';
-@import './components/timeline';
-@import './components/tooltip';
-@import './components/transfer';
-@import './components/tree';
-@import './components/upload';
+// ==================== 组件样式 ====================
+// 导入所有UI组件的样式文件
+@import './components/affix';           // 固钉组件
+@import './components/alert';           // 警告提示组件
+@import './components/anchor';          // 锚点组件
+@import './components/auto-complete';   // 自动完成组件
+@import './components/avatar';          // 头像组件
+@import './components/back-top';        // 回到顶部组件
+@import './components/badge';           // 徽标组件
+@import './components/breadcrumb';      // 面包屑组件
+@import './components/button';          // 按钮组件
+@import './components/card';            // 卡片组件
+@import './components/carousel';        // 轮播图组件
+@import './components/cascader';        // 级联选择器组件
+@import './components/cell';            // 单元格组件
+@import './components/checkbox';        // 复选框组件
+@import './components/circle';          // 圆形进度条组件
+@import './components/collapse';        // 折叠面板组件
+@import './components/color-picker';    // 颜色选择器组件
+@import './components/date-picker';     // 日期选择器组件
+@import './components/divider';         // 分割线组件
+@import './components/drawer';          // 抽屉组件
+@import './components/dropdown';        // 下拉菜单组件
+@import './components/form';            // 表单组件
+@import './components/input-number';    // 数字输入框组件
+@import './components/input';           // 输入框组件
+@import './components/layout';          // 布局组件
+@import './components/list';            // 列表组件
+@import './components/loading-bar';     // 加载进度条组件
+@import './components/menu';            // 菜单组件
+@import './components/message';         // 消息提示组件
+@import './components/modal';           // 模态框组件
+@import './components/notice';          // 通知提醒组件
+@import './components/page';            // 分页组件
+@import './components/poptip';          // 气泡提示组件
+@import './components/progress';        // 进度条组件
+@import './components/radio';           // 单选框组件
+@import './components/rate';            // 评分组件
+@import './components/scroll';          // 滚动组件
+@import './components/select-dropdown'; // 选择器下拉框组件
+@import './components/select';          // 选择器组件
+@import './components/slider';          // 滑块组件
+@import './components/spin';            // 加载组件
+@import './components/split';           // 分割面板组件
+@import './components/steps';           // 步骤条组件
+@import './components/switch';          // 开关组件
+@import './components/table';           // 表格组件
+@import './components/tabs';            // 标签页组件
+@import './components/tag';             // 标签组件
+@import './components/time-picker';     // 时间选择器组件
+@import './components/time';            // 时间组件
+@import './components/timeline';        // 时间轴组件
+@import './components/tooltip';         // 工具提示组件
+@import './components/transfer';        // 穿梭框组件
+@import './components/tree';            // 树形控件组件
+@import './components/upload';          // 上传组件
