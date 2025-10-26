@@ -1,3 +1,12 @@
+/**
+ * 级联选择器组件样式
+ * 提供多级联动选择功能的组件样式定义
+ */
+
+/**
+ * 选择器下拉框基础样式
+ * 设置下拉框的显示和布局
+ */
 .selectDropDown {
   overflow: visible;
   padding: 0;
@@ -5,27 +14,35 @@
   width: auto;
 }
 
+/**
+ * 级联选择器组件基础样式
+ * 设置级联选择器的整体布局和交互效果
+ */
 .#{$cascader-prefix-cls} {
-
   @include select-item($cascader-prefix-cls, $cascader-item-prefix-cls);
   //position: relative;
   line-height: normal;
 
+  // 级联选择器容器：相对定位
   &-rel {
     display: inline-block;
     position: relative;
     width: 100%;
   }
 
+  // 输入框样式：可点击，右边距为箭头留空间
   .#{$css-prefix}input {
     cursor: pointer;
     display: block;
     padding-right: 24px;
   }
+  
+  // 禁用状态：禁用光标
   &-disabled .#{$css-prefix}input {
     cursor: $cursor-disabled;
   }
 
+  // 标签样式：绝对定位覆盖输入框
   &-label {
     box-sizing: border-box;
     cursor: pointer;
@@ -42,45 +59,56 @@
     width: 100%;
   }
 
+  // 大尺寸标签
   &-size-large &-label {
     font-size: $font-size-base;
     line-height: 36px;
   }
 
+  // 小尺寸标签
   &-size-small &-label {
     line-height: 26px;
   }
 
+  // 清除箭头：默认隐藏
   .#{$cascader-prefix-cls}-arrow:nth-of-type(1) {
     cursor: pointer;
     display: none;
   }
 
+  // 悬停时显示清除箭头
   &:hover {
     .#{$cascader-prefix-cls}-arrow:nth-of-type(1) {
       display: inline-block;
     }
   }
+  
+  // 显示清除时隐藏下拉箭头
   &-show-clear:hover .#{$cascader-prefix-cls}-arrow:nth-of-type(2) {
     display: none;
   }
 
+  // 下拉箭头：使用内部箭头混入
   &-arrow {
     @include inner-arrow();
   }
 
+  // 可见状态下箭头旋转180度
   &-visible &-arrow:nth-of-type(2) {
     transform: translateY(-50%) rotate(180deg);
   }
 
+  // 选择器下拉框：继承基础样式
   .#{$select-dropdown-prefix-cls} {
     @extend .selectDropDown;
   }
 
+  // 选择项错误状态：红色文字
   .ivu-select-item span {
     color: $error-color;
   }
 
+  // 级联下拉框：内边距和滚动
   &-dropdown {
     padding: 5px 0;
     .#{$select-dropdown-prefix-cls}-list {
@@ -90,6 +118,7 @@
     }
   }
 
+  // 未找到提示：灰色文字，居中显示
   &-not-found-tip {
     color: $btn-disable-color;
     padding: 5px 0;
@@ -100,10 +129,13 @@
       margin-bottom: 0;
     }
   }
+  
+  // 未找到状态：继承宽度
   &-not-found .#{$select-dropdown-prefix-cls} {
     width: inherit;
   }
 
+  // 级联菜单：多列布局
   &-menu {
     border-right: 1px solid $border-color-split;
     display: inline-block;
@@ -115,24 +147,29 @@
     padding: 5px 0 !important;
     vertical-align: top;
 
+    // 第一个菜单：无特殊样式
     &:first-child {
 
     }
 
+    // 最后一个菜单：去除右边框
     &:last-child {
       border-right-color: transparent;
       margin-right: -1px;
     }
 
+    // 唯一菜单：无特殊样式
     &:only-child {
 
     }
 
+    // 菜单项：右边距为图标留空间
     & &-item {
       padding-right: 36px;
       position: relative;
       transition: all $transition-time $ease-in-out;
 
+      // 菜单项图标：右对齐
       i {
         font-size: $font-size-small;
         position: absolute;
@@ -142,10 +179,12 @@
         transform: translateY(-50%);
       }
 
+      // 加载状态：位置调整
       &-loading {
         margin-top: -6px;
       }
 
+      // 激活状态：背景色和文字色
       &-active {
         background-color: $background-color-select-hover;
         color: $primary-color;
@@ -153,20 +192,29 @@
     }
   }
 }
+
+/**
+ * 级联选择器传输样式
+ * 用于弹窗等场景的级联选择器样式
+ */
 .#{$cascader-prefix-cls}-transfer {
   @extend .selectDropDown;
   @include select-item($cascader-prefix-cls, $cascader-item-prefix-cls);
   z-index: $zindex-transfer;
 
+  // 选择项错误状态：红色文字
   .ivu-select-item span {
     color: $error-color;
   }
+  
+  // 传输模式下的菜单项
   .#{$cascader-prefix-cls} {
     &-menu {
       &-item {
         padding-right: 24px;
         transition: all $transition-time $ease-in-out;
 
+        // 激活状态：背景色和文字色
         &-active {
           background-color: $background-color-select-hover;
           color: $primary-color;
@@ -176,8 +224,13 @@
   }
 }
 
+/**
+ * 表单项错误状态
+ * 当表单项有错误时，级联选择器的样式调整
+ */
 .#{$form-item-prefix-cls}-error {
   .#{$cascader-prefix-cls} {
+    // 错误状态下的箭头颜色
     &-arrow {
       color: $error-color;
     }

@@ -1,24 +1,38 @@
+/**
+ * 按钮组件样式
+ * 提供各种类型和状态的按钮样式定义
+ */
+
+/**
+ * 按钮组件基础样式
+ * 设置按钮的基础外观、尺寸和交互效果
+ */
 .#{$btn-prefix-cls} {
   @include btn;
   @include btn-default;
 
+  // 长按钮：占满容器宽度
   &-long {
     width: 100%;
   }
 
+  // 图标和文字间距
   .ion + span,
   span + .ion {
     margin-left: 4px;
   }
 
+  // 主要按钮样式
   &-primary {
     @include btn-primary;
 
+    // 水平按钮组：中间按钮的边框处理
     .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) &:not(:first-child):not(:last-child) {
       border-left-color: $btn-group-border;
       border-right-color: $btn-group-border;
     }
 
+    // 水平按钮组：第一个按钮的右边框
     .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) &:first-child {
       &:not(:last-child) {
         border-right-color: $btn-group-border;
@@ -29,6 +43,7 @@
       }
     }
 
+    // 水平按钮组：最后一个按钮的左边框
     .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) &:last-child:not(:first-child),
     .#{$btn-prefix-cls}-group:not(.#{$btn-prefix-cls}-group-vertical) & + .#{$btn-prefix-cls} {
       border-left-color: $btn-group-border;
@@ -38,11 +53,13 @@
       }
     }
 
+    // 垂直按钮组：中间按钮的边框处理
     .#{$btn-prefix-cls}-group-vertical &:not(:first-child):not(:last-child) {
       border-bottom-color: $btn-group-border;
       border-top-color: $btn-group-border;
     }
 
+    // 垂直按钮组：第一个按钮的底边框
     .#{$btn-prefix-cls}-group-vertical &:first-child {
       &:not(:last-child) {
         border-bottom-color: $btn-group-border;
@@ -53,6 +70,7 @@
       }
     }
 
+    // 垂直按钮组：最后一个按钮的顶边框
     .#{$btn-prefix-cls}-group-vertical &:last-child:not(:first-child),
     .#{$btn-prefix-cls}-group-vertical & + .#{$btn-prefix-cls} {
       border-top-color: $btn-group-border;
@@ -63,39 +81,48 @@
     }
   }
 
+  // 幽灵按钮（已注释）
   //&-ghost {
   //    @include btn-ghost;
   //}
 
+  // 虚线按钮
   &-dashed {
     @include btn-dashed;
   }
 
+  // 文字按钮
   &-text {
     @include btn-text;
   }
 
+  // 成功按钮：绿色主题
   &-success {
     @include btn-color($success-color);
   }
 
+  // 警告按钮：橙色主题
   &-warning {
     @include btn-color($warning-color);
   }
 
+  // 错误按钮：红色主题
   &-error {
     @include btn-color($error-color);
   }
 
+  // 信息按钮：蓝色主题
   &-info {
     @include btn-color($info-color);
   }
 
+  // 圆形按钮
   &-circle,
   &-circle-outline {
     @include btn-circle($btn-prefix-cls);
   }
 
+  // 加载遮罩层：白色半透明覆盖
   &::before {
     background: #fff;
     border-radius: inherit;
@@ -112,6 +139,7 @@
     z-index: 1;
   }
 
+  // 加载状态：显示遮罩层，禁用交互
   &#{&}-loading {
     pointer-events: none;
     position: relative;
@@ -121,15 +149,17 @@
     }
   }
 
+  // 按钮组：水平排列
   &-group {
     @include btn-group($btn-prefix-cls);
   }
 
+  // 按钮组：垂直排列
   &-group-vertical {
     @include btn-group-vertical($btn-prefix-cls);
   }
 
-  // The new ghost in 3.0
+  // 新版幽灵按钮（3.0版本）
   &-ghost {
     background: transparent;
     color: #fff;
@@ -139,6 +169,7 @@
     }
   }
 
+  // 幽灵按钮：默认和虚线样式
   &-ghost.#{$btn-prefix-cls}-dashed,
   &-ghost.#{$btn-prefix-cls}-default {
     border-color: #fff;
@@ -150,6 +181,7 @@
     }
   }
 
+  // 幽灵按钮：主要样式
   &-ghost.#{$btn-prefix-cls}-primary {
     color: $primary-color;
 
@@ -159,6 +191,7 @@
     }
   }
 
+  // 幽灵按钮：信息样式
   &-ghost.#{$btn-prefix-cls}-info {
     color: $info-color;
 
@@ -168,6 +201,7 @@
     }
   }
 
+  // 幽灵按钮：成功样式
   &-ghost.#{$btn-prefix-cls}-success {
     color: $success-color;
 
@@ -177,6 +211,7 @@
     }
   }
 
+  // 幽灵按钮：警告样式
   &-ghost.#{$btn-prefix-cls}-warning {
     color: $warning-color;
 
@@ -186,6 +221,7 @@
     }
   }
 
+  // 幽灵按钮：错误样式
   &-ghost.#{$btn-prefix-cls}-error {
     color: $error-color;
 
@@ -195,6 +231,7 @@
     }
   }
 
+  // 幽灵按钮禁用状态：所有类型
   &-ghost.#{$btn-prefix-cls}-default[disabled],
   &-ghost.#{$btn-prefix-cls}-dashed[disabled],
   &-ghost.#{$btn-prefix-cls}-primary[disabled],
@@ -207,20 +244,27 @@
     color: rgba(#000, 25%/100%);
   }
 
+  // 幽灵文字按钮禁用状态
   &-ghost.#{$btn-prefix-cls}-text[disabled] {
     background: transparent;
     color: rgba(#000, 25%/100%);
   }
 }
 
+/**
+ * 链接按钮样式
+ * 当按钮作为链接元素时的特殊样式调整
+ */
 a.#{$btn-prefix-cls} {
   line-height: $btn-height-base - 2px;
   padding-top: 0.1px;
 
+  // 大尺寸链接按钮
   &-large {
     line-height: $btn-height-large - 2px;
   }
 
+  // 小尺寸链接按钮
   &-small {
     line-height: $btn-height-small - 2px;
   }

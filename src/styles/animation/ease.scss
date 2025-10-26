@@ -1,18 +1,38 @@
+/**
+ * 缓动动画样式
+ * 提供基于缩放和透明度的缓动动画效果
+ */
+
+/**
+ * 缓动动画混入
+ * 创建带有缩放和透明度变化的缓动动画
+ * @param {string} $className - 动画类名
+ * @param {string} $keyframeName - 关键帧名称
+ */
 @mixin ease-motion($className, $keyframeName) {
   @include make-motion($className, $keyframeName);
+  
+  // 进入和出现状态：线性时间函数，初始透明度为0
   .#{$className}-enter-active, .#{$className}-appear {
     animation-duration: $transition-time;
     animation-timing-function: linear;
     opacity: 0;
   }
+  
+  // 离开状态：线性时间函数
   .#{$className}-leave-active {
     animation-duration: $transition-time;
     animation-timing-function: linear;
   }
 }
 
+// 应用缓动动画到ease类
 @include ease-motion(ease, ivuEase);
 
+/**
+ * 缓动进入动画关键帧
+ * 从90%缩放和透明状态过渡到100%缩放和不透明状态
+ */
 @keyframes ivuEaseIn {
   0% {
     opacity: 0;
@@ -25,6 +45,10 @@
   }
 }
 
+/**
+ * 缓动离开动画关键帧
+ * 从100%缩放和不透明状态过渡到90%缩放和透明状态
+ */
 @keyframes ivuEaseOut {
   0% {
     opacity: 1;

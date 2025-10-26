@@ -1,3 +1,12 @@
+/**
+ * 卡片组件样式
+ * 提供信息展示卡片的样式定义
+ */
+
+/**
+ * 卡片组件基础样式
+ * 设置卡片的外观、布局和交互效果
+ */
 .#{$card-prefix-cls} {
   background: #fff;
   border-radius: $border-radius-small;
@@ -7,42 +16,52 @@
   //overflow: hidden;
   transition: all $transition-time $ease-in-out;
 
+  // 带边框的卡片
   &-bordered {
     border: 1px solid $border-color-base;
     border-color: $border-color-split;
   }
 
+  // 带阴影的卡片
   &-shadow {
     box-shadow: $shadow-card;
   }
 
+  // 悬停状态：边框和阴影变化
   &:hover {
     border-color: #eee;
     box-shadow: $shadow-base;
   }
+  
+  // 禁用悬停效果
   &#{&}-dis-hover:hover {
     border-color: transparent;
     box-shadow: none;
   }
 
+  // 禁用悬停效果但保持边框
   &#{&}-dis-hover#{&}-bordered:hover {
     border-color: $border-color-split;
   }
 
+  // 禁用悬停效果但保持阴影
   &#{&}-shadow:hover {
     box-shadow: $shadow-card;
   }
 
+  // 卡片头部：使用内容头部混入
   &-head {
     @include content-header;
   }
 
+  // 卡片额外内容：右上角定位
   &-extra {
     position: absolute;
     right: 16px;
     top: 14px;
   }
 
+  // 卡片主体：内边距
   &-body {
     padding: 16px;
   }

@@ -1,3 +1,12 @@
+/**
+ * 轮播图组件样式
+ * 提供图片轮播展示的组件样式定义
+ */
+
+/**
+ * 轮播图组件基础样式
+ * 设置轮播图的整体布局和交互效果
+ */
 .#{$carousel-prefix-cls} {
   box-sizing: border-box;
   display: block;
@@ -6,37 +15,39 @@
   touch-action: pan-y;
   user-select: none;
 
+  // 轨道和列表：硬件加速
   &-track,
   &-list {
     transform: translate3d(0, 0, 0);
   }
 
+  // 轮播列表：隐藏溢出内容
   &-list {
     display: block;
-
     margin: 0;
     overflow: hidden;
     padding: 0;
     position: relative;
   }
 
+  // 轮播轨道：相对定位，默认在底部
   &-track {
     display: block;
     left: 0;
-
     overflow: hidden;
     position: relative;
     //top: 0;
     top: 100%;
-
     z-index: 1;
 
+    // 高层轨道：在顶部显示
     &.higher {
       top: 0;
       z-index: 2;
     }
   }
 
+  // 轮播项：左浮动排列
   &-item {
     display: block;
     float: left;
@@ -44,127 +55,118 @@
     min-height: 1px;
   }
 
+  // 轮播箭头：导航按钮
   &-arrow {
     background-color: rgba(31, 45, 61, 0.11);
-
     border: none;
     border-radius: 50%;
     color: #fff;
-
     cursor: pointer;
-
     display: none;
-
     font-family: inherit;
     font-size: 1em;
     height: 36px;
     line-height: inherit;
     margin: 0;
     outline: none;
-
     padding: 0;
-
     position: absolute;
-
     text-align: center;
     top: 50%;
     transform: translateY(-50%);
-
     transition: $transition-time;
-
     width: 36px;
     z-index: 10;
 
+    // 悬停状态：背景色加深
     &:hover {
       background-color: rgba(31, 45, 61, 0.5);
     }
 
+    // 箭头内容：垂直对齐
     & > * {
       vertical-align: baseline;
     }
 
+    // 左箭头：左侧定位
     &.left {
       left: 16px;
     }
 
+    // 右箭头：右侧定位
     &.right {
       right: 16px;
     }
 
+    // 始终显示箭头
     &-always {
       display: inherit;
     }
 
+    // 悬停显示箭头：默认透明
     &-hover {
       display: inherit;
-
       opacity: 0;
     }
   }
 
+  // 悬停时显示箭头
   &:hover &-arrow-hover {
     opacity: 1;
   }
 
+  // 轮播指示点：分页导航
   &-dots {
-
     $padding: 7px;
 
     display: none;
     height: 3px + $padding * 2;
-
     list-style: none;
-
     padding: 0;
-
     position: relative;
-
     text-align: center;
     width: 100%;
     z-index: 10;
 
+    // 内部指示点：绝对定位在底部
     &-inside {
       bottom: 10px - $padding;
       display: block;
       position: absolute;
     }
 
+    // 外部指示点：相对定位在下方
     &-outside {
       display: block;
       margin-top: 10px - $padding;
     }
 
+    // 指示点列表项
     li {
-
       cursor: pointer;
       display: inline-block;
-
       margin: 0 2px;
       padding: $padding 0;
       position: relative;
       text-align: center;
-
       vertical-align: top;
 
+      // 指示点按钮：小圆点或矩形
       button {
-
         background: #8391a5;
         border: 0;
-
         border-radius: 1px;
         color: transparent;
         cursor: pointer;
-
         display: block;
-
         font-size: 0;
         height: 3px;
         opacity: 0.3;
         outline: none;
-
         transition: all 0.5s;
         width: 16px;
 
+        // 圆形指示点
         &.radius {
           border-radius: 50%;
           height: 6px;
@@ -172,14 +174,17 @@
         }
       }
 
+      // 悬停状态：透明度增加
       &:hover > button {
         opacity: 0.7;
       }
 
+      // 激活状态：完全不透明，宽度增加
       &.#{$carousel-prefix-cls}-active > button {
         opacity: 1;
         width: 24px;
 
+        // 圆形激活状态：保持圆形
         &.radius {
           width: 6px;
         }

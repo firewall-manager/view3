@@ -1,16 +1,36 @@
+/**
+ * 淡入淡出动画样式
+ * 提供基于透明度的淡入淡出动画效果
+ */
+
+/**
+ * 淡入淡出动画混入
+ * 创建纯透明度变化的淡入淡出动画
+ * @param {string} $className - 动画类名
+ * @param {string} $keyframeName - 关键帧名称
+ */
 @mixin fade-motion($className, $keyframeName) {
   @include make-motion($className, $keyframeName, $animation-time-quick);
+  
+  // 进入和出现状态：线性时间函数，初始透明度为0
   .#{$className}-enter-active, .#{$className}-appear {
     animation-timing-function: linear;
     opacity: 0;
   }
+  
+  // 离开状态：线性时间函数
   .#{$className}-leave-active {
     animation-timing-function: linear;
   }
 }
 
+// 应用淡入淡出动画到fade类
 @include fade-motion(fade, ivuFade);
 
+/**
+ * 淡入动画关键帧
+ * 从完全透明过渡到完全不透明
+ */
 @keyframes ivuFadeIn {
   0% {
     opacity: 0;
@@ -21,6 +41,10 @@
   }
 }
 
+/**
+ * 淡出动画关键帧
+ * 从完全不透明过渡到完全透明
+ */
 @keyframes ivuFadeOut {
   0% {
     opacity: 1;
