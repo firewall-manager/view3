@@ -1,11 +1,23 @@
+/**
+ * 日期选择器组件样式
+ * 提供日期选择功能的组件样式定义
+ */
+
+/**
+ * 日期选择器组件基础样式
+ * 设置日期选择器的整体布局和交互效果
+ */
 .#{$date-picker-prefix-cls} {
   //position: relative;
   display: inline-block;
   line-height: normal;
 
+  // 相对定位容器
   &-rel {
     position: relative;
   }
+  
+  // 选择器下拉框：去除高度限制，可见溢出
   .#{$select-dropdown-prefix-cls} {
     max-height: initial !important;
     overflow: visible;
@@ -13,16 +25,19 @@
     width: auto;
   }
 
+  // 日期单元格网格
   &-cells {
     margin: 10px;
     white-space: normal;
     width: $date-picker-cells-width;
 
+    // 单元格基础样式
     span {
       display: inline-block;
       height: 24px;
       width: 26px;
 
+      // 单元格内容：圆角，过渡动画
       em {
         border-radius: $btn-border-radius-small;
         display: inline-block;
@@ -36,6 +51,7 @@
       }
     }
 
+    // 表头单元格：禁用色，小字体
     &-header span {
       color: $btn-disable-color;
       line-height: 24px;
@@ -46,23 +62,27 @@
       text-align: center;
     }
 
+    // 单元格悬停：背景色变化
     &-cell:hover {
       em {
         background: $date-picker-cell-hover-bg;
       }
     }
 
+    // 聚焦单元格：主色调内阴影
     &-focused {
       em {
         box-shadow: 0 0 0 1px $primary-color inset;
       }
     }
 
+    // 日期单元格：可点击，固定尺寸
     &-cell {
       cursor: pointer;
       height: 28px;
       width: 28px;
 
+      // 上个月/下个月日期：禁用色，悬停无背景
       &-prev-month,
       &-next-month {
         em {
@@ -76,6 +96,7 @@
         }
       }
 
+      // 周标签和禁用状态：禁用色，禁用光标
       span.#{$date-picker-prefix-cls}-week-label,
       span.#{$date-picker-prefix-cls}-week-label:hover,
       span.#{$date-picker-prefix-cls}-disabled,
@@ -89,11 +110,13 @@
         }
       }
 
+      // 禁用状态：禁用背景色
       span.#{$date-picker-prefix-cls}-disabled,
       span.#{$date-picker-prefix-cls}-disabled:hover {
         background: $btn-disable-bg;
       }
 
+      // 今天日期：右下角小圆点指示
       &-today {
         em {
           position: relative;
@@ -112,6 +135,7 @@
         }
       }
 
+      // 范围选择：背景条指示
       &-range {
         position: relative;
 
@@ -135,6 +159,7 @@
         }
       }
 
+      // 选中状态：主色调背景，白色文字
       &-selected,
       &-selected:hover {
         em {
@@ -143,6 +168,7 @@
         }
       }
 
+      // 禁用且选中：禁用色背景
       span.#{$date-picker-prefix-cls}-disabled.#{$date-picker-prefix-cls}-selected {
         em {
           background: $btn-disable-color;
@@ -150,6 +176,7 @@
         }
       }
 
+      // 今天且选中：白色圆点
       &-today.#{$date-picker-prefix-cls}-selected {
         em {
           &::after {

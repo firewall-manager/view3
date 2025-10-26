@@ -300,6 +300,7 @@
     }
   }
 
+  // 透明度选择器
   &-alpha {
     border-radius: 2px;
     bottom: 0;
@@ -308,12 +309,15 @@
     right: 0;
     top: 0;
 
+    // 过渡效果
     transition: border $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
 
+    // 焦点状态：使用激活混入
     &:focus {
       @include active();
     }
 
+    // 棋盘格包装器：圆角，绝对定位，溢出隐藏
     &-checkboard-wrap {
       border-radius: 2px;
       bottom: 0;
@@ -324,6 +328,7 @@
       top: 0;
     }
 
+    // 棋盘格背景：透明背景图案
     &-checkerboard {
       background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
       bottom: 0;
@@ -333,6 +338,7 @@
       top: 0;
     }
 
+    // 透明度渐变：绝对定位覆盖
     &-gradient {
       border-radius: 2px;
       bottom: 0;
@@ -342,6 +348,7 @@
       top: 0;
     }
 
+    // 透明度容器：可点击，相对定位，高层级
     &-container {
       cursor: pointer;
       height: 100%;
@@ -350,11 +357,13 @@
       z-index: 2;
     }
 
+    // 透明度指针：绝对定位，高层级
     &-pointer {
       position: absolute;
       z-index: 2;
     }
 
+    // 透明度选择器：白色背景，阴影，可点击
     &-picker {
       background: #fff;
       border-radius: 1px;
@@ -367,6 +376,7 @@
     }
   }
 
+  // 确认按钮区域
   &-confirm {
     border-top: 1px solid $border-color-split;
     clear: both;
@@ -375,11 +385,13 @@
     position: relative;
     text-align: right;
 
+    // 确认颜色显示：绝对定位在左侧
     &-color {
       left: 8px;
       position: absolute;
       top: 11px;
 
+      // 可编辑状态：调整位置
       &-editable {
         right: 110px;
         top: 8px;
