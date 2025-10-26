@@ -6,56 +6,70 @@ import Emitter from '../mixins/emitter'
 
 const prefixCls = 'ivu-transfer'
 
+/**
+ * 穿梭框组件
+ * 用于在两个列表之间移动数据的组件
+ */
 export default {
   name: 'Transfer',
   mixins: [Emitter, Locale],
   props: {
+    // 数据源
     data: {
       type: Array,
       default () {
         return []
       }
     },
+    // 渲染格式函数
     renderFormat: {
       type: Function,
       default (item) {
         return item.label || item.key
       }
     },
+    // 目标键值
     targetKeys: {
       type: Array,
       default () {
         return []
       }
     },
+    // 选中的键值
     selectedKeys: {
       type: Array,
       default () {
         return []
       }
     },
+    // 列表样式
     listStyle: {
       type: Object,
       default () {
         return {}
       }
     },
+    // 标题
     titles: {
       type: Array
     },
+    // 操作按钮
     operations: {
       type: Array,
       default () {
         return []
       }
     },
+    // 是否可搜索
     filterable: {
       type: Boolean,
       default: false
     },
+    // 搜索占位符
     filterPlaceholder: {
       type: String
     },
+    // 搜索方法
     filterMethod: {
       type: Function,
       default (data, query) {
@@ -63,10 +77,10 @@ export default {
         return data[type].indexOf(query) > -1
       }
     },
+    // 无数据文本
     notFoundText: {
       type: String
     },
-    // 4.2.0
     // 反转两个按钮
     reverseOperation: {
       type: Boolean,
@@ -75,25 +89,34 @@ export default {
   },
   data () {
     return {
+      // 样式前缀
       prefixCls: prefixCls,
+      // 左侧数据
       leftData: [],
+      // 右侧数据
       rightData: [],
+      // 左侧选中键值
       leftCheckedKeys: [],
+      // 右侧选中键值
       rightCheckedKeys: []
     }
   },
   computed: {
+    // 穿梭框CSS类名
     classes () {
       return [
                     `${prefixCls}`
       ]
     },
+    // 左侧有效键值数量
     leftValidKeysCount () {
       return this.getValidKeys('left').length
     },
+    // 右侧有效键值数量
     rightValidKeysCount () {
       return this.getValidKeys('right').length
     },
+    // 本地化搜索占位符
     localeFilterPlaceholder () {
       if (this.filterPlaceholder === undefined) {
         return this.t('i.transfer.filterPlaceholder')
@@ -101,6 +124,7 @@ export default {
         return this.filterPlaceholder
       }
     },
+    // 本地化无数据文本
     localeNotFoundText () {
       if (this.notFoundText === undefined) {
         return this.t('i.transfer.notFoundText')
@@ -108,6 +132,7 @@ export default {
         return this.notFoundText
       }
     },
+    // 本地化标题
     localeTitles () {
       if (this.titles === undefined) {
         return [this.t('i.transfer.titles.source'), this.t('i.transfer.titles.target')]

@@ -1,8 +1,10 @@
 <template>
+  <!-- 树形组件容器 -->
   <div
     ref="treeWrap"
     :class="prefixCls"
   >
+    <!-- 树形节点 -->
     <Tree-node
       v-for="(item, i) in stateTree"
       :key="i"
@@ -12,12 +14,14 @@
       :show-checkbox="showCheckbox"
       :children-key="childrenKey"
     />
+    <!-- 空状态 -->
     <div
       v-if="!stateTree.length"
       :class="[prefixCls + '-empty']"
     >
       {{ localeEmptyText }}
     </div>
+    <!-- 右键菜单 -->
     <div
       class="ivu-tree-context-menu"
       :style="contextMenuStyles"
@@ -44,6 +48,10 @@ import Locale from '../../mixins/locale'
 
 const prefixCls = 'ivu-tree'
 
+/**
+ * 树形组件
+ * 用于显示层级数据的树形结构组件
+ */
 export default {
   name: 'Tree',
   components: { TreeNode, Dropdown, DropdownMenu },
@@ -52,20 +60,24 @@ export default {
     return { TreeInstance: this }
   },
   props: {
+    // 树形数据
     data: {
       type: Array,
       default () {
         return []
       }
     },
+    // 是否多选
     multiple: {
       type: Boolean,
       default: false
     },
+    // 是否显示复选框
     showCheckbox: {
       type: Boolean,
       default: false
     },
+    // 是否严格模式
     checkStrictly: {
       type: Boolean,
       default: false
@@ -75,23 +87,29 @@ export default {
       type: Boolean,
       default: false
     },
+    // 空状态文本
     emptyText: {
       type: String
     },
+    // 子节点键名
     childrenKey: {
       type: String,
       default: 'children'
     },
+    // 加载数据方法
     loadData: {
       type: Function
     },
+    // 渲染函数
     render: {
       type: Function
     },
+    // 是否可选择节点
     selectNode: {
       type: Boolean,
       default: true
     },
+    // 是否可展开节点
     expandNode: {
       type: Boolean,
       default: false
@@ -99,10 +117,15 @@ export default {
   },
   data () {
     return {
+      // 样式前缀
       prefixCls: prefixCls,
+      // 状态树
       stateTree: this.data,
+      // 扁平状态
       flatState: [],
+      // 右键菜单是否可见
       contextMenuVisible: false,
+      // 右键菜单样式
       contextMenuStyles: {
         top: 0,
         left: 0
@@ -110,6 +133,7 @@ export default {
     }
   },
   computed: {
+    // 本地化空状态文本
     localeEmptyText () {
       if (typeof this.emptyText === 'undefined') {
         return this.t('i.tree.emptyText')

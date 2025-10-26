@@ -1,4 +1,5 @@
 <template>
+  <!-- 时间显示 -->
   <span
     :class="classes"
     @click="handleClick"
@@ -12,14 +13,20 @@ const isServer = false
 
 const prefixCls = 'ivu-time'
 
+/**
+ * 时间组件
+ * 用于显示时间信息，支持相对时间、日期、日期时间格式
+ */
 export default {
   name: 'Time',
   mixins: [Locale],
   props: {
+    // 时间值
     time: {
       type: [Number, Date, String],
       required: true
     },
+    // 显示类型
     type: {
       type: String,
       validator (value) {
@@ -27,10 +34,12 @@ export default {
       },
       default: 'relative'
     },
+    // 哈希值
     hash: {
       type: String,
       default: ''
     },
+    // 更新间隔（秒）
     interval: {
       type: Number,
       default: 60
@@ -38,10 +47,12 @@ export default {
   },
   data () {
     return {
+      // 显示的时间文本
       date: ''
     }
   },
   computed: {
+    // 时间组件CSS类名
     classes () {
       return [
                     `${prefixCls}`,
@@ -68,9 +79,11 @@ export default {
     if (this.timer) clearInterval(this.timer)
   },
   methods: {
+    // 处理点击事件
     handleClick () {
       if (this.hash !== '') window.location.hash = this.hash
     },
+    // 设置时间显示
     setTime () {
       const type = typeof this.time
       let time
