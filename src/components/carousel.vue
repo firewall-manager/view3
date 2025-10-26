@@ -1,5 +1,7 @@
 <template>
+  <!-- 轮播图组件容器 -->
   <div :class="classes">
+    <!-- 左箭头按钮 -->
     <button
       type="button"
       :class="arrowClasses"
@@ -8,7 +10,9 @@
     >
       <Icon type="ios-arrow-back" />
     </button>
+    <!-- 轮播列表容器 -->
     <div :class="[prefixCls + '-list']">
+      <!-- 原始轨道 -->
       <div
         ref="originTrack"
         :class="[prefixCls + '-track', showCopyTrack ? '' : 'higher']"
@@ -17,6 +21,7 @@
       >
         <slot />
       </div>
+      <!-- 复制轨道（用于无缝循环） -->
       <div
         v-if="loop"
         ref="copyTrack"
@@ -25,6 +30,7 @@
         @click="handleClick('copyTrackIndex')"
       />
     </div>
+    <!-- 右箭头按钮 -->
     <button
       type="button"
       :class="arrowClasses"
@@ -33,6 +39,7 @@
     >
       <Icon type="ios-arrow-forward" />
     </button>
+    <!-- 指示点列表 -->
     <ul :class="dotsClasses">
       <template v-for="n in slides.length">
         <li
@@ -56,10 +63,15 @@ import { on, off } from '../../utils/dom'
 
 const prefixCls = 'ivu-carousel'
 
+/**
+ * 轮播图组件
+ * 支持自动播放、循环、指示点、箭头导航等功能
+ */
 export default {
   name: 'Carousel',
   components: { Icon },
   props: {
+    // 箭头显示方式
     arrow: {
       type: String,
       default: 'hover',
@@ -67,22 +79,27 @@ export default {
         return oneOf(value, ['hover', 'always', 'never'])
       }
     },
+    // 是否自动播放
     autoplay: {
       type: Boolean,
       default: false
     },
+    // 自动播放速度（毫秒）
     autoplaySpeed: {
       type: Number,
       default: 2000
     },
+    // 是否循环播放
     loop: {
       type: Boolean,
       default: false
     },
+    // 动画缓动函数
     easing: {
       type: String,
       default: 'ease'
     },
+    // 指示点位置
     dots: {
       type: String,
       default: 'inside',
@@ -90,10 +107,12 @@ export default {
         return oneOf(value, ['inside', 'outside', 'none'])
       }
     },
+    // 是否显示圆点指示器
     radiusDot: {
       type: Boolean,
       default: false
     },
+    // 指示点触发方式
     trigger: {
       type: String,
       default: 'click',
@@ -101,10 +120,12 @@ export default {
         return oneOf(value, ['click', 'hover'])
       }
     },
+    // 当前激活的轮播项索引
     value: {
       type: Number,
       default: 0
     },
+    // 轮播图高度
     height: {
       type: [String, Number],
       default: 'auto',
@@ -115,30 +136,45 @@ export default {
   },
   data () {
     return {
+      // CSS类名前缀
       prefixCls: prefixCls,
+      // 列表宽度
       listWidth: 0,
+      // 轨道宽度
       trackWidth: 0,
+      // 轨道偏移量
       trackOffset: 0,
+      // 复制轨道偏移量
       trackCopyOffset: 0,
+      // 是否显示复制轨道
       showCopyTrack: false,
+      // 轮播项数组
       slides: [],
+      // 轮播项实例数组
       slideInstances: [],
+      // 自动播放定时器
       timer: null,
+      // 是否准备就绪
       ready: false,
+      // 当前索引
       currentIndex: this.value,
+      // 轨道索引
       trackIndex: this.value,
+      // 复制轨道索引
       copyTrackIndex: this.value,
-      hideTrackPos: -1 // 默认左滑
+      // 隐藏轨道位置（默认左滑）
+      hideTrackPos: -1
     }
   },
   computed: {
+    // 组件CSS类名
     classes () {
       return [
                     `${prefixCls}`
       ]
     },
+    // 轨道样式：设置位置和动画
     trackStyles () {
-      // #6076
       const visibleStyle = this.trackIndex === -1 ? 'hidden' : 'visible'
       return {
         width: `${this.trackWidth}px`,
@@ -147,21 +183,23 @@ export default {
         visibility: visibleStyle
       }
     },
+    // 复制轨道样式：用于无缝循环
     copyTrackStyles () {
       return {
         width: `${this.trackWidth}px`,
         transform: `translate3d(${-this.trackCopyOffset}px, 0px, 0px)`,
         transition: `transform 500ms ${this.easing}`,
         position: 'absolute'
-        // top: 0
       }
     },
+    // 箭头CSS类名
     arrowClasses () {
       return [
                     `${prefixCls}-arrow`,
                     `${prefixCls}-arrow-${this.arrow}`
       ]
     },
+    // 指示点CSS类名
     dotsClasses () {
       return [
                     `${prefixCls}-dots`,

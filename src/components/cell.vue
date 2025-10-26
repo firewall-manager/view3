@@ -1,5 +1,7 @@
 <template>
+  <!-- 单元格组件容器 -->
   <div :class="classes">
+    <!-- 链接模式：当有to属性时显示为链接 -->
     <a
       v-if="to"
       :href="linkUrl"
@@ -29,6 +31,7 @@
         />
       </CellItem>
     </a>
+    <!-- 普通模式：当没有to属性时显示为普通div -->
     <div
       v-else
       class="ivu-cell-link"
@@ -54,6 +57,7 @@
         />
       </CellItem>
     </div>
+    <!-- 箭头图标：链接模式时显示 -->
     <div
       v-if="to"
       class="ivu-cell-arrow"
@@ -75,31 +79,42 @@ import mixinsLink from '../mixins/link'
 
 const prefixCls = 'ivu-cell'
 
+/**
+ * 单元格组件
+ * 单元格组中的单个单元格，支持链接模式和普通模式
+ */
 export default {
   name: 'Cell',
   components: { CellItem, Icon },
   mixins: [mixinsLink],
+  // 注入父级单元格组实例
   inject: ['cellGroup'],
   props: {
+    // 单元格名称
     name: {
       type: [String, Number]
     },
+    // 标题文本
     title: {
       type: String,
       default: ''
     },
+    // 标签文本
     label: {
       type: String,
       default: ''
     },
+    // 额外内容文本
     extra: {
       type: String,
       default: ''
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否选中
     selected: {
       type: Boolean,
       default: false
@@ -107,10 +122,12 @@ export default {
   },
   data () {
     return {
+      // CSS类名前缀
       prefixCls: prefixCls
     }
   },
   computed: {
+    // 单元格CSS类名
     classes () {
       return [
                     `${prefixCls}`,
@@ -121,20 +138,25 @@ export default {
                     }
       ]
     },
-    // 3.4.0, global setting customArrow 有值时，arrow 赋值空
+    // 箭头图标类型
     arrowType () {
       return 'ios-arrow-forward'
     },
-    // 3.4.0, global setting
+    // 自定义箭头图标类型
     customArrowType () {
       return ''
     },
-    // 3.4.0, global setting
+    // 箭头图标尺寸
     arrowSize () {
       return ''
     }
   },
   methods: {
+    /**
+     * 处理单元格点击事件
+     * @param {Event} event - 点击事件
+     * @param {Boolean} new_window - 是否在新窗口打开
+     */
     handleClickItem (event, new_window) {
       this.$parent.handleClick(this.name)
 

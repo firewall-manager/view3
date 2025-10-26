@@ -1,19 +1,24 @@
 <template>
+  <!-- 级联选择器组件容器 -->
   <div
     v-click-outside="handleClose"
     :class="classes"
   >
+    <!-- 选择器触发器 -->
     <div
       ref="reference"
       :class="[prefixCls + '-rel']"
       @click="toggleOpen"
     >
+      <!-- 隐藏输入框，用于表单提交 -->
       <input
         type="hidden"
         :name="name"
         :value="currentValue"
       >
+      <!-- 自定义触发器插槽 -->
       <slot>
+        <!-- 输入框 -->
         <VInput
           ref="input"
           :element-id="elementId"
@@ -24,6 +29,7 @@
           :placeholder="inputPlaceholder"
           @on-change="handleInput"
         />
+        <!-- 显示标签（非搜索模式） -->
         <div
           v-show="filterable && query === ''"
           :class="[prefixCls + '-label']"
@@ -31,12 +37,14 @@
         >
           {{ displayRender }}
         </div>
+        <!-- 清空按钮 -->
         <Icon
           v-show="showCloseIcon"
           type="ios-close-circle"
           :class="[prefixCls + '-arrow']"
           @click.native.stop="clearSelect"
         />
+        <!-- 下拉箭头 -->
         <Icon
           :type="arrowType"
           :custom="customArrowType"
@@ -45,6 +53,7 @@
         />
       </slot>
     </div>
+    <!-- 下拉面板 -->
     <transition name="transition-drop">
       <SelectDropdown
         v-show="visible"
@@ -55,6 +64,7 @@
         :transfer="transfer"
       >
         <div>
+          <!-- 级联面板 -->
           <Caspanel
             v-show="!filterable || (filterable && query === '')"
             ref="caspanel"
@@ -64,6 +74,7 @@
             :change-on-select="changeOnSelect"
             :trigger="trigger"
           />
+          <!-- 搜索结果列表 -->
           <div
             v-show="filterable && query !== '' && querySelections.length"
             :class="[prefixCls + '-dropdown']"
@@ -79,6 +90,7 @@
               />
             </ul>
           </div>
+          <!-- 无结果提示 -->
           <ul
             v-show="(filterable && query !== '' && !querySelections.length) || !data.length"
             :class="[prefixCls + '-not-found-tip']"
@@ -105,35 +117,45 @@ import mixinsForm from '../mixins/form'
 const prefixCls = 'ivu-cascader'
 const selectPrefixCls = 'ivu-select'
 
+/**
+ * 级联选择器组件
+ * 支持多级联动选择，可搜索过滤，支持异步加载数据
+ */
 export default {
   name: 'Cascader',
   components: { VInput, SelectDropdown, Icon, Caspanel },
   directives: { clickOutside, TransferDom },
   mixins: [Emitter, Locale, mixinsForm],
   props: {
+    // 级联数据
     data: {
       type: Array,
       default () {
         return []
       }
     },
+    // 双向绑定的值
     modelValue: {
       type: Array,
       default () {
         return []
       }
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否可清空
     clearable: {
       type: Boolean,
       default: true
     },
+    // 占位符文本
     placeholder: {
       type: String
     },
+    // 组件尺寸
     size: {
       validator (value) {
         return oneOf(value, ['small', 'large', 'default'])
@@ -142,51 +164,61 @@ export default {
         return 'default'
       }
     },
+    // 触发方式
     trigger: {
       validator (value) {
         return oneOf(value, ['click', 'hover'])
       },
       default: 'click'
     },
+    // 是否选择即改变
     changeOnSelect: {
       type: Boolean,
       default: false
     },
+    // 自定义显示格式
     renderFormat: {
       type: Function,
       default (label) {
         return label.join(' / ')
       }
     },
+    // 异步加载数据函数
     loadData: {
       type: Function
     },
+    // 是否可搜索
     filterable: {
       type: Boolean,
       default: false
     },
+    // 无数据时的文本
     notFoundText: {
       type: String
     },
+    // 是否传送到body
     transfer: {
       type: Boolean,
       default () {
         return false
       }
     },
+    // 表单字段名
     name: {
       type: String
     },
+    // 元素ID
     elementId: {
       type: String
     },
-    // 4.0.0
+    // 是否捕获事件
     capture: {
       type: Boolean,
       default () {
         return true
       }
     },
+    // 传送容器的类名
     transferClassName: {
       type: String
     }
@@ -194,16 +226,26 @@ export default {
   emits: ['on-visible-change', 'update:modelValue', 'on-change'],
   data () {
     return {
+      // CSS类名前缀
       prefixCls: prefixCls,
+      // 选择器CSS类名前缀
       selectPrefixCls: selectPrefixCls,
+      // 是否显示下拉面板
       visible: false,
+      // 已选择的项
       selected: [],
+      // 临时选择的项
       tmpSelected: [],
-      updatingValue: false, // to fix set value in changeOnSelect type
+      // 是否正在更新值（用于修复changeOnSelect类型设置值的问题）
+      updatingValue: false,
+      // 当前值
       currentValue: this.modelValue,
+      // 搜索查询文本
       query: '',
+      // 有效数据字符串（用于比较数据变化）
       validDataStr: '',
-      isLoadedChildren: false // #950
+      // 是否已加载子项（用于避免重复触发updateSelect）
+      isLoadedChildren: false
     }
   },
   computed: {
