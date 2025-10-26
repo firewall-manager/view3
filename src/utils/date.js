@@ -1,19 +1,35 @@
 /*eslint-disable*/
-// 把 YYYY-MM-DD 改成了 yyyy-MM-dd
+/**
+ * 日期处理工具模块
+ * 提供日期解析和格式化功能
+ * 注意：将 YYYY-MM-DD 改成了 yyyy-MM-dd
+ */
 
-    /**
-     * Parse or format dates
-     * @class fecha
-     */
-    var fecha = {};
+/**
+ * 日期解析和格式化类
+ * @class fecha
+ */
+var fecha = {};
+    // 日期格式令牌正则表达式
     var token = /d{1,4}|M{1,4}|yy(?:yy)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
+    // 两位数字正则
     var twoDigits = /\d\d?/;
+    // 三位数字正则
     var threeDigits = /\d{3}/;
+    // 四位数字正则
     var fourDigits = /\d{4}/;
+    // 单词正则（支持多语言）
     var word = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i;
+    // 空操作函数
     var noop = function () {
     };
 
+    /**
+     * 缩短数组中的字符串
+     * @param {Array} arr - 字符串数组
+     * @param {number} sLen - 目标长度
+     * @returns {Array} 缩短后的数组
+     */
     function shorten(arr, sLen) {
         var newArr = [];
         for (var i = 0, len = arr.length; i < len; i++) {
@@ -22,6 +38,11 @@
         return newArr;
     }
 
+    /**
+     * 创建月份更新函数
+     * @param {string} arrName - 数组名称
+     * @returns {Function} 月份更新函数
+     */
     function monthUpdate(arrName) {
         return function (d, v, i18n) {
             var index = i18n[arrName].indexOf(v.charAt(0).toUpperCase() + v.substr(1).toLowerCase());
@@ -31,6 +52,12 @@
         };
     }
 
+    /**
+     * 数字前补零
+     * @param {number|string} val - 要补零的值
+     * @param {number} len - 目标长度
+     * @returns {string} 补零后的字符串
+     */
     function pad(val, len) {
         val = String(val);
         len = len || 2;
@@ -40,21 +67,29 @@
         return val;
     }
 
+    // 星期名称数组
     var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    // 月份名称数组
     var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    // 缩短的月份名称
     var monthNamesShort = shorten(monthNames, 3);
+    // 缩短的星期名称
     var dayNamesShort = shorten(dayNames, 3);
+    
+    // 国际化配置
     fecha.i18n = {
         dayNamesShort: dayNamesShort,
         dayNames: dayNames,
         monthNamesShort: monthNamesShort,
         monthNames: monthNames,
         amPm: ['am', 'pm'],
+        // 序数词函数（1st, 2nd, 3rd, 4th等）
         DoFn: function DoFn(D) {
             return D + ['th', 'st', 'nd', 'rd'][D % 10 > 3 ? 0 : (D - D % 10 !== 10) * D % 10];
         }
     };
 
+    // 格式化标志对象，定义各种日期格式的格式化函数
     var formatFlags = {
         D: function (dateObj) {
             return dateObj.getDay();
@@ -140,6 +175,7 @@
         }
     };
 
+    // 解析标志对象，定义各种日期格式的解析函数
     var parseFlags = {
         d: [twoDigits, function (d, v) {
             d.day = v;
@@ -203,7 +239,7 @@
     parseFlags.A = parseFlags.a;
 
 
-    // Some common format strings
+    // 常用日期格式字符串
     fecha.masks = {
         'default': 'ddd MMM dd yyyy HH:mm:ss',
         shortDate: 'M/D/yy',
@@ -215,36 +251,43 @@
         longTime: 'HH:mm:ss.SSS'
     };
 
-    /***
-     * Format a date
+    /**
+     * 格式化日期
      * @method format
-     * @param {Date|number} dateObj
-     * @param {string} mask Format of the date, i.e. 'mm-dd-yy' or 'shortDate'
+     * @param {Date|number} dateObj - 日期对象或时间戳
+     * @param {string} mask - 日期格式，如 'mm-dd-yy' 或 'shortDate'
+     * @param {Object} i18nSettings - 国际化设置
+     * @returns {string} 格式化后的日期字符串
      */
     fecha.format = function (dateObj, mask, i18nSettings) {
         var i18n = i18nSettings || fecha.i18n;
 
+        // 如果是数字，转换为Date对象
         if (typeof dateObj === 'number') {
             dateObj = new Date(dateObj);
         }
 
+        // 验证日期对象是否有效
         if (Object.prototype.toString.call(dateObj) !== '[object Date]' || isNaN(dateObj.getTime())) {
             throw new Error('Invalid Date in fecha.format');
         }
 
+        // 获取格式掩码
         mask = fecha.masks[mask] || mask || fecha.masks['default'];
 
+        // 替换格式令牌
         return mask.replace(token, function ($0) {
             return $0 in formatFlags ? formatFlags[$0](dateObj, i18n) : $0.slice(1, $0.length - 1);
         });
     };
 
     /**
-     * Parse a date string into an object, changes - into /
+     * 解析日期字符串为Date对象，将-转换为/
      * @method parse
-     * @param {string} dateStr Date string
-     * @param {string} format Date parse format
-     * @returns {Date|boolean}
+     * @param {string} dateStr - 日期字符串
+     * @param {string} format - 日期解析格式
+     * @param {Object} i18nSettings - 国际化设置
+     * @returns {Date|boolean} 解析后的Date对象或false
      */
     fecha.parse = function (dateStr, format, i18nSettings) {
         var i18n = i18nSettings || fecha.i18n;
@@ -255,7 +298,7 @@
 
         format = fecha.masks[format] || format;
 
-        // Avoid regular expression denial of service, fail early for really long strings
+        // 避免正则表达式拒绝服务攻击，对超长字符串提前失败
         // https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS
         if (dateStr.length > 1000) {
             return false;
@@ -263,6 +306,8 @@
 
         var isValid = true;
         var dateInfo = {};
+        
+        // 解析格式令牌
         format.replace(token, function ($0) {
             if (parseFlags[$0]) {
                 var info = parseFlags[$0];
@@ -286,6 +331,8 @@
         }
 
         var today = new Date();
+        
+        // 处理AM/PM
         if (dateInfo.isPm === true && dateInfo.hour != null && +dateInfo.hour !== 12) {
             dateInfo.hour = +dateInfo.hour + 12;
         } else if (dateInfo.isPm === false && +dateInfo.hour === 12) {
@@ -293,6 +340,7 @@
         }
 
         var date;
+        // 处理时区偏移
         if (dateInfo.timezoneOffset != null) {
             dateInfo.minute = +(dateInfo.minute || 0) - +dateInfo.timezoneOffset;
             date = new Date(Date.UTC(dateInfo.year || today.getFullYear(), dateInfo.month || 0, dateInfo.day || 1,

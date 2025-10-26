@@ -1,5 +1,17 @@
+/**
+ * 工具函数模块 - 提供常用的辅助功能
+ * 包含DOM操作、组件查找、样式处理、类型检查等实用工具
+ */
+
+// 服务端渲染标识
 const isServer = false
 
+/**
+ * 检查值是否在有效列表中
+ * @param {*} value - 要检查的值
+ * @param {Array} validList - 有效值列表
+ * @returns {boolean} 值是否在列表中
+ */
 export function oneOf (value, validList) {
   for (let i = 0; i < validList.length; i++) {
     if (value === validList[i]) {
@@ -9,19 +21,33 @@ export function oneOf (value, validList) {
   return false
 }
 
+/**
+ * 将驼峰命名转换为连字符命名
+ * @param {string} str - 驼峰命名的字符串
+ * @returns {string} 连字符命名的字符串
+ */
 export function camelcaseToHyphen (str) {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
-// For Modal scrollBar hidden
+// 用于模态框隐藏滚动条时计算滚动条宽度
 let cached
+
+/**
+ * 获取滚动条宽度
+ * 通过创建隐藏的DOM元素来测量滚动条宽度，用于模态框等场景
+ * @param {boolean} fresh - 是否强制重新计算
+ * @returns {number} 滚动条宽度
+ */
 export function getScrollBarSize (fresh) {
   if (isServer) return 0
   if (fresh || cached === undefined) {
+    // 创建内部容器
     const inner = document.createElement('div')
     inner.style.width = '100%'
     inner.style.height = '200px'
 
+    // 创建外部容器
     const outer = document.createElement('div')
     const outerStyle = outer.style
 
@@ -35,39 +61,56 @@ export function getScrollBarSize (fresh) {
     outerStyle.overflow = 'hidden'
 
     outer.appendChild(inner)
-
     document.body.appendChild(outer)
 
+    // 测量无滚动条时的宽度
     const widthContained = inner.offsetWidth
+    // 添加滚动条后测量宽度
     outer.style.overflow = 'scroll'
     let widthScroll = inner.offsetWidth
 
+    // 如果宽度相同，使用clientWidth
     if (widthContained === widthScroll) {
       widthScroll = outer.clientWidth
     }
 
     document.body.removeChild(outer)
 
+    // 计算滚动条宽度
     cached = widthContained - widthScroll
   }
   return cached
 }
 
-// watch DOM change
+// 监听DOM变化
 export const MutationObserver = isServer ? false : window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || false
 
+// 特殊字符正则表达式
 const SPECIAL_CHARS_REGEXP = /([:_-]+(.))/g
+// Mozilla浏览器特殊处理正则
 const MOZ_HACK_REGEXP = /^moz([A-Z])/
 
+/**
+ * 将字符串转换为驼峰命名
+ * @param {string} name - 要转换的字符串
+ * @returns {string} 驼峰命名的字符串
+ */
 function camelCase (name) {
   return name.replace(SPECIAL_CHARS_REGEXP, function (_, separator, letter, offset) {
     return offset ? letter.toUpperCase() : letter
   }).replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
-// getStyle
+
+/**
+ * 获取元素样式值
+ * @param {Element} element - DOM元素
+ * @param {string} styleName - 样式名称
+ * @returns {string|null} 样式值
+ */
 export function getStyle (element, styleName) {
   if (!element || !styleName) return null
   styleName = camelCase(styleName)
+  // 处理float属性的特殊命名
   if (styleName === 'float') {
     styleName = 'cssFloat'
   }
@@ -79,19 +122,34 @@ export function getStyle (element, styleName) {
   }
 }
 
-// firstUpperCase
+/**
+ * 首字母大写
+ * @param {string} str - 要转换的字符串
+ * @returns {string} 首字母大写的字符串
+ */
 function firstUpperCase (str) {
   return str.toString()[0].toUpperCase() + str.toString().slice(1)
 }
 export { firstUpperCase }
 
-// Warn
+/**
+ * 属性类型警告
+ * @param {string} component - 组件名称
+ * @param {string} prop - 属性名
+ * @param {string} correctType - 正确的类型
+ * @param {string} wrongType - 错误的类型
+ */
 export function warnProp (component, prop, correctType, wrongType) {
   correctType = firstUpperCase(correctType)
   wrongType = firstUpperCase(wrongType)
     console.error(`[iView warn]: Invalid prop: type check failed for prop ${prop}. Expected ${correctType}, got ${wrongType}. (found in component: ${component})`);    // eslint-disable-line
 }
 
+/**
+ * 获取对象类型
+ * @param {*} obj - 要检查的对象
+ * @returns {string} 对象类型
+ */
 function typeOf (obj) {
   const toString = Object.prototype.toString
   const map = {
@@ -109,7 +167,11 @@ function typeOf (obj) {
   return map[toString.call(obj)]
 }
 
-// deepCopy
+/**
+ * 深拷贝对象
+ * @param {*} data - 要拷贝的数据
+ * @returns {*} 拷贝后的数据
+ */
 function deepCopy (data) {
   const t = typeOf(data)
   let o
@@ -136,8 +198,16 @@ function deepCopy (data) {
 
 export { deepCopy }
 
-// scrollTop animation
+/**
+ * 滚动到指定位置动画
+ * @param {Element|Window} el - 要滚动的元素或window
+ * @param {number} from - 起始位置
+ * @param {number} to - 目标位置
+ * @param {number} duration - 动画持续时间(ms)
+ * @param {Function} endCallback - 动画结束回调
+ */
 export function scrollTop (el, from = 0, to, duration = 500, endCallback) {
+  // 兼容性处理：为不支持requestAnimationFrame的浏览器提供polyfill
   if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = (
       window.webkitRequestAnimationFrame ||
@@ -151,6 +221,12 @@ export function scrollTop (el, from = 0, to, duration = 500, endCallback) {
   const difference = Math.abs(from - to)
   const step = Math.ceil(difference / duration * 50)
 
+  /**
+   * 递归滚动函数
+   * @param {number} start - 当前起始位置
+   * @param {number} end - 目标位置
+   * @param {number} step - 每步移动距离
+   */
   function scroll (start, end, step) {
     if (start === end) {
       endCallback && endCallback()
@@ -172,7 +248,13 @@ export function scrollTop (el, from = 0, to, duration = 500, endCallback) {
   scroll(from, to, step)
 }
 
-// Find components upward
+/**
+ * 向上查找组件
+ * @param {Object} context - Vue组件实例
+ * @param {string|Array} componentName - 组件名称或名称数组
+ * @param {Array} componentNames - 内部使用的组件名称数组
+ * @returns {Object|null} 找到的父组件实例
+ */
 function findComponentUpward (context, componentName, componentNames) {
   if (typeof componentName === 'string') {
     componentNames = [componentName]
@@ -190,12 +272,22 @@ function findComponentUpward (context, componentName, componentNames) {
 }
 export { findComponentUpward }
 
-// Find component downward
+/**
+ * 向下查找单个组件
+ * @param {Object} context - Vue组件实例
+ * @param {string} componentName - 组件名称
+ * @returns {Object|undefined} 找到的第一个子组件实例
+ */
 export function findComponentDownward (context, componentName) {
   return findComponentsDownward(context, componentName)[0]
 }
 
-// Find components downward
+/**
+ * 向下查找多个组件
+ * @param {Object} context - Vue组件实例
+ * @param {string} componentName - 组件名称
+ * @returns {Array} 找到的所有子组件实例数组
+ */
 export function findComponentsDownward (context, componentName) {
   const children = context.$.subTree.children
 
@@ -232,7 +324,12 @@ export function findComponentsDownward (context, componentName) {
   }
 }
 
-// Find components upward
+/**
+ * 向上查找多个组件
+ * @param {Object} context - Vue组件实例
+ * @param {string} componentName - 组件名称
+ * @returns {Array} 找到的所有父组件实例数组
+ */
 export function findComponentsUpward (context, componentName) {
   const parents = []
   const parent = context.$parent
@@ -245,7 +342,13 @@ export function findComponentsUpward (context, componentName) {
   }
 }
 
-// Find brothers components
+/**
+ * 查找兄弟组件
+ * @param {Object} context - Vue组件实例
+ * @param {string} componentName - 组件名称
+ * @param {boolean} exceptMe - 是否排除自身
+ * @returns {Array} 找到的兄弟组件实例数组
+ */
 export function findBrothersComponents (context, componentName, exceptMe = true) {
   const children = context.$parent.$.subTree.children
   if (!children || !Array.isArray(children)) return []
@@ -268,11 +371,22 @@ export function findBrothersComponents (context, componentName, exceptMe = true)
 }
 
 /* istanbul ignore next */
+/**
+ * 去除字符串首尾空白字符
+ * @param {string} string - 要处理的字符串
+ * @returns {string} 处理后的字符串
+ */
 const trim = function (string) {
   return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
 }
 
 /* istanbul ignore next */
+/**
+ * 检查元素是否包含指定类名
+ * @param {Element} el - DOM元素
+ * @param {string} cls - 类名
+ * @returns {boolean} 是否包含类名
+ */
 export function hasClass (el, cls) {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.')
@@ -284,6 +398,11 @@ export function hasClass (el, cls) {
 }
 
 /* istanbul ignore next */
+/**
+ * 为元素添加类名
+ * @param {Element} el - DOM元素
+ * @param {string} cls - 要添加的类名
+ */
 export function addClass (el, cls) {
   if (!el) return
   let curClass = el.className
@@ -307,6 +426,11 @@ export function addClass (el, cls) {
 }
 
 /* istanbul ignore next */
+/**
+ * 移除元素的类名
+ * @param {Element} el - DOM元素
+ * @param {string} cls - 要移除的类名
+ */
 export function removeClass (el, cls) {
   if (!el || !cls) return
   const classes = cls.split(' ')
@@ -329,6 +453,10 @@ export function removeClass (el, cls) {
   }
 }
 
+/**
+ * 响应式断点映射
+ * 定义不同屏幕尺寸的断点值
+ */
 export const dimensionMap = {
   xs: '480px',
   sm: '576px',
@@ -338,6 +466,10 @@ export const dimensionMap = {
   xxl: '1600px'
 }
 
+/**
+ * 设置媒体查询polyfill
+ * 为不支持matchMedia的浏览器提供兼容性处理
+ */
 export function setMatchMedia () {
   if (typeof window !== 'undefined') {
     const matchMediaPolyfill = mediaQuery => {
@@ -352,4 +484,8 @@ export function setMatchMedia () {
   }
 }
 
+/**
+ * 锚点匹配正则表达式
+ * 用于匹配URL中的锚点部分
+ */
 export const sharpMatcherRegx = /#([^#]+)$/
