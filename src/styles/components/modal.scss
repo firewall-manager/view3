@@ -1,3 +1,12 @@
+/**
+ * 模态框组件样式
+ * 提供模态对话框的样式定义，包括遮罩、内容、头部、底部等
+ */
+
+/**
+ * 模态框组件基础样式
+ * 设置模态框的整体布局和交互效果
+ */
 .#{$modal-prefix-cls} {
   margin: 0 auto;
   outline: none;
@@ -5,10 +14,12 @@
   top: 100px;
   width: auto;
 
+  // 隐藏状态：不显示
   &-hidden {
     display: none !important;
   }
 
+  // 模态框包装器：全屏覆盖，高层级
   &-wrap {
     bottom: 0;
     left: 0;
@@ -21,15 +32,18 @@
     z-index: $zindex-modal;
   }
 
+  // 包装器内所有元素：盒模型，去除点击高亮
   &-wrap * {
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
+  // 遮罩层：使用遮罩混入
   &-mask {
     @include mask;
   }
 
+  // 模态框内容：白色背景，阴影，圆角
   &-content {
     background-clip: padding-box;
     background-color: #fff;
@@ -38,10 +52,12 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     position: relative;
 
+    // 无遮罩模式：允许指针事件
     &-no-mask {
       pointer-events: auto;
     }
 
+    // 可拖拽模式：绝对定位
     &-drag {
       position: absolute;
       .#{$modal-prefix-cls}-header {
@@ -49,6 +65,7 @@
       }
     }
 
+    // 拖拽状态：禁用文本选择
     &-dragging {
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -56,21 +73,25 @@
     }
   }
 
+  // 模态框头部：使用内容头部混入
   &-header {
     @include content-header;
   }
 
+  // 关闭按钮：使用内容关闭混入，高层级
   &-close {
     @include content-close(1px, 31px);
     z-index: 1;
   }
 
+  // 模态框主体：基础字体，内边距
   &-body {
     font-size: $font-size-base;
     line-height: 1.5;
     padding: 16px;
   }
 
+  // 模态框底部：顶部边框，右对齐，按钮间距
   &-footer {
     border-top: 1px solid $border-color-split;
     padding: 12px 18px;
@@ -82,12 +103,14 @@
     }
   }
 
+  // 全屏模态框：绝对定位，全宽
   &-fullscreen {
     bottom: 0;
     position: absolute;
     top: 0;
     width: 100% !important;
 
+    // 全屏内容：去除圆角，绝对定位
     .#{$modal-prefix-cls}-content {
       border-radius: 0;
       bottom: 0;
@@ -96,6 +119,7 @@
       width: 100%;
     }
 
+    // 全屏主体：计算高度，滚动
     .#{$modal-prefix-cls}-body {
       bottom: $modal-footer-height;
       overflow: auto;
@@ -103,12 +127,18 @@
       top: $modal-header-height;
       width: 100%;
     }
+    
+    // 无头部时：主体从顶部开始
     &-no-header .#{$modal-prefix-cls}-body {
       top: 0;
     }
+    
+    // 无底部时：主体到底部结束
     &-no-footer .#{$modal-prefix-cls}-body {
       bottom: 0;
     }
+    
+    // 全屏底部：绝对定位在底部
     .#{$modal-prefix-cls}-footer {
       bottom: 0;
       position: absolute;
@@ -116,16 +146,19 @@
     }
   }
 
+  // 无遮罩模式：禁用指针事件
   &-no-mask {
     pointer-events: none;
   }
 }
 
+// 响应式设计：小屏幕适配
 @media (max-width: $screen-sm) {
   .#{$modal-prefix-cls} {
     margin: 10px;
     width: auto !important;
   }
+  
   .#{$modal-prefix-cls}-fullscreen {
     margin: 0;
     width: 100% !important;
@@ -138,13 +171,19 @@
   }
 }
 
+/**
+ * 确认对话框样式
+ * 提供确认对话框的样式定义
+ */
 .#{$confirm-prefix-cls} {
   padding: 6px 16px 8px;
 
+  // 确认对话框头部：弹性布局
   &-head {
     display: flex;
     padding: 0 12px 0 0;
 
+    // 确认对话框图标：大字体，垂直居中
     &-icon {
       display: inline-block;
       font-size: 28px;
@@ -152,27 +191,33 @@
       top: -2px;
       vertical-align: middle;
 
+      // 信息图标：主色调
       &-info {
         color: $primary-color;
       }
 
+      // 成功图标：成功色
       &-success {
         color: $success-color;
       }
 
+      // 警告图标：警告色
       &-warning {
         color: $warning-color;
       }
 
+      // 错误图标：错误色
       &-error {
         color: $error-color;
       }
 
+      // 确认图标：警告色
       &-confirm {
         color: $warning-color;
       }
     }
 
+    // 确认对话框标题：标题色，大字体，粗体
     &-title {
       color: $title-color;
       display: inline-block;
@@ -183,18 +228,21 @@
     }
   }
 
+  // 确认对话框主体：文字颜色，左边距
   &-body {
     color: $text-color;
     font-size: $font-size-base;
     padding-left: 40px;
     position: relative;
 
+    // 渲染内容：去除边距
     &-render {
       margin: 0;
       padding: 0;
     }
   }
 
+  // 确认对话框底部：顶部边距，右对齐，按钮间距
   &-footer {
     margin-top: 20px;
     text-align: right;

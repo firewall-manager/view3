@@ -1,13 +1,28 @@
+/**
+ * 单选框组件样式
+ * 提供单选框的样式定义，包括普通状态、选中状态、禁用状态和按钮样式
+ */
+
+/**
+ * 单选框焦点状态
+ * 设置单选框获得焦点时的样式
+ */
 .#{$radio-prefix-cls}-focus {
   box-shadow: 0 0 0 2px rgba($primary-color, 20%/100%);
   z-index: 1;
 }
 
+/**
+ * 单选框组样式
+ * 设置单选框组的布局和垂直排列
+ */
 .#{$radio-group-prefix-cls} {
   display: inline-block;
   font-size: $font-size-base;
   vertical-align: middle;
   //outline: none;
+  
+  // 垂直排列：块级显示，固定高度
   &-vertical {
     .#{$radio-prefix-cls}-wrapper {
       display: block;
@@ -17,7 +32,10 @@
   }
 }
 
-// 普通状态 - Normal state
+/**
+ * 单选框包装器样式
+ * 设置单选框包装器的布局和交互效果
+ */
 .#{$radio-prefix-cls}-wrapper {
   cursor: pointer;
   display: inline-block;
@@ -27,12 +45,17 @@
   vertical-align: middle;
   white-space: nowrap;
 
+  // 禁用状态：禁用光标
   &-disabled {
     cursor: $cursor-disabled;
   }
   //outline: none;
 }
 
+/**
+ * 单选框基础样式
+ * 设置单选框的整体布局和交互效果
+ */
 .#{$radio-prefix-cls} {
   cursor: pointer;
   display: inline-block;
@@ -43,12 +66,14 @@
   vertical-align: middle;
   white-space: nowrap;
 
+  // 悬停状态：边框颜色变深
   &:hover {
     .#{$radio-inner-prefix-cls} {
       border-color: #bcbcbc;
     }
   }
 
+  // 单选框内部：白色背景，圆形边框
   &-inner {
     background-color: #fff;
     border: 1px solid $border-color-base;
@@ -61,6 +86,7 @@
     transition: all $transition-time $ease-in-out;
     width: 16px;
 
+    // 选中指示器：主色调，圆形，缩放动画
     &::after {
       background-color: $primary-color;
       border-left: 0;
@@ -79,6 +105,7 @@
     }
   }
 
+  // 大尺寸：大字体，大尺寸内部
   &-large {
     font-size: $font-size-large;
     & .#{$radio-inner-prefix-cls} {
@@ -95,6 +122,7 @@
     }
   }
 
+  // 小尺寸：小尺寸内部
   &-small {
     & .#{$radio-inner-prefix-cls} {
       height: 14px;
@@ -107,6 +135,7 @@
     }
   }
 
+  // 单选框输入：透明，绝对定位，高层级
   &-input {
     bottom: 0;
     cursor: pointer;
@@ -118,6 +147,7 @@
     z-index: 1;
   }
 
+  // 边框样式：边框，圆角，按钮高度
   &-border {
     border: 1px solid $border-color-base;
     border-radius: $btn-border-radius;
@@ -126,11 +156,15 @@
     padding: $btn-padding-base;
     transition: border $transition-time $ease-in-out;
   }
+  
+  // 小尺寸边框：小按钮高度
   &-small &-border, .#{$radio-group-prefix-cls}-small &-border {
     height: $btn-height-small;
     line-height: $btn-height-small - 2px;
     padding: $btn-padding-small;
   }
+  
+  // 大尺寸边框：大按钮高度
   &-large &-border, .#{$radio-group-prefix-cls}-large &-border {
     height: $btn-height-large;
     line-height: $btn-height-large - 4px;

@@ -1,17 +1,29 @@
+/**
+ * 通知提醒组件样式
+ * 提供全局通知提醒的样式定义，包括成功、错误、警告、信息等类型
+ */
+
+/**
+ * 通知提醒组件基础样式
+ * 设置通知提醒的位置和布局
+ */
 .#{$notice-prefix-cls} {
   margin-right: 24px;
   position: fixed;
   width: $notice-width;
   z-index: $zindex-notification;
 
+  // 带图标的内容：左边距
   &-content-with-icon {
     margin-left: 51px;
   }
 
+  // 带描述和图标的标题：左边距
   &-with-desc &-with-icon &-title {
     margin-left: 51px;
   }
 
+  // 通知项：白色背景，阴影，圆角
   &-notice {
     background: #fff;
     // border: 1px solid $border-color-split;
@@ -23,6 +35,7 @@
     padding: $notice-padding;
     position: relative;
 
+    // 关闭按钮：绝对定位，灰色
     &-close {
       color: #999;
       outline: none;
@@ -35,12 +48,14 @@
       }
     }
 
+    // 带渲染内容：隐藏描述
     &-content-with-render {
       .ivu-notice-desc {
         display: none;
       }
     }
 
+    // 带描述时：调整关闭按钮位置
     &-with-desc {
       .#{$notice-prefix-cls}-notice-close {
         top: 11px;
@@ -48,10 +63,12 @@
     }
   }
 
+  // 带渲染内容无标题：左边距
   &-content-with-render-notitle {
     margin-left: 26px;
   }
 
+  // 通知标题：标题色，大字体，省略号
   &-title {
     color: $title-color;
     font-size: $font-size-large;
@@ -62,11 +79,13 @@
     white-space: nowrap;
   }
 
+  // 带描述时的标题：底部边距
   &-with-desc &-title {
     //font-weight: bold;
     margin-bottom: 8px;
   }
 
+  // 通知描述：文字颜色，基础字体，两端对齐
   &-desc {
     //color: $legend-color;
     color: $text-color;
@@ -75,41 +94,50 @@
     text-align: justify;
   }
 
+  // 带描述和图标的描述：左边距
   &-with-desc &-with-icon &-desc {
     margin-left: 51px;
   }
 
+  // 带图标的标题：左边距
   &-with-icon &-title {
     margin-left: 26px;
   }
 
+  // 通知图标：大字体，绝对定位
   &-icon {
     font-size: $font-size-large + 4;
     position: absolute;
     top: -2px;
 
+    // 成功图标：成功色
     &-success {
       color: $success-color;
     }
 
+    // 信息图标：主色调
     &-info {
       color: $primary-color;
     }
 
+    // 警告图标：警告色
     &-warning {
       color: $warning-color;
     }
 
+    // 错误图标：错误色
     &-error {
       color: $error-color;
     }
   }
 
+  // 带描述时的图标：更大字体，调整位置
   &-with-desc &-icon {
     font-size: 36px;
     top: -6px;
   }
 
+  // 自定义内容：相对定位
   &-custom-content {
     position: relative;
   }

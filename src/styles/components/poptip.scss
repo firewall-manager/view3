@@ -1,16 +1,28 @@
+/**
+ * 气泡提示组件样式
+ * 提供气泡提示的样式定义，包括箭头、内容、确认模式等
+ */
+
+/**
+ * 气泡提示组件基础样式
+ * 设置气泡提示的整体布局和交互效果
+ */
 .#{$poptip-prefix-cls} {
   display: inline-block;
 
+  // 相对定位容器：内联块级，相对定位
   &-rel {
     display: inline-block;
     position: relative;
   }
 
+  // 气泡标题：内边距，底部边框
   &-title {
     margin: 0;
     padding: 8px 16px;
     position: relative;
 
+    // 标题底部边框：分割线
     &::after {
       background-color: $border-color-split;
       bottom: 0;
@@ -22,6 +34,7 @@
       right: 8px;
     }
 
+    // 标题内容：标题色，基础字体，粗体
     &-inner {
       color: $title-color;
       font-size: $font-size-base;
@@ -29,23 +42,28 @@
     }
   }
 
+  // 气泡主体：内边距
   &-body {
     padding: 8px 16px;
 
+    // 主体内容：滚动，文字换行
     &-content {
       overflow: auto;
 
+      // 文字换行：两端对齐，保留换行
       &-word-wrap {
         text-align: justify;
         white-space: pre-wrap;
       }
 
+      // 内容内部：文字颜色
       &-inner {
         color: $text-color;
       }
     }
   }
 
+  // 气泡内部：白色背景，阴影，圆角
   &-inner {
     background-clip: padding-box;
     background-color: #fff;
@@ -56,11 +74,13 @@
     width: 100%;
   }
 
+  // 气泡弹出器：使用弹出器混入，最小宽度
   &-popper {
     @include popper($poptip-arrow, $poptip-arrow-width, $poptip-distance, $poptip-arrow-color);
     font-size: $font-size-base;
     min-width: 150px;
 
+    // 顶部箭头：白色边框
     &[x-placement^="top"] .#{$poptip-arrow}:after {
       border-bottom-width: 0;
       border-top-color: #fff;
@@ -70,6 +90,7 @@
       margin-left: -$poptip-arrow-width;
     }
 
+    // 右侧箭头：白色边框
     &[x-placement^="right"] .#{$poptip-arrow}:after {
       border-left-width: 0;
       border-right-color: #fff;
@@ -79,6 +100,7 @@
       left: 1px;
     }
 
+    // 底部箭头：白色边框
     &[x-placement^="bottom"] .#{$poptip-arrow}:after {
       border-bottom-color: #fff;
       border-bottom-width: $poptip-arrow-width;
@@ -88,6 +110,7 @@
       top: 1px;
     }
 
+    // 左侧箭头：白色边框
     &[x-placement^="left"] .#{$poptip-arrow}:after {
       border-left-color: #fff;
       border-left-width: $poptip-arrow-width;
@@ -98,6 +121,7 @@
     }
   }
 
+  // 气泡箭头：透明边框，绝对定位
   &-arrow {
     &,
     &::after {
@@ -110,23 +134,28 @@
     }
   }
 
+  // 箭头外边框：使用外部宽度
   &-arrow {
     border-width: $poptip-arrow-outer-width;
   }
 
+  // 箭头内边框：使用内部宽度
   &-arrow::after {
     border-width: $poptip-arrow-width;
     content: '';
   }
 
+  // 确认模式弹出器：最大宽度限制
   &-confirm &-popper {
     max-width: 300px;
   }
 
+  // 确认模式内部：正常换行
   &-confirm &-inner {
     white-space: normal;
   }
 
+  // 确认模式主体：调整内边距，警告图标
   &-confirm &-body {
     padding: 16px 16px 8px;
 
@@ -137,11 +166,13 @@
       position: absolute;
     }
 
+    // 确认消息：左边距
     &-message {
       padding-left: 20px;
     }
   }
 
+  // 确认模式底部：内边距，右对齐，按钮间距
   &-confirm &-footer {
     padding: 8px 16px 16px;
     text-align: right;

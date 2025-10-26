@@ -1,3 +1,12 @@
+/**
+ * 评分组件样式
+ * 提供星级评分的样式定义，包括半星、全星、悬停效果等
+ */
+
+/**
+ * 评分组件基础样式
+ * 设置评分的整体布局和交互效果
+ */
 .#{$rate-prefix-cls} {
   display: inline-block;
   font-size: 20px;
@@ -7,6 +16,7 @@
   padding: 0;
   vertical-align: middle;
 
+  // 禁用状态：禁用光标，去除悬停缩放
   &-disabled &-star {
     &::before,
     &-content::before {
@@ -18,11 +28,13 @@
     }
   }
 
+  // 全星和零星：相对定位
   &-star-full,
   &-star-zero {
     position: relative;
   }
 
+  // 第一半星：绝对定位，左半部分，隐藏
   &-star-first {
     height: 100%;
     left: 0;
@@ -33,6 +45,7 @@
     width: 50%;
   }
 
+  // 第一半星和第二半星：灰色，可点击，过渡动画
   &-star-first,
   &-star-second {
     color: #e9e9e9;
@@ -41,6 +54,7 @@
     user-select: none;
   }
 
+  // 星形图表：内联块级，图标字体，右边距
   &-star-chart {
     display: inline-block;
     font-family: 'Ionicons';
@@ -50,6 +64,7 @@
     position: relative;
     transition: all 0.3s ease;
 
+    // 悬停状态：缩放效果
     &:hover {
       transform: scale(1.1);
 
@@ -59,16 +74,19 @@
     }
   }
 
+  // 全星的第一半星和第二半星：评分色
   &-star-chart &-star-full &-star-first,
   &-star-chart &-star-full &-star-second {
     color: $rate-star-color;
   }
 
+  // 半星的第一半星：评分色，显示
   &-star-chart &-star-half &-star-first {
     color: $rate-star-color;
     opacity: 1;
   }
     
+  // 星形：内联块级，图标字体，右边距
   &-star {
     display: inline-block;
     font-family: 'Ionicons';
@@ -78,10 +96,12 @@
     position: relative;
     transition: all 0.3s ease;
 
+    // 悬停状态：缩放效果
     &:hover {
       transform: scale(1.1);
     }
 
+    // 星形图标：灰色，可点击，过渡动画
     &::before,
     &-content::before {
       color: #e9e9e9;
@@ -91,6 +111,7 @@
       transition: all $transition-time $ease-in-out;
     }
 
+    // 星形内容：绝对定位，左半部分
     &-content {
       height: 100%;
       left: 0;
@@ -99,22 +120,26 @@
       top: 0;
       width: 50%;
 
+      // 内容图标：透明
       &::before {
         color: transparent;
       }
     }
 
+    // 半星和全星：评分色
     &-half &-content::before,
     &-full::before {
       color: $rate-star-color;
     }
 
+    // 半星和全星悬停：评分色变亮
     &-half:hover &-content::before,
     &-full:hover::before {
       color: tint($rate-star-color, 20%);
     }
   }
 
+  // 评分文字：内联块级，基础字体，左边距
   &-text {
     display: inline-block;
     font-size: $font-size-base;
