@@ -1,3 +1,12 @@
+/**
+ * 标签页组件样式
+ * 提供标签页导航的样式定义，包括卡片样式、动画效果等
+ */
+
+/**
+ * 标签页组件基础样式
+ * 设置标签页的整体布局和交互效果
+ */
 .#{$tabs-prefix-cls} {
   @include clearfix;
   box-sizing: border-box;
@@ -5,10 +14,12 @@
   overflow: hidden;
   position: relative;
 
+  // 标签页栏：去除轮廓
   &-bar {
     outline: none;
   }
 
+  // 墨水条：主色调背景，底部定位，过渡动画
   &-ink-bar {
     background-color: $primary-color;
     bottom: 1px;
@@ -21,6 +32,7 @@
     z-index: 1;
   }
 
+  // 标签页栏：底部边框，下边距
   &-bar {
     border-bottom: 1px solid $border-color-base;
     margin-bottom: 16px;

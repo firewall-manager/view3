@@ -1,3 +1,12 @@
+/**
+ * 步骤条组件样式
+ * 提供步骤条导航的样式定义，包括不同状态、尺寸和方向
+ */
+
+/**
+ * 步骤条组件基础样式
+ * 设置步骤条的整体布局和交互效果
+ */
 .#{$steps-prefix-cls} {
   display: box;
   display: flexbox;
@@ -6,6 +15,7 @@
   line-height: 1.5;
   width: 100%;
 
+  // 步骤项：弹性布局，内联块级，相对定位
   &-item {
     -webkit-box-flex: 1;
     display: inline-block;
@@ -15,6 +25,7 @@
     position: relative;
     vertical-align: top;
 
+    // 最后一项：不弹性，固定宽度
     &:last-child {
       -webkit-box-flex: 0;
       -ms-flex: 0;

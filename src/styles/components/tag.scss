@@ -1,9 +1,20 @@
+/**
+ * 标签组件样式
+ * 提供标签的样式定义，包括不同颜色、尺寸和类型
+ */
+
+/**
+ * 标签组件基础样式
+ * 设置标签的整体布局和视觉效果
+ */
 .#{$tag-prefix-cls} {
+  // 颜色调色板：遍历所有颜色，生成对应样式
   @each $name, $colors in $colors-pallete {
     $lightColor: map-get($colors, '1');
     $lightBorderColor: map-get($colors, '3');
     $darkColor: map-get($colors, '6');
 
+    // 颜色标签：浅色背景，浅色边框，深色文字
     &-#{$name} {
       background: $lightColor;
       border-color: $lightBorderColor;
@@ -15,14 +26,17 @@
         line-height: 32px;
       }
     }
+    // 大尺寸颜色标签：大行高
     .ivu-tag-size-large#{&}-#{$name} {
       line-height: 30px;
     }
+    // 中尺寸颜色标签：中行高
     .ivu-tag-size-medium#{&}-#{$name} {
       line-height: 26px;
     }
   }
 
+  // 标签基础样式：背景色，边框，圆角，内联块级
   background: $background-color-base;
   border: 1px solid $border-color-split;
   border-radius: $btn-border-radius-small;

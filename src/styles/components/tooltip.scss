@@ -1,19 +1,32 @@
+/**
+ * 工具提示组件样式
+ * 提供工具提示的样式定义，包括普通和浅色主题
+ */
+
+/**
+ * 工具提示组件基础样式
+ * 设置工具提示的整体布局和交互效果
+ */
 .#{$tooltip-prefix-cls} {
   display: inline-block;
 
+  // 工具提示相对容器：内联块级，相对定位，继承宽度
   &-rel {
     display: inline-block;
     position: relative;
     width: inherit;
   }
 
+  // 工具提示弹出器：使用弹出器混入
   &-popper {
     @include popper($tooltip-arrow, $tooltip-arrow-width, $tooltip-distance, $tooltip-bg);
   }
 
+  // 浅色主题弹出器：使用浅色弹出器混入
   &-light &-popper {
     @include popper($tooltip-arrow, $tooltip-arrow-width-light, $tooltip-distance-light, $tooltip-arrow-color);
 
+    // 顶部位置箭头：白色上边框
     &[x-placement^="top"] .#{$tooltip-arrow}:after {
       border-bottom-width: 0;
       border-top-color: #fff;
@@ -23,6 +36,7 @@
       margin-left: -$tooltip-arrow-width-light;
     }
 
+    // 右侧位置箭头：白色右边框
     &[x-placement^="right"] .#{$tooltip-arrow}:after {
       border-left-width: 0;
       border-right-color: #fff;
@@ -32,6 +46,7 @@
       left: 1px;
     }
 
+    // 底部位置箭头：白色下边框
     &[x-placement^="bottom"] .#{$tooltip-arrow}:after {
       border-bottom-color: #fff;
       border-bottom-width: $tooltip-arrow-width-light;
@@ -41,6 +56,7 @@
       top: 1px;
     }
 
+    // 左侧位置箭头：白色左边框
     &[x-placement^="left"] .#{$tooltip-arrow}:after {
       border-left-color: #fff;
       border-left-width: $tooltip-arrow-width-light;
@@ -51,6 +67,7 @@
     }
   }
 
+  // 工具提示内部：背景色，圆角，阴影，最大宽度
   &-inner {
     background-color: $tooltip-bg;
     border-radius: $border-radius-small;
@@ -63,6 +80,7 @@
     text-decoration: none;
     white-space: nowrap;
 
+    // 带宽度的内部：两端对齐，保留换行，强制换行
     &-with-width {
       text-align: justify;
       white-space: pre-wrap;
@@ -72,11 +90,13 @@
     }
   }
 
+  // 浅色主题内部：白色背景，文字颜色
   &-light &-inner {
     background-color: #fff;
     color: $text-color;
   }
 
+  // 工具提示箭头：透明边框，绝对定位
   &-arrow {
     border-color: transparent;
     border-style: solid;
@@ -85,10 +105,12 @@
     width: 0;
   }
 
+  // 浅色主题箭头：外边框宽度，内边框样式
   &-light {
     .#{$tooltip-arrow} {
       border-width: $tooltip-arrow-outer-width-light;
 
+      // 箭头内边框：透明边框，绝对定位
       &::after {
         border-color: transparent;
         border-style: solid;

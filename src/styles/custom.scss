@@ -1,72 +1,135 @@
+/**
+ * 自定义样式变量文件
+ * 定义整个UI组件库的样式变量，包括颜色、尺寸、布局等
+ */
+
 @import 'color/colors';
 
-// Prefix
+// ==================== 前缀设置 ====================
+// CSS类名前缀
 $css-prefix: ivu-;
+// 图标字体前缀
 $css-prefix-iconfont: ion;
 
+// 输入框禁用背景色
 $input-disabled-bg: #f3f3f3 !default;
-// Color
+
+// ==================== 颜色系统 ====================
+// 主色调：蓝色
 $primary-color: #2d8cf0 !default;
+// 信息色：浅蓝色
 $info-color: #2db7f5 !default;
+// 成功色：绿色
 $success-color: #19be6b !default;
+// 处理中色：使用主色调
 $processing-color: $primary-color;
+// 警告色：橙色
 $warning-color: #f90 !default;
+// 错误色：红色
 $error-color: #ed4014 !default;
+// 普通色：浅灰色
 $normal-color: #e6ebf1 !default;
+// 链接色：与主色调相同
 $link-color: #2d8cf0 !default;
+// 链接悬停色：主色调加亮20%
 $link-hover-color: tint($link-color, 20%) !default;
+// 链接激活色：主色调加深5%
 $link-active-color: shade($link-color, 5%) !default;
+// 选中色：主色调加深5%
 $selected-color: shade($primary-color, 5%) !default;
+// 工具提示文字色：白色
 $tooltip-color: #fff !default;
+// 辅助色：灰色
 $subsidiary-color: #808695 !default;
+// 评分星色：黄色
 $rate-star-color: #f5a623 !default;
+// 纯白色
 $white: #fff;
+// 纯黑色
 $black: #000;
 
-// Base
+// ==================== 基础样式 ====================
+// 页面背景色：白色
 $body-background: #fff !default;
+// 组件背景色：白色
 $component-background: #fff !default;
+// 字体族：支持中英文字体
 $font-family: 'Helvetica Neue',Helvetica,'PingFang SC','Hiragino Sans GB','Microsoft YaHei','微软雅黑',Arial,sans-serif !default;
+// 代码字体族：等宽字体
 $code-family: Consolas,Menlo,Courier,monospace !default;
+// 标题颜色：深色
 $title-color: #17233d !default;
+// 文字颜色：中灰色
 $text-color: #515a6e !default;
+// 次要文字颜色：黑色45%透明度
 $text-color-secondary: rgba($black, 45%/100%) !default;
+// 标题颜色：黑色85%透明度
 $heading-color: rgba(#000, 85%/100%) !default;
+// 深色主题标题颜色：白色100%透明度
 $heading-color-dark: rgba($white, 100%/100%) !default;
+// 基础字体大小：14px
 $font-size-base: 14px !default;
+// 小字体大小：12px
 $font-size-small: 12px !default;
+// 大字体大小：基础字体+2px
 $font-size-large: $font-size-base + 2px !default;
+// 基础行高：1.5倍
 $line-height-base: 1.5 !default;
+// 计算行高：基础字体大小×行高，向下取整
 $line-height-computed: floor(($font-size-base * $line-height-base)) !default;
+// 基础圆角：6px
 $border-radius-base: 6px !default;
+// 小圆角：4px
 $border-radius-small: 4px !default;
+// 禁用光标：不允许
 $cursor-disabled: not-allowed !default;
 
-// vertical paddings
-$padding-lg: 24px !default; // containers
-$padding-md: 16px !default; // small containers and buttons
-$padding-sm: 12px !default; // Form controls and items
-$padding-xs: 8px !default; // small items
+// ==================== 内边距系统 ====================
+// 大内边距：24px，用于容器
+$padding-lg: 24px !default;
+// 中等内边距：16px，用于小容器和按钮
+$padding-md: 16px !default;
+// 小内边距：12px，用于表单控件和项目
+$padding-sm: 12px !default;
+// 超小内边距：8px，用于小项目
+$padding-xs: 8px !default;
 
-// Border color
-$border-color-base: #dcdee2 !default;  // outside
-$border-color-split: #e8eaec !default;  // inside
-$border-width-base: 1px !default;            // width of the border for a component
-$border-style-base: solid !default;          // style of a components border
+// ==================== 边框系统 ====================
+// 基础边框色：外部边框
+$border-color-base: #dcdee2 !default;
+// 分割边框色：内部边框
+$border-color-split: #e8eaec !default;
+// 边框宽度：1px
+$border-width-base: 1px !default;
+// 边框样式：实线
+$border-style-base: solid !default;
 
-// Background color
-$background-color-base: #f7f7f7 !default;  // base
+// ==================== 背景色系统 ====================
+// 基础背景色：浅灰色
+$background-color-base: #f7f7f7 !default;
+// 选择悬停背景色：使用输入框禁用背景色
 $background-color-select-hover: $input-disabled-bg !default;
+// 工具提示背景色：深色半透明
 $tooltip-bg: rgba(70, 76, 91, 0.9) !default;
+// 头部背景色：浅色
 $head-bg: #f9fafc !default;
+// 表格表头背景色：浅灰色
 $table-thead-bg: #f8f8f9 !default;
+// 表格条纹背景色：浅灰色
 $table-td-stripe-bg: #f8f8f9 !default;
+// 表格悬停背景色：浅蓝色
 $table-td-hover-bg: #ebf7ff !default;
+// 表格高亮背景色：浅蓝色
 $table-td-highlight-bg: #ebf7ff !default;
+// 深色菜单标题色：中灰色
 $menu-dark-title: #515a6e !default;
+// 深色菜单激活背景色：深灰色
 $menu-dark-active-bg: #363e4f !default;
+// 深色菜单辅助色：白色70%透明度
 $menu-dark-subsidiary-color: rgba(255, 255, 255, 0.7) !default;
+// 深色菜单组标题色：白色36%透明度
 $menu-dark-group-title-color: rgba(255, 255, 255, 0.36) !default;
+// 日期选择器单元格悬停背景色：浅蓝色
 $date-picker-cell-hover-bg: #e1f0fe !default;
 
 // Shadow

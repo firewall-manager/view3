@@ -183,7 +183,7 @@
     }
   }
 
-  // vertical
+  // 垂直菜单项和子菜单标题：指针光标，内边距，过渡动画
   &-vertical &-item,
   &-vertical &-submenu-title {
     cursor: pointer;
@@ -192,12 +192,14 @@
     transition: all $transition-time $ease-in-out;
     z-index: 1;
 
+    // 悬停状态：主色调文字（背景已注释）
     &:hover {
       //background: $background-color-select-hover;
       color: $primary-color;
     }
   }
 
+  // 垂直子菜单标题图标：绝对定位，垂直居中
   &-vertical &-submenu-title-icon {
     // #5592 支持自定义图标 size 后，换一种位置
     //float: right;
@@ -209,27 +211,34 @@
     transform: translateY(-50%);
   }
 
+  // 子菜单标题图标：变换过渡动画
   &-submenu-title-icon {
     transition: transform $transition-time $ease-in-out;
   }
 
+  // 水平菜单打开状态的子菜单图标：旋转180度
   &-horizontal &-opened > * > &-submenu-title-icon {
     transform: rotate(180deg);
   }
 
+  // 垂直菜单打开状态的子菜单图标：垂直居中并旋转180度
   &-vertical &-opened > * > &-submenu-title-icon {
     transform: translateY(-50%) rotate(180deg);
   }
 
+  // 垂直子菜单：嵌套和项目样式
   &-vertical &-submenu {
+    // 嵌套子菜单：左边距
     &-nested {
       padding-left: 20px;
     }
+    // 子菜单项目：更大的左边距
     .#{$menu-prefix-cls}-item {
       padding-left: 43px;
     }
   } 
 
+  // 垂直菜单项组：基础字体，固定高度
   &-vertical &-item-group {
     &-title {
       font-size: $font-size-base;
@@ -239,20 +248,24 @@
     }
   }
 
+  // 深色垂直菜单项组：深色组标题颜色
   &-dark.#{$menu-prefix-cls}-vertical &-item-group {
     &-title {
       color: $menu-dark-group-title-color;
     }
   }
 
+  // 浅色垂直菜单项：激活状态样式
   &-light.#{$menu-prefix-cls}-vertical &-item {
     //border-right: 2px solid transparent;
+    // 激活状态（非子菜单）：主色调浅色背景，主色调文字，右侧边框
     &-active:not(.#{$menu-prefix-cls}-submenu) {
       background: tint($primary-color, 90%);
       color: $primary-color;
       //border-right: 2px solid $primary-color;
       z-index: 2;
 
+      // 激活状态右侧边框：主色调背景，绝对定位
       &::after {
         background: $primary-color;
         bottom: 0;
@@ -266,17 +279,21 @@
     }
   }
 
+  // 浅色垂直菜单：子菜单标题样式
   &-light.#{$menu-prefix-cls}-vertical {
+    // 子菜单标题：块级显示
     .ivu-menu-submenu-title {
       display: block;
     }
 
+    // 激活菜单项的子菜单标题：主色调浅色背景，主色调文字
     .#{$menu-prefix-cls}-item-active {
       .ivu-menu-submenu-title {
         background: tint($primary-color, 90%);
         color: $primary-color;
         z-index: 2;
 
+        // 激活子菜单标题右侧边框：主色调背景，绝对定位
         &::after {
           background: $primary-color;
           bottom: 0;
@@ -291,30 +308,37 @@
     }
   }
 
+  // 深色垂直菜单项和子菜单标题：深色辅助色文字
   &-dark.#{$menu-prefix-cls}-vertical &-item,
   &-dark.#{$menu-prefix-cls}-vertical &-submenu-title {
     color: $menu-dark-subsidiary-color;
+    // 激活状态（非子菜单）：深色激活背景
     &-active:not(.#{$menu-prefix-cls}-submenu),
     &-active:not(.#{$menu-prefix-cls}-submenu):hover {
       background: $menu-dark-active-bg;
     }
 
+    // 悬停状态：深色标题背景，白色文字
     &:hover {
       background: $menu-dark-title;
       color: #fff;
     }
+    // 激活状态（非子菜单）：主色调文字
     &-active:not(.#{$menu-prefix-cls}-submenu) {
       color: $primary-color;
       //border-right: 2px solid $primary-color;
     }
   }
 
+  // 深色垂直子菜单项目：悬停和激活状态
   &-dark.#{$menu-prefix-cls}-vertical &-submenu &-item {
+    // 悬停状态：透明背景，白色文字
     &:hover {
       background: transparent !important;
       color: #fff;
     }
 
+    // 激活状态：主色调背景，白色文字
     &-active,
     &-active:hover {
       background: $primary-color !important;
@@ -325,16 +349,20 @@
   // &-dark &-vertical &-item-active &-submenu-title{
   //     color: #fff;
   // }
+  // 深色垂直子菜单激活项的子菜单标题：白色文字
   &-dark.#{$menu-prefix-cls}-vertical &-child-item-active > &-submenu-title {
     color: #fff;
   }
 
+  // 深色垂直打开的子菜单：深色激活背景
   &-dark.#{$menu-prefix-cls}-vertical &-opened {
     background: $menu-dark-active-bg;
+    // 打开子菜单的标题：深色标题背景
     .#{$menu-prefix-cls}-submenu-title {
       background: $menu-dark-title;
     }
 
+    // 有父级子菜单的子菜单标题：透明背景
     .#{$menu-prefix-cls}-submenu-has-parent-submenu {
       .#{$menu-prefix-cls}-submenu-title {
         background: transparent;
@@ -342,8 +370,17 @@
     }
   }
 }
+
+/**
+ * 菜单下拉项样式
+ * 使用选择项混入生成菜单下拉项样式
+ */
 @include select-item($menu-prefix-cls, $menu-dropdown-item-prefix-cls);
 
+/**
+ * 菜单下拉项基础样式
+ * 设置菜单下拉项的字体和内边距
+ */
 .#{$menu-dropdown-item-prefix-cls} {
   font-size: $font-size-base !important;
   padding: 7px 16px 8px;

@@ -1,11 +1,23 @@
+/**
+ * 时间选择器组件样式
+ * 提供时间选择功能的样式定义，包括时分秒选择和范围选择
+ */
+
+/**
+ * 时间选择器组件基础样式
+ * 设置时间选择器的整体布局和交互效果
+ */
 .#{$time-picker-prefix-cls} {
+  // 时间单元格：最小宽度
   &-cells {
     min-width: $time-picker-cells-width;
 
+    // 带秒数的单元格：更大的最小宽度
     &-with-seconds {
       min-width: $time-picker-cells-width-with-seconds;
     }
 
+    // 时间单元格列表：左边框，左浮动，最大高度，隐藏溢出
     &-list {
       border-left: 1px solid $border-color-split;
       float: left;
@@ -14,25 +26,30 @@
       position: relative;
       width: $time-picker-cells-width-base;
 
+      // 悬停状态：显示垂直滚动
       &:hover {
         overflow-y: auto;
       }
 
+      // 第一个列表：去除左边框，左上和左下圆角
       &:first-child {
         border-left: 0;
         border-radius: $btn-border-radius 0 0 $btn-border-radius;
       }
 
+      // 最后一个列表：右上和右下圆角
       &:last-child {
         border-radius: 0 $btn-border-radius $btn-border-radius 0;
       }
 
+      // 列表：去除默认样式，底部内边距
       ul {
         list-style: none;
         margin: 0;
         padding: 0 0 120px;
         width: 100%;
 
+        // 列表项：内容盒模型，指针光标，固定高度
         li {
           box-sizing: content-box;
           cursor: pointer;
@@ -50,15 +67,19 @@
       }
     }
 
+    // 时间单元格：悬停、禁用、选中、焦点状态
     &-cell {
+      // 悬停状态：选择悬停背景
       &:hover {
         background: $background-color-select-hover;
       }
 
+      // 禁用状态：禁用色，禁用光标
       &-disabled {
         color: $btn-disable-color;
         cursor: $cursor-disabled;
 
+        // 禁用悬停状态：白色背景，保持禁用色
         &:hover {
           background-color: #fff;
           color: $btn-disable-color;
@@ -66,18 +87,21 @@
         }
       }
 
+      // 选中状态：选择悬停背景，主色调文字
       &-selected ,
       &-selected:hover {
         background: $background-color-select-hover;
         color: $primary-color;
       }
 
+      // 焦点状态：主色调浅色背景
       &-focused {
         background-color: tint($primary-color, 80%);
       }
     }
   }
 
+  // 时间选择器头部：底部边框，固定高度，居中对齐
   &-header {
     border-bottom: 1px solid $border-color-split;
     height: 32px;
@@ -85,16 +109,20 @@
     text-align: center;
   }
 
+  // 范围选择模式：双倍宽度，分隔线
   &-with-range {
     .#{$picker-prefix-cls}-panel {
+      // 面板主体：双倍最小宽度
       &-body {
         min-width: $time-picker-cells-width * 2 + 4px;
       }
 
+      // 面板内容：左浮动，相对定位
       &-content {
         float: left;
         position: relative;
 
+        // 内容分隔线：边框色背景，绝对定位
         &::after {
           background: $border-color-split;
           bottom: 0;
@@ -107,9 +135,11 @@
           z-index: 1;
         }
 
+        // 右侧内容：右浮动
         &-right {
           float: right;
 
+          // 右侧分隔线：左边定位
           &::after {
             left: -2px;
             right: auto;
@@ -117,8 +147,10 @@
         }
       }
     }
+    // 范围选择单元格列表：去除圆角
     .#{$time-picker-prefix-cls}-cells {
       &-list {
+        // 第一个和最后一个列表：去除圆角
         &:first-child {
           border-radius: 0;
         }
@@ -130,6 +162,7 @@
     }
   }
 
+  // 带秒数的范围选择：更大的最小宽度
   &-with-range.#{$time-picker-prefix-cls}-with-seconds {
     .#{$picker-prefix-cls}-panel {
       &-body {
@@ -139,17 +172,25 @@
   }
 }
 
+/**
+ * 带日期的选择器面板内容
+ * 设置带日期的选择器中的时间选择器样式
+ */
 .#{$picker-prefix-cls}-panel-content {
   .#{$picker-prefix-cls}-panel-content {
     .#{$time-picker-prefix-cls} {
+      // 带日期的单元格：更大的最小宽度
       &-cells {
         min-width: $time-picker-cells-width-with-date-with-seconds;
 
+        // 带秒数的单元格：更大的最小宽度
         &-with-seconds {
           min-width: $time-picker-cells-width-with-date-with-seconds;
+          // 带秒数的单元格列表：三分之一宽度
           .#{$time-picker-prefix-cls}-cells-list {
             width: $time-picker-cells-width-with-date-with-seconds / 3;
 
+            // 列表项：更大的左边距
             ul {
               li {
                 padding: 0 0 0 28px;
@@ -158,10 +199,12 @@
           }
         }
 
+        // 单元格列表：更大的最大高度，一半宽度
         &-list {
           max-height: 216px;
           width: $time-picker-cells-width-with-date-with-seconds / 2;
 
+          // 第一个和最后一个列表：去除圆角
           &:first-child {
             border-radius: 0;
           }
@@ -170,9 +213,11 @@
             border-radius: 0;
           }
 
+          // 列表：更大的底部内边距
           ul {
             padding: 0 0 192px;
 
+            // 列表项：更大的左边距
             li {
               padding: 0 0 0 46px;
             }

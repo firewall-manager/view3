@@ -1,7 +1,18 @@
+/**
+ * 时间组件样式
+ * 提供时间显示的样式定义，包括带哈希的时间样式
+ */
+
+/**
+ * 时间组件基础样式
+ * 设置时间的整体布局和交互效果
+ */
 .#{$time-prefix-cls} {
+  // 带哈希的时间：指针光标
   &-with-hash {
     cursor: pointer;
 
+    // 悬停状态：下划线装饰
     &:hover {
       text-decoration: underline;
     }

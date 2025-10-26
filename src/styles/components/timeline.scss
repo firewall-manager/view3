@@ -1,14 +1,25 @@
+/**
+ * 时间轴组件样式
+ * 提供时间轴展示的样式定义，包括不同状态和自定义头部
+ */
+
+/**
+ * 时间轴组件基础样式
+ * 设置时间轴的整体布局和视觉效果
+ */
 .#{$timeline-prefix-cls} {
   list-style: none;
   margin: 0;
   padding: 0;
 
+  // 时间轴项：列表项，相对定位
   &-item {
     list-style: none;
     margin: 0 !important;
     padding: 0 0 12px;
     position: relative;
 
+    // 时间轴尾部：左边框，全高，绝对定位
     &-tail {
       border-left: 1px solid $timeline-color;
       height: 100%;
@@ -17,10 +28,12 @@
       top: 0;
     }
 
+    // 待处理状态：隐藏尾部
     &-pending &-tail {
       display: none;
     }
 
+    // 时间轴头部：白色背景，圆形，绝对定位
     &-head {
       background-color: #fff;
       border: 1px solid transparent;
@@ -29,22 +42,26 @@
       position: absolute;
       width: 13px;
 
+      // 蓝色头部：主色调边框和颜色
       &-blue {
         border-color: $primary-color;
         color: $primary-color;
       }
 
+      // 红色头部：错误色边框和颜色
       &-red {
         border-color: $error-color;
         color: $error-color;
       }
 
+      // 绿色头部：成功色边框和颜色
       &-green {
         border-color: $success-color;
         color: $success-color;
       }
     }
 
+    // 自定义头部：去除边框和圆角，基础字体
     &-head-custom {
       border: 0;
       border-radius: 0;
@@ -60,6 +77,7 @@
       width: 40px;
     }
 
+    // 时间轴内容：基础字体，左边距，相对定位
     &-content {
       font-size: $font-size-base;
       padding: 1px 1px 10px 24px;
@@ -67,6 +85,7 @@
       top: -3px;
     }
 
+    // 最后一项：隐藏尾部
     &:last-child {
       .#{$timeline-prefix-cls}-item-tail {
         display: none;
@@ -74,11 +93,13 @@
     }
   }
 
+  // 待处理时间轴：倒数第二项的虚线尾部
   &#{&}-pending &-item:nth-last-of-type(2) {
-
+    // 待处理尾部：虚线边框
     .#{$timeline-prefix-cls}-item-tail {
       border-left: 1px dotted $timeline-color;
     }
+    // 待处理内容：最小高度
     .#{$timeline-prefix-cls}-item-content {
       min-height: 48px;
     }
