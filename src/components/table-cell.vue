@@ -1,12 +1,15 @@
 <template>
+  <!-- 表格单元格容器 -->
   <div
     ref="cell"
     :class="classes"
     @click="handleCellClick"
   >
+    <!-- 索引列 -->
     <template v-if="renderType === 'index'">
       <span>{{ column.indexMethod ? column.indexMethod(row) : (naturalIndex + 1) }}</span>
     </template>
+    <!-- 选择列 -->
     <template v-if="renderType === 'selection'">
       <Checkbox
         :model-value="checked"
@@ -15,11 +18,13 @@
         @on-change="toggleSelect"
       />
     </template>
+    <!-- 树形层级缩进 -->
     <div
       v-if="showLevel"
       class="ivu-table-cell-tree-level"
       :style="treeLevelStyle"
     />
+    <!-- 树形展开/收起按钮 -->
     <div
       v-if="showChildren"
       class="ivu-table-cell-tree"
@@ -40,13 +45,16 @@
         type="ios-remove"
       />
     </div>
+    <!-- 树形节点占位 -->
     <div
       v-else-if="showTreeNode"
       class="ivu-table-cell-tree ivu-table-cell-tree-empty"
     />
+    <!-- HTML内容 -->
     <template v-if="renderType === 'html'">
       <span v-html="row[column.key]" />
     </template>
+    <!-- 普通内容 -->
     <template v-if="renderType === 'normal'">
       <template v-if="column.tooltip">
         <Tooltip
@@ -69,6 +77,7 @@
       </template>
       <span v-else>{{ row[column.key] }}</span>
     </template>
+    <!-- 展开列 -->
     <template v-if="renderType === 'expand' && !row._disableExpand">
       <div
         :class="expandCls"
@@ -77,6 +86,7 @@
         <Icon type="ios-arrow-forward" />
       </div>
     </template>
+    <!-- 自定义渲染 -->
     <table-expand
       v-if="renderType === 'render'"
       :row="row"
@@ -84,6 +94,7 @@
       :index="index"
       :render="column.render"
     />
+    <!-- 插槽渲染 -->
     <table-slot
       v-if="renderType === 'slot'"
       :row="row"
@@ -100,25 +111,39 @@ import Icon from './icon'
 import Checkbox from './checkbox'
 import Tooltip from './tooltip'
 
+/**
+ * 表格单元格组件
+ * 用于渲染表格中的单个单元格
+ */
 export default {
   name: 'TableCell',
   components: { Icon, Checkbox, TableExpand, TableSlot, Tooltip },
   inject: ['tableRoot'],
   props: {
+    // 样式前缀
     prefixCls: String,
+    // 行数据
     row: Object,
+    // 列配置
     column: Object,
+    // 自然索引（重建数据索引）
     naturalIndex: Number, // index of rebuildData
+    // 数据索引
     index: Number, // _index of data
+    // 是否选中
     checked: Boolean,
+    // 是否禁用
     disabled: Boolean,
+    // 是否展开
     expanded: Boolean,
+    // 是否固定
     fixed: {
       type: [Boolean, String],
       default: false
     },
-    // 是否为 tree 子节点
+    // 是否为树形子节点
     treeNode: Boolean,
+    // 树形层级
     treeLevel: {
       type: Number,
       default: 0
@@ -126,14 +151,20 @@ export default {
   },
   data () {
     return {
+      // 渲染类型
       renderType: '',
+      // 唯一标识
       uid: -1,
+      // 上下文
       context: this.$parent.$parent.$parent.currentContext,
+      // 是否显示提示框
       showTooltip: false, // 鼠标滑过overflow文本时，再检查是否需要显示
+      // 提示框显示状态
       tooltipShow: false
     }
   },
   computed: {
+    // 单元格CSS类名
     classes () {
       return [
                     `${this.prefixCls}-cell`,
@@ -145,6 +176,7 @@ export default {
                     }
       ]
     },
+    // 展开按钮CSS类名
     expandCls () {
       return [
                     `${this.prefixCls}-cell-expand`,
@@ -153,6 +185,7 @@ export default {
                     }
       ]
     },
+    // 是否显示子节点展开按钮
     showChildren () {
       let status = false
       if (this.renderType === 'html' || this.renderType === 'normal' || this.renderType === 'render' || this.renderType === 'slot') {
@@ -163,6 +196,7 @@ export default {
       }
       return status
     },
+    // 是否显示树形节点占位
     showTreeNode () {
       let status = false
       if (this.renderType === 'html' || this.renderType === 'normal' || this.renderType === 'render' || this.renderType === 'slot') {
@@ -170,6 +204,7 @@ export default {
       }
       return status
     },
+    // 是否显示层级缩进
     showLevel () {
       let status = false
       if (this.renderType === 'html' || this.renderType === 'normal' || this.renderType === 'render' || this.renderType === 'slot') {
@@ -177,15 +212,18 @@ export default {
       }
       return status
     },
+    // 树形层级样式
     treeLevelStyle () {
       return {
         'padding-left': this.treeLevel * this.tableRoot.indentSize + 'px'
       }
     },
+    // 子节点是否展开
     childrenExpand () {
       const data = this.tableRoot.getDataByRowKey(this.row._rowKey)
       return data._isShowChildren
     },
+    // 子节点是否加载中
     childrenLoading () {
       const data = this.tableRoot.getDataByRowKey(this.row._rowKey)
       return '_loading' in data && data._loading
@@ -209,6 +247,7 @@ export default {
     }
   },
   methods: {
+    // 切换选择状态
     toggleSelect () {
       if (this.treeNode) {
         this.$parent.$parent.$parent.toggleSelect(this.index, this.row._rowKey)
@@ -216,28 +255,36 @@ export default {
         this.$parent.$parent.$parent.toggleSelect(this.index)
       }
     },
+    // 切换展开状态
     toggleExpand () {
       this.$parent.$parent.$parent.toggleExpand(this.index)
     },
+    // 处理点击事件
     handleClick () {
-      // 放置 Checkbox 冒泡
+      // 防止 Checkbox 冒泡
     },
+    // 处理提示框鼠标进入
     handleTooltipIn () {
       const $content = this.$refs.content
       this.showTooltip = $content.scrollWidth > $content.offsetWidth
     },
+    // 处理提示框鼠标离开
     handleTooltipOut () {
       this.showTooltip = false
     },
+    // 处理提示框显示
     handleTooltipShow () {
       this.tooltipShow = true
     },
+    // 处理提示框隐藏
     handleTooltipHide () {
       this.tooltipShow = false
     },
+    // 处理树形节点切换
     handleToggleTree () {
       this.$parent.$parent.$parent.toggleTree(this.row._rowKey)
     },
+    // 处理单元格点击
     handleCellClick (event) {
       this.$parent.$parent.$parent.$emit('on-cell-click', this.row, this.column, this.row[this.column.key], event)
     }

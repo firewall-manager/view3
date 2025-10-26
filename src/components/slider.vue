@@ -1,5 +1,7 @@
 <template>
+  <!-- 滑块组件容器 -->
   <div :class="classes">
+    <!-- 单值输入框 -->
     <InputNumber
       v-if="!range && showInput"
       :min="min"
@@ -11,21 +13,25 @@
       :active-change="activeChange"
       @on-change="handleInputChange"
     />
+    <!-- 滑块主体 -->
     <div
       ref="slider"
       :class="[prefixCls + '-wrap']"
       @click.self="sliderClick"
     >
+      <!-- 隐藏输入框 -->
       <input
         type="hidden"
         :name="name"
         :value="exportValue"
       >
+      <!-- 滑块轨道 -->
       <div
         :class="[prefixCls + '-bar']"
         :style="barStyle"
         @click.self="sliderClick"
       />
+      <!-- 步长刻度 -->
       <template v-if="showStops">
         <div
           v-for="item in stops"
@@ -34,6 +40,7 @@
           @click.self="sliderClick"
         />
       </template>
+      <!-- 标记刻度 -->
       <template v-if="markList.length > 0">
         <div
           v-for="(item, key) in markList"
@@ -42,6 +49,7 @@
           :style="{ 'left': item.position + '%' }"
           @click.self="sliderClick"
         />
+        <!-- 标记文本 -->
         <div class="ivu-slider-marks">
           <SliderMarker
             v-for="(item, key) in markList"
@@ -52,6 +60,7 @@
           />
         </div>
       </template>
+      <!-- 最小值滑块按钮 -->
       <div
         :class="[prefixCls + '-button-wrap']"
         :style="{left: minPosition + '%'}"
@@ -78,6 +87,7 @@
           />
         </Tooltip>
       </div>
+      <!-- 最大值滑块按钮（范围模式） -->
       <div
         v-if="range"
         :class="[prefixCls + '-button-wrap']"
@@ -120,39 +130,51 @@ import elementResizeDetectorMaker from 'element-resize-detector'
 
 const prefixCls = 'ivu-slider'
 
+/**
+ * 滑块组件
+ * 用于选择数值范围的滑块组件
+ */
 export default {
   name: 'Slider',
   components: { InputNumber, Tooltip, SliderMarker },
   mixins: [Emitter, mixinsForm],
   props: {
+    // 最小值
     min: {
       type: Number,
       default: 0
     },
+    // 最大值
     max: {
       type: Number,
       default: 100
     },
+    // 步长
     step: {
       type: Number,
       default: 1
     },
+    // 是否为范围选择
     range: {
       type: Boolean,
       default: false
     },
+    // 绑定值
     modelValue: {
       type: [Number, Array],
       default: 0
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否显示输入框
     showInput: {
       type: Boolean,
       default: false
     },
+    // 输入框尺寸
     inputSize: {
       type: String,
       default: 'default',

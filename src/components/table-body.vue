@@ -5,31 +5,45 @@ import Expand from './table-expand'
 import Mixin from '../mixins/table'
 import { h } from 'vue'
 
+/**
+ * 表格主体组件
+ * 用于渲染表格数据行的组件
+ */
 export default {
   name: 'TableBody',
   components: { TableCell, Expand, TableTr },
   mixins: [Mixin],
   props: {
+    // 样式前缀
     prefixCls: String,
+    // 样式对象
     styleObject: Object,
+    // 列配置
     columns: Array,
+    // 表格数据（重建数据）
     data: Array, // rebuildData
+    // 对象数据
     objData: Object,
+    // 列宽度
     columnsWidth: Object,
+    // 是否固定
     fixed: {
       type: [Boolean, String],
       default: false
     },
+    // 是否可拖拽
     draggable: {
       type: Boolean,
       default: false
     },
+    // 行键
     rowKey: {
       type: [Boolean, String],
       default: false
     }
   },
   computed: {
+    // 展开行渲染函数
     expandRender () {
       let render = function () {
         return ''
@@ -44,39 +58,49 @@ export default {
     }
   },
   methods: {
+    // 行是否选中
     rowChecked (_index) {
       return this.objData[_index] && this.objData[_index]._isChecked
     },
+    // 行是否禁用
     rowDisabled (_index) {
       return this.objData[_index] && this.objData[_index]._isDisabled
     },
+    // 行是否展开
     rowExpanded (_index) {
       return this.objData[_index] && this.objData[_index]._isExpanded
     },
+    // 通过行键获取行状态
     rowStatusByRowKey (type, rowKey) {
       const data = this.$parent.getDataByRowKey(rowKey)
       return data[type]
     },
+    // 处理鼠标进入
     handleMouseIn (_index, event, rowKey) {
       event.stopPropagation()
       this.$parent.handleMouseIn(_index, rowKey)
     },
+    // 处理鼠标离开
     handleMouseOut (_index, event, rowKey) {
       event.stopPropagation()
       this.$parent.handleMouseOut(_index, rowKey)
     },
+    // 处理行点击
     clickCurrentRow (_index, event, rowKey) {
       this.$parent.clickCurrentRow(_index, rowKey)
     },
+    // 处理行双击
     dblclickCurrentRow (_index, event, rowKey) {
       event.stopPropagation()
       this.$parent.dblclickCurrentRow(_index, rowKey)
     },
+    // 处理行右键菜单
     contextmenuCurrentRow (_index, event, rowKey) {
       event.stopPropagation()
       if (this.$parent.contextMenu) event.preventDefault()
       this.$parent.contextmenuCurrentRow(_index, rowKey, event)
     },
+    // 处理选择开始
     selectStartCurrentRow () {
       if (this.$parent.contextMenu) {
         // event.stopPropagation();

@@ -1,15 +1,19 @@
 <template>
+  <!-- 标签页容器 -->
   <div
     ref="tabsWrap"
     :class="classes"
   >
+    <!-- 标签页导航栏 -->
     <div :class="[prefixCls + '-bar']">
+      <!-- 右侧插槽 -->
       <div
         v-if="showSlot"
         :class="[prefixCls + '-nav-right']"
       >
         <slot name="extra" />
       </div>
+      <!-- 导航容器 -->
       <div
         ref="navContainer"
         :class="[prefixCls + '-nav-container']"
@@ -17,33 +21,40 @@
         @keydown="handleTabKeyNavigation"
         @keydown.space.prevent="handleTabKeyboardSelect(false)"
       >
+        <!-- 导航包装器 -->
         <div
           ref="navWrap"
           :class="[prefixCls + '-nav-wrap', scrollable ? prefixCls + '-nav-scrollable' : '']"
         >
+          <!-- 左滚动按钮 -->
           <span
             :class="[prefixCls + '-nav-prev', scrollable ? '' : prefixCls + '-nav-scroll-disabled']"
             @click="scrollPrev"
           ><Icon type="ios-arrow-back" /></span>
+          <!-- 右滚动按钮 -->
           <span
             :class="[prefixCls + '-nav-next', scrollable ? '' : prefixCls + '-nav-scroll-disabled']"
             @click="scrollNext"
           ><Icon type="ios-arrow-forward" /></span>
+          <!-- 滚动区域 -->
           <div
             ref="navScroll"
             :class="[prefixCls + '-nav-scroll']"
             @DOMMouseScroll="handleScroll"
             @mousewheel="handleScroll"
           >
+            <!-- 导航列表 -->
             <div
               ref="nav"
               :class="[prefixCls + '-nav']"
               :style="navStyle"
             >
+              <!-- 指示条 -->
               <div
                 :class="barClasses"
                 :style="barStyle"
               />
+              <!-- 标签页项 -->
               <div
                 v-for="(item, index) in navList"
                 :class="tabCls(item)"
@@ -56,17 +67,21 @@
                 @drop="handleDrop(index, $event)"
                 @dragover.prevent
               >
+                <!-- 标签页图标 -->
                 <Icon
                   v-if="item.icon !== ''"
                   :type="item.icon"
                 />
+                <!-- 函数式标签页标题 -->
                 <Render
                   v-if="item.labelType === 'function'"
                   :render="item.label"
                 />
+                <!-- 普通标签页标题 -->
                 <template v-else>
                   {{ item.label }}
                 </template>
+                <!-- 关闭按钮 -->
                 <Icon
                   v-if="showClose(item)"
                   :class="[prefixCls + '-close']"
@@ -81,6 +96,7 @@
         </div>
       </div>
     </div>
+    <!-- 标签页内容 -->
     <div
       ref="panes"
       :class="contentClasses"
@@ -88,6 +104,7 @@
     >
       <slot />
     </div>
+    <!-- 右键菜单 -->
     <div
       class="ivu-tabs-context-menu"
       :style="contextMenuStyles"

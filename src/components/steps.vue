@@ -1,4 +1,5 @@
 <template>
+  <!-- 步骤条容器 -->
   <div :class="classes">
     <slot />
   </div>
@@ -8,6 +9,11 @@ import { oneOf } from '../../utils/assist'
 
 const prefixCls = 'ivu-steps'
 
+/**
+ * 防抖函数
+ * @param {Function} fn 要防抖的函数
+ * @returns {Function} 防抖后的函数
+ */
 function debounce (fn) {
   let waiting
   return function () {
@@ -23,24 +29,32 @@ function debounce (fn) {
   }
 }
 
+/**
+ * 步骤条组件
+ * 用于显示流程步骤的导航组件
+ */
 export default {
   name: 'Steps',
   props: {
+    // 当前步骤
     current: {
       type: Number,
       default: 0
     },
+    // 当前状态
     status: {
       validator (value) {
         return oneOf(value, ['wait', 'process', 'finish', 'error'])
       },
       default: 'process'
     },
+    // 尺寸
     size: {
       validator (value) {
         return oneOf(value, ['small'])
       }
     },
+    // 方向
     direction: {
       validator (value) {
         return oneOf(value, ['horizontal', 'vertical'])
@@ -49,6 +63,7 @@ export default {
     }
   },
   computed: {
+    // 步骤条CSS类名
     classes () {
       return [
                     `${prefixCls}`,
@@ -60,9 +75,11 @@ export default {
     }
   },
   watch: {
+    // 监听当前步骤变化
     current () {
       this.updateChildProps()
     },
+    // 监听状态变化
     status () {
       this.updateCurrent()
     }
@@ -73,6 +90,7 @@ export default {
     this.mitt.on('remove', this.debouncedAppendRemove())
   },
   methods: {
+    // 更新子组件属性
     updateChildProps (isInit) {
       const total = this.$children.length
       this.$children.forEach((child, index) => {
@@ -101,6 +119,7 @@ export default {
         }
       })
     },
+    // 设置下一个错误状态
     setNextError () {
       this.$children.forEach((child, index) => {
         if (child.currentStatus === 'error' && index !== 0) {
@@ -108,6 +127,7 @@ export default {
         }
       })
     },
+    // 更新当前步骤
     updateCurrent (isInit) {
       // 防止溢出边界
       if (this.current < 0 || this.current >= this.$children.length) {
@@ -122,11 +142,13 @@ export default {
         this.$children[this.current].currentStatus = this.status
       }
     },
+    // 防抖的添加移除处理
     debouncedAppendRemove () {
       return debounce(function () {
         this.updateSteps()
       })
     },
+    // 更新步骤
     updateSteps () {
       this.updateChildProps(true)
       this.setNextError()

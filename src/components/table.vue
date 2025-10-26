@@ -1,10 +1,12 @@
 <template>
+  <!-- 表格容器 -->
   <div
     ref="tableWrap"
     :class="wrapClasses"
     :style="styles"
   >
     <div :class="classes">
+      <!-- 表格标题插槽 -->
       <div
         v-if="showSlotHeader"
         ref="title"
@@ -12,6 +14,7 @@
       >
         <slot name="header" />
       </div>
+      <!-- 表格头部 -->
       <div
         v-if="showHeader"
         ref="header"
@@ -28,6 +31,7 @@
           :data="rebuildData"
         />
       </div>
+      <!-- 表格主体 -->
       <div
         v-show="!((!!localeNoDataText && (!data || data.length === 0)) || (!!localeNoFilteredDataText && (!rebuildData || rebuildData.length === 0)))"
         ref="body"
@@ -47,6 +51,7 @@
           :obj-data="objData"
         />
       </div>
+      <!-- 表格汇总 -->
       <table-summary
         v-if="showSummary && (data && data.length)"
         ref="summary"
@@ -56,6 +61,7 @@
         :data="summaryData"
         :columns-width="columnsWidth"
       />
+      <!-- 无数据提示 -->
       <div
         v-show="((!!localeNoDataText && (!data || data.length === 0)) || (!!localeNoFilteredDataText && (!rebuildData || rebuildData.length === 0)))"
         :class="[prefixCls + '-tip']"
