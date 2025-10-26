@@ -1,24 +1,29 @@
 <template>
+  <!-- 颜色选择器容器 -->
   <div
     v-click-outside:[capture]="handleClose"
     :class="classes"
   >
+    <!-- 颜色选择器触发器 -->
     <div
       ref="reference"
       :class="wrapClasses"
       @click="toggleVisible"
     >
+      <!-- 隐藏输入框 -->
       <input
         :name="name"
         :value="currentValue"
         type="hidden"
       >
+      <!-- 下拉箭头图标 -->
       <Icon
         :type="arrowType"
         :custom="customArrowType"
         :size="arrowSize"
         :class="arrowClasses"
       />
+      <!-- 颜色显示区域 -->
       <div
         ref="input"
         :tabindex="itemDisabled ? undefined : 0"
@@ -29,12 +34,14 @@
         @keydown.down="onArrow"
       >
         <div :class="[prefixCls + '-color']">
+          <!-- 空状态图标 -->
           <div
             v-show="modelValue === '' && !visible"
             :class="[prefixCls + '-color-empty']"
           >
             <i :class="[iconPrefixCls, iconPrefixCls + '-ios-close']" />
           </div>
+          <!-- 颜色预览 -->
           <div
             v-show="modelValue || visible"
             :style="displayedColorStyle"
@@ -42,6 +49,7 @@
         </div>
       </div>
     </div>
+    <!-- 下拉面板过渡动画 -->
     <transition name="transition-drop">
       <Drop
         v-show="visible"
@@ -52,12 +60,15 @@
         :transfer="transfer"
         :class="dropClasses"
       >
+        <!-- 颜色选择器面板 -->
         <transition name="fade">
           <div
             v-if="visible"
             :class="[prefixCls + '-picker']"
           >
+            <!-- 颜色选择器主体 -->
             <div :class="[prefixCls + '-picker-wrapper']">
+              <!-- 饱和度选择面板 -->
               <div :class="[prefixCls + '-picker-panel']">
                 <Saturation
                   ref="saturation"
@@ -67,6 +78,7 @@
                   @keydown.native.tab="handleFirstTab"
                 />
               </div>
+              <!-- 色相滑块 -->
               <div
                 v-if="hue"
                 :class="[prefixCls + '-picker-hue-slider']"
@@ -76,6 +88,7 @@
                   @change="childChange"
                 />
               </div>
+              <!-- 透明度滑块 -->
               <div
                 v-if="alpha"
                 :class="[prefixCls + '-picker-alpha-slider']"
@@ -85,12 +98,14 @@
                   @change="childChange"
                 />
               </div>
+              <!-- 自定义推荐颜色 -->
               <recommend-colors
                 v-if="colors.length"
                 :list="colors"
                 :class="[prefixCls + '-picker-colors']"
                 @picker-color="handleSelectColor"
               />
+              <!-- 默认推荐颜色 -->
               <recommend-colors
                 v-if="!colors.length && recommend"
                 :list="recommendedColor"
@@ -98,7 +113,9 @@
                 @picker-color="handleSelectColor"
               />
             </div>
+            <!-- 确认操作区域 -->
             <div :class="[prefixCls + '-confirm']">
+              <!-- 颜色值显示/编辑 -->
               <span :class="confirmColorClasses">
                 <template v-if="editable">
                   <VInput
@@ -111,6 +128,7 @@
                 </template>
                 <template v-else>{{ formatColor }}</template>
               </span>
+              <!-- 清除按钮 -->
               <VButton
                 ref="clear"
                 :tabindex="0"
@@ -121,6 +139,7 @@
               > {{ t('i.datepicker.clear') }}
               </VButton>
               {{ ' ' }}
+              <!-- 确认按钮 -->
               <VButton
                 ref="ok"
                 :tabindex="0"
@@ -159,6 +178,10 @@ import mixinsForm from '../mixins/form'
 import Prefixes from '../mixins/color-prefix'
 import { changeColor, toRGBAString } from '../utils/color'
 
+/**
+ * 颜色选择器组件
+ * 提供完整的颜色选择功能，支持多种颜色格式和自定义推荐颜色
+ */
 export default {
   name: 'ColorPicker',
 
@@ -171,22 +194,27 @@ export default {
   emits: ['on-open-change', 'on-active-change', 'update:modelValue', 'on-pick-success', 'on-pick-clear', 'on-change'],
 
   props: {
+    // 双向绑定的颜色值
     modelValue: {
       type: String,
       default: undefined
     },
+    // 是否显示色相滑块
     hue: {
       type: Boolean,
       default: true
     },
+    // 是否显示透明度滑块
     alpha: {
       type: Boolean,
       default: false
     },
+    // 是否显示推荐颜色
     recommend: {
       type: Boolean,
       default: false
     },
+    // 颜色格式
     format: {
       type: String,
       validator (value) {
@@ -194,16 +222,19 @@ export default {
       },
       default: undefined
     },
+    // 自定义推荐颜色数组
     colors: {
       type: Array,
       default () {
         return []
       }
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 组件尺寸
     size: {
       validator (value) {
         return oneOf(value, ['small', 'large', 'default'])
@@ -212,10 +243,12 @@ export default {
         return 'default'
       }
     },
+    // 是否隐藏下拉箭头
     hideDropDown: {
       type: Boolean,
       default: false
     },
+    // 下拉面板位置
     placement: {
       type: String,
       validator (value) {
@@ -236,27 +269,31 @@ export default {
       },
       default: 'bottom'
     },
+    // 是否将下拉面板转移到body
     transfer: {
       type: Boolean,
       default () {
         return false
       }
     },
+    // 表单字段名
     name: {
       type: String,
       default: undefined
     },
+    // 是否可编辑颜色值
     editable: {
       type: Boolean,
       default: true
     },
-    // 4.0.0
+    // 是否捕获事件
     capture: {
       type: Boolean,
       default () {
         return true
       }
     },
+    // 转移容器的自定义类名
     transferClassName: {
       type: String
     }
