@@ -1,8 +1,18 @@
+/**
+ * 折叠面板组件样式
+ * 提供可折叠内容区域的样式定义
+ */
+
+/**
+ * 折叠面板组件基础样式
+ * 设置折叠面板的整体布局和交互效果
+ */
 .#{$collapse-prefix-cls} {
   background-color: $background-color-base;
   border: 1px solid $border-color-base;
   border-radius: 3px;
 
+  // 简单模式：白色背景，去除左右边框和圆角
   &-simple {
     background-color: #fff;
     border-left: 0;
@@ -10,13 +20,16 @@
     border-right: 0;
   }
 
+  // 折叠面板项：顶部边框分隔
   & > &-item {
     border-top: 1px solid $border-color-base;
 
+    // 第一个项目：去除顶部边框
     &:first-child {
       border-top: 0;
     }
 
+    // 折叠面板头部：可点击区域
     > .#{$collapse-prefix-cls}-header {
       border-bottom: 1px solid transparent;
       color: #666;
@@ -27,6 +40,7 @@
       position: relative;
       transition: all $transition-time $ease-in-out;
 
+      // 头部图标：右边距，过渡动画
       > i {
         margin-right: 14px;
         text-align: center;
@@ -36,18 +50,22 @@
     }
   }
 
+  // 激活状态的头部：显示底边框
   &  > &-item.#{$collapse-prefix-cls}-item-active > &-header {
     border-bottom: 1px solid $border-color-base;
   }
 
+  // 简单模式激活状态：保持透明底边框
   &-simple > &-item.#{$collapse-prefix-cls}-item-active > &-header {
     border-bottom: 1px solid transparent;
   }
 
+  // 激活状态的图标：旋转90度
   &  > &-item.#{$collapse-prefix-cls}-item-active > &-header > i {
     transform: rotate(90deg);
   }
 
+  // 折叠面板内容：白色背景，内边距
   &-content {
     background-color: #fff;
     //display: none;
@@ -55,20 +73,24 @@
     color: $text-color;
     padding: 0 16px;
 
+    // 内容盒子：上下内边距
     & > &-box {
       padding-bottom: 16px;
       padding-top: 16px;
     }
   }
 
+  // 简单模式内容：去除顶部内边距
   &-simple > &-item > &-content > &-content-box {
     padding-top: 0;
   }
 
+  // 激活状态内容：显示内容（已注释）
   &-item-active > &-content {
     //display: block;
   }
 
+  // 最后一个项目：底部圆角
   &-item:last-child {
     > .#{$collapse-prefix-cls}-content {
       border-radius: 0 0 3px 3px;

@@ -1,7 +1,17 @@
+/**
+ * 圆形组件样式
+ * 提供圆形进度条或圆形容器的样式定义
+ */
+
+/**
+ * 圆形组件基础样式
+ * 设置圆形组件的布局和内部内容定位
+ */
 .#{$circle-prefix-cls} {
   display: inline-block;
   position: relative;
 
+  // 圆形内部内容：绝对定位，垂直居中
   &-inner {
     left: 0;
     line-height: 1;

@@ -1,3 +1,12 @@
+/**
+ * 颜色选择器组件样式
+ * 提供颜色选择功能的组件样式定义
+ */
+
+/**
+ * 圆形点样式混入
+ * 创建带阴影效果的圆形指示点
+ */
 @mixin circle-dot() {
   border-radius: 50%;
   box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0, 0, 0, 0.3), 0 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -6,47 +15,63 @@
   width: 4px;
 }
 
+/**
+ * 颜色选择器组件基础样式
+ * 设置颜色选择器的整体布局和交互效果
+ */
 .#{$color-picker-prefix-cls} {
   display: inline-block;
 
+  // 隐藏状态：不显示
   &-hide {
     display: none;
 
+    // 隐藏下拉：不可见
     &-drop {
       visibility: hidden;
     }
   }
 
+  // 禁用状态：使用禁用混入
   &-disabled {
     @include disabled();
   }
 
+  // 悬停状态：输入框悬停效果
   & > div:first-child:hover {
     .ivu-input {
       @include hover();
     }
   }
+  
+  // 禁用状态悬停：保持禁用边框色
   & > div:first-child.#{$color-picker-prefix-cls}-disabled:hover {
     .ivu-input {
       border-color: tint($input-border-color, 20%);
     }
   }
+  
+  // 选择器下拉框：去除内边距
   & .#{$select-dropdown-prefix-cls} {
     padding: 0;
   }
 
+  // 输入框焦点：移除阴影
   &-input.ivu-input:focus {
     box-shadow: none;
   }
 
+  // 聚焦状态：使用激活混入
   &-focused {
     @include active();
   }
 
+  // 相对容器：行高为0
   &-rel {
     line-height: 0;
   }
 
+  // 颜色预览块：带透明背景图案
   &-color {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
     border-radius: 2px;
@@ -55,6 +80,7 @@
     top: 2px;
     width: 18px;
 
+    // 颜色块内部：内阴影边框
     div {
       border-radius: 2px;
       box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
@@ -62,6 +88,7 @@
       width: 100%;
     }
 
+    // 空颜色块：白色背景，居中图标
     &-empty {
       background: #fff;
       overflow: hidden;
@@ -73,11 +100,13 @@
       }
     }
 
+    // 聚焦状态：使用激活混入
     &-focused {
       @include active();
     }
   }
 
+  // 大尺寸颜色块
   &-large &-color {
     height: 20px;
     top: 1px;
@@ -90,6 +119,7 @@
     }
   }
 
+  // 小尺寸颜色块
   &-small &-color {
     height: 14px;
     top: 3px;
@@ -102,11 +132,14 @@
     }
   }
 
+  // 颜色选择面板
   &-picker {
+    // 面板包装器：内边距
     &-wrapper {
       padding: 8px 8px 0;
     }
 
+    // 面板主体：固定宽度，相对定位
     &-panel {
       box-sizing: initial;
       margin: 0 auto;
@@ -114,6 +147,7 @@
       width: 240px;
     }
 
+    // 色相和透明度滑块：固定高度，相对定位
     &-hue-slider,
     &-alpha-slider {
       height: 10px;
@@ -121,16 +155,19 @@
       position: relative;
     }
 
+    // 预设颜色：圆角，过渡效果
     &-colors {
       border-radius: 2px;
       margin-top: 8px;
       overflow: hidden;
       transition: border $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
 
+      // 焦点状态：使用激活混入
       &:focus {
         @include active();
       }
 
+      // 颜色包装器：内联浮动布局
       &-wrapper {
         display: inline;
         float: left;
@@ -138,6 +175,7 @@
         position: relative;
         width: 20px;
 
+        // 颜色块：圆角，内阴影，可点击
         &-color {
           border-radius: 2px;
           box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
@@ -150,6 +188,7 @@
           width: 16px;
         }
 
+        // 圆形指示点：使用圆形点混入
         &-circle {
           @include circle-dot();
           cursor: pointer;
@@ -159,12 +198,16 @@
         }
       }
     }
+    
+    // 确认按钮：顶部边距
     .#{$picker-prefix-cls}-confirm {
       margin-top: 8px;
     }
   }
 
+  // 饱和度选择器
   &-saturation {
+    // 饱和度包装器：75%底部内边距，相对定位
     &-wrapper {
       padding-bottom: 75%;
       position: relative;
@@ -172,11 +215,13 @@
       transition: border $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
       width: 100%;
 
+      // 焦点状态：使用激活混入
       &:focus {
         @include active();
       }
     }
 
+    // 饱和度层：绝对定位覆盖
     &,
     &--white,
     &--black {
@@ -188,24 +233,29 @@
       top: 0;
     }
 
+    // 白色渐变层：从左到右的白色渐变
     &--white {
       background: linear-gradient(to right, #fff, rgba(255, 255, 255, 0));
     }
 
+    // 黑色渐变层：从下到上的黑色渐变
     &--black {
       background: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
     }
 
+    // 饱和度指针：可点击，绝对定位
     &-pointer {
       cursor: pointer;
       position: absolute;
     }
 
+    // 饱和度圆形指示点：使用圆形点混入
     &-circle {
       @include circle-dot();
     }
   }
 
+  // 色相选择器：彩虹色渐变
   &-hue {
     background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
     border-radius: 2px;
@@ -215,12 +265,15 @@
     right: 0;
     top: 0;
 
+    // 过渡效果
     transition: border $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
 
+    // 焦点状态：使用激活混入
     &:focus {
       @include active();
     }
 
+    // 色相容器：可点击，相对定位
     &-container {
       cursor: pointer;
       height: 100%;
@@ -228,11 +281,13 @@
       position: relative;
     }
 
+    // 色相指针：绝对定位，高层级
     &-pointer {
       position: absolute;
       z-index: 2;
     }
 
+    // 色相选择器：白色背景，阴影，可点击
     &-picker {
       background: #fff;
       border-radius: 1px;

@@ -1,48 +1,66 @@
+/**
+ * 单元格组件样式
+ * 提供列表项单元格的样式定义，包括图标、标题、标签等
+ */
+
+/**
+ * 单元格组件基础样式
+ * 设置单元格的整体布局和交互效果
+ */
 .#{$cell-prefix-cls} {
   overflow: hidden;
   position: relative;
 
+  // 链接样式：继承颜色，包括悬停和激活状态
   &-link,
   &-link:hover,
   &-link:active {
     color: inherit;
   }
 
+  // 单元格图标：内联块级，右边距，垂直居中
   &-icon {
     display: inline-block;
     font-size: $font-size-base;
     margin-right: 4px;
     vertical-align: middle;
 
+    // 空图标：隐藏显示
     &:empty {
       display: none;
     }
   }
 
+  // 主要内容区域：内联块级，垂直居中
   &-main {
     display: inline-block;
     vertical-align: middle;
   }
 
+  // 单元格标题：基础字体大小和行高
   &-title {
     font-size: $font-size-base;
     line-height: 24px;
   }
 
+  // 单元格标签：辅助色，小字体
   &-label {
     color: $subsidiary-color;
     font-size: $font-size-small;
     line-height: 1.2;
   }
 
+  // 选中状态下的标签：继承颜色
   &-selected &-label {
     color: inherit;
   }
 
+  // 选中状态：浅色背景，包括悬停状态
   &-selected, &#{&}-selected:hover {
     background: tint($primary-color, 90%);
   }
 
+  // 单元格底部：绝对定位在右侧
   &-footer {
     color: $text-color;
     display: inline-block;
@@ -52,14 +70,17 @@
     transform: translateY(-50%);
   }
 
+  // 带链接时的底部：调整右边距为箭头留空间
   &-with-link &-footer {
     right: 32px;
   }
 
+  // 选中状态下的底部：继承颜色
   &-selected &-footer {
     color: inherit;
   }
 
+  // 单元格箭头：绝对定位在右侧
   &-arrow {
     display: inline-block;
     font-size: $font-size-base;
@@ -69,13 +90,20 @@
     transform: translateY(-50%);
   }
 
+  // 焦点状态：悬停背景色，移除轮廓
   &:focus {
     background: $background-color-select-hover;
     outline: none;
   }
 
+  // 选中状态的焦点：深色背景
   &-selected:focus {
     background: shade($selected-color, 10%);
   }
 }
+
+/**
+ * 单元格选择项样式
+ * 使用选择器选项项混入
+ */
 @include select-item($cell-prefix-cls, $cell-prefix-cls);
