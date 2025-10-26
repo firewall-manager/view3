@@ -1,3 +1,12 @@
+/**
+ * 选择器下拉框组件样式
+ * 提供选择器下拉框的样式定义，包括位置、尺寸、层级等
+ */
+
+/**
+ * 选择器下拉框基础样式
+ * 设置下拉框的整体布局和视觉效果
+ */
 .#{$select-dropdown-prefix-cls} {
   background-color: #fff;
   //border: 1px solid $border-color-split;
@@ -13,14 +22,22 @@
   width: inherit;
   z-index: $zindex-select;
 
+  // 传送模式：自动宽度，传送层级
   &-transfer {
     width: auto;
     z-index: $zindex-transfer;
   }
+  
+  // 无最大高度：去除高度限制
   &.#{$transfer-no-max-height} {
     max-height: none;
   }
 }
+
+/**
+ * 模态框中的选择器下拉框
+ * 确保在模态框中使用绝对定位
+ */
 .#{$modal-prefix-cls} {
   .#{$select-dropdown-prefix-cls} {
     position: absolute !important;

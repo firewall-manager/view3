@@ -1,3 +1,12 @@
+/**
+ * 选择器组件样式
+ * 提供选择器的样式定义，包括单选、多选、不同尺寸和状态
+ */
+
+/**
+ * 选择器组件基础样式
+ * 设置选择器的整体布局和交互效果
+ */
 .#{$select-prefix-cls} {
   box-sizing: border-box;
   color: $text-color;
@@ -8,8 +17,8 @@
   vertical-align: middle;
   width: 100%;
 
+  // 选择器选择区域：白色背景，边框，圆角
   &-selection {
-
     background-color: #fff;
     border: 1px solid $border-color-base;
     border-radius: $btn-border-radius;
@@ -21,6 +30,7 @@
     transition: all $transition-time $ease-in-out;
     user-select: none;
 
+    // 悬停和焦点状态：悬停效果，显示箭头
     &:hover,
     &-focused {
       @include hover();
@@ -30,10 +40,12 @@
     }
   }
 
+  // 选择器箭头：使用内部箭头混入
   &-arrow {
     @include inner-arrow();
   }
 
+  // 可见状态：激活效果，箭头旋转
   &-visible {
     .#{$select-prefix-cls}-selection {
       @include active();
@@ -45,6 +57,7 @@
     }
   }
 
+  // 禁用状态：禁用效果，灰色箭头
   &-disabled {
     .#{$select-prefix-cls}-selection {
       @include disabled();
