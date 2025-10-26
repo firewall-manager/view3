@@ -1,16 +1,29 @@
+/**
+ * 清除浮动混入模块
+ * 提供清除浮动的通用解决方案
+ */
+
+/**
+ * 清除浮动混入
+ * 使用伪元素清除浮动，解决浮动元素导致的父容器高度塌陷问题
+ * 兼容IE6+的经典清除浮动方案
+ */
 @mixin clearfix() {
+  // 触发IE6/7的hasLayout属性，使元素能够正确包含浮动子元素
   zoom: 1;
 
+  // 使用伪元素创建清除浮动的容器
   &::before,
   &::after {
     content: '';
     display: table;
   }
 
+  // 在伪元素上应用清除浮动
   &::after {
-    clear: both;
-    font-size: 0;
-    height: 0;
-    visibility: hidden;
+    clear: both;        // 清除左右浮动
+    font-size: 0;       // 避免伪元素影响布局
+    height: 0;          // 设置高度为0
+    visibility: hidden; // 隐藏伪元素但保留其布局空间
   }
 }

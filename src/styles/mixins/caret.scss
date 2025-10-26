@@ -1,4 +1,12 @@
-// sortable
+/**
+ * 排序指示器混入模块
+ * 提供可排序表格列的排序指示器样式
+ */
+
+/**
+ * 可排序指示器混入
+ * 设置排序箭头的样式和交互效果
+ */
 @mixin sortable() {
   cursor: pointer;
   display: inline-block;
@@ -9,6 +17,7 @@
   vertical-align: middle;
   width: 14px;
 
+  // 排序箭头图标样式
   i {
     color: $btn-disable-color;
     display: block;
@@ -17,20 +26,25 @@
     line-height: 6px;
     overflow: hidden;
     position: absolute;
+    // 颜色过渡动画
     transition: color $transition-time $ease-in-out;
 
+    // 悬停状态：继承父元素颜色
     &:hover {
       color: inherit;
     }
 
+    // 激活状态：使用主色调
     &.on {
       color: $primary-color;
     }
 
+    // 上箭头位置
     &:first-child {
       top: 0;
     }
 
+    // 下箭头位置
     &:last-child {
       bottom: 0;
     }

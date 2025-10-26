@@ -1,8 +1,18 @@
+/**
+ * 内容区域混入模块
+ * 提供卡片、模态框等内容组件的样式混入
+ */
+
+/**
+ * 内容头部混入
+ * 设置内容区域头部的样式，包括标题和边框
+ */
 @mixin content-header() {
   border-bottom: 1px solid $border-color-split;
   line-height: 1;
   padding: 14px 16px;
 
+  // 标题文本样式
   p,
   &-inner {
     color: $title-color;
@@ -17,12 +27,20 @@
     width: 100%;
   }
 
+  // 标题内的图标和文本
   p i,
   p span {
+    // 垂直居中对齐（已注释）
     //vertical-align: middle;
   }
 }
 
+/**
+ * 内容关闭按钮混入
+ * 设置内容区域关闭按钮的样式和位置
+ * @param {number} $top - 顶部偏移量，默认为0
+ * @param {number} $icon-font-size - 图标字体大小，默认为22px
+ */
 @mixin content-close($top: 0, $icon-font-size: 22px) {
   cursor: pointer;
   font-size: $font-size-small;
@@ -31,6 +49,7 @@
   right: 8px;
   top: 8px;
 
+  // 关闭图标样式
   .#{$icon-prefix-cls}-ios-close {
     @include close-base($top, $icon-font-size);
   }

@@ -1,14 +1,33 @@
+/**
+ * 混入模块入口文件
+ * 统一导入所有混入模块，提供完整的样式混入功能
+ */
+
+// 通用混入
 @import 'common';
+// 清除浮动混入
 @import 'clearfix';
+// 按钮混入
 @import 'button';
+// 布局混入
 @import 'layout';
+// 尺寸混入
 @import 'size';
+// 加载状态混入
 @import 'loading';
+// 关闭按钮混入
 @import 'close';
+// 复选框混入
 @import 'checkbox';
+// 输入框混入
 @import 'input';
+// 遮罩层混入
 @import 'mask';
-@import 'content';  // card、modal
+// 内容区域混入（卡片、模态框）
+@import 'content';
+// 工具提示混入
 @import 'tooltip';
+// 选择器混入
 @import 'select';
+// 排序指示器混入
 @import 'caret';

@@ -1,44 +1,86 @@
+/**
+ * 输入框混入模块
+ * 提供输入框组件的各种样式混入，包括状态、尺寸、组合等
+ */
+
+/**
+ * 悬停状态混入
+ * 设置输入框悬停时的边框颜色
+ * @param {string} $color - 悬停时的边框颜色，默认为输入框悬停边框颜色
+ */
 @mixin hover($color: $input-hover-border-color) {
   border-color: tint($color, 20%);
 }
+
+/**
+ * 错误悬停状态混入
+ * 设置输入框错误状态下的悬停样式
+ */
 @mixin hover-error() {
   border-color: $error-color;
 }
 
+/**
+ * 激活状态混入
+ * 设置输入框获得焦点时的样式
+ * @param {string} $color - 激活时的边框颜色，默认为输入框悬停边框颜色
+ */
 @mixin active($color: $input-hover-border-color) {
   border-color: tint($color, 20%);
   box-shadow: 0 0 0 2px rgba($color, 20%/100%);
   outline: 0;
 }
+
+/**
+ * 错误激活状态混入
+ * 设置输入框错误状态下的激活样式
+ */
 @mixin active-error() {
   border-color: $error-color;
   box-shadow: 0 0 0 2px rgba($error-color, 20%/100%);
   outline: 0;
 }
 
+/**
+ * 禁用状态混入
+ * 设置输入框禁用时的样式
+ */
 @mixin disabled() {
   background-color: $input-disabled-bg;
   color: #ccc;
   cursor: $cursor-disabled;
   opacity: 1;
 
+  // 禁用状态下的悬停样式
   &:hover {
     @include hover($input-border-color);
   }
 }
 
+/**
+ * 大尺寸输入框混入
+ * 设置大尺寸输入框的样式
+ */
 @mixin input-large() {
   font-size: $font-size-large;
   height: $input-height-large;
   padding: $input-padding-vertical-large $input-padding-horizontal;
 }
 
+/**
+ * 小尺寸输入框混入
+ * 设置小尺寸输入框的样式
+ */
 @mixin input-small() {
   border-radius: $btn-border-radius-small;
   height: $input-height-small;
   padding: $input-padding-vertical-small $input-padding-horizontal;
 }
 
+/**
+ * 基础输入框混入
+ * 设置输入框的基础样式和交互效果
+ */
 @mixin input() {
   @include placeholder();
   background-color: $input-bg;
@@ -53,23 +95,27 @@
   line-height: $line-height-base;
   padding: $input-padding-vertical-base $input-padding-horizontal;
   position: relative;
+  // 边框、背景、阴影过渡动画
   transition: border $transition-time $ease-in-out, background $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
   width: 100%;
 
+  // 悬停状态
   &:hover {
     @include hover();
   }
 
+  // 焦点状态
   &:focus {
     @include active();
   }
 
+  // 禁用状态
   &[disabled],
   fieldset[disabled] & {
     @include disabled();
   }
 
-  // Reset height for textarea
+  // 文本域样式重置
   textarea & {
     font-size: $font-size-base;
     height: auto;
@@ -78,7 +124,7 @@
     vertical-align: bottom;
   }
 
-  // Size
+  // 尺寸变体
   &-large {
     @include input-large();
   }
@@ -87,19 +133,23 @@
     @include input-small();
   }
 
+  // 无边框样式
   &-no-border{
     border-radius: 0;
     border-color: transparent;
 
+    // 无边框悬停状态
     &:hover{
       border-color: transparent;
     }
 
+    // 无边框焦点状态
     &:focus{
       border-color: transparent;
       box-shadow: none;
     }
 
+    // 无边框禁用状态
     &[disabled]{
       background-color: transparent;
 
@@ -110,18 +160,29 @@
   }
 }
 
+/**
+ * 输入框错误状态混入
+ * 设置输入框错误状态下的样式
+ */
 @mixin input-error() {
   border: 1px solid $error-color;
 
+  // 错误状态悬停
   &:hover {
     @include hover-error;
   }
 
+  // 错误状态焦点
   &:focus {
     @include active-error;
   }
 }
 
+/**
+ * 输入框组混入
+ * 设置输入框组合的布局和样式
+ * @param {string} $inputClass - 输入框类名
+ */
 @mixin input-group($inputClass) {
   border-collapse: separate;
   display: table;
@@ -129,45 +190,55 @@
   position: relative;
   width: 100%;
 
+  // 内联表单中的位置调整
   .ivu-form-inline & {
-    top: 1px; // fixed when using in form inline,
+    top: 1px; // 在内联表单中使用时的位置修复
   }
 
+  // 大尺寸输入框组
   &-large {
     font-size: $font-size-large;
   }
 
-  // Undo padding and float of grid classes
+  // 重置网格类的内边距和浮动
   &[class*='col-'] {
     float: none;
     padding-left: 0;
     padding-right: 0;
   }
 
+  // 网格列的内边距调整
   > [class*='col-'] {
     padding-right: 8px;
   }
 
+  // 前置、后置和输入框的表格单元格布局
   &-prepend,
   &-append,
   > .#{$inputClass} {
     display: table-cell;
 
+    // 中间元素的圆角处理（已注释）
     //&:not(:first-child):not(:last-child) {
     //    border-radius: 0;
     //}
   }
+  
+  // 有前置元素时的圆角处理
   &-with-prepend .#{$inputClass},
   &-with-prepend &-small .#{$inputClass} {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
+  
+  // 有后置元素时的圆角处理
   &-with-append .#{$inputClass},
   &-with-append &-small .#{$inputClass} {
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
   }
 
+  // 前置和后置按钮样式
   &-prepend .#{$css-prefix}btn,
   &-append .#{$css-prefix}btn {
     background-color: transparent;
@@ -176,13 +247,15 @@
     margin: -($input-padding-vertical-base + 2) (-$input-padding-horizontal);
   }
 
+  // 前置和后置元素基础样式
   &-prepend,
   &-append {
     vertical-align: middle;
     white-space: nowrap;
-    width: 1px; // To make addon/wrap as small as possible
+    width: 1px; // 使附加元素尽可能小
   }
 
+  // 输入框样式
   .#{$inputClass} {
     float: left;
     margin-bottom: 0;
@@ -191,6 +264,7 @@
     z-index: 2;
   }
 
+  // 前置和后置元素详细样式
   &-prepend,
   &-append {
     background-color: $input-group-bg;
@@ -203,57 +277,62 @@
     padding: $input-padding-vertical-base $input-padding-horizontal;
     text-align: center;
 
-    // Reset Select's style in addon
+    // 重置附加元素中选择器的样式
     .#{$css-prefix}select {
       margin: -($input-padding-vertical-base + 1) (-$input-padding-horizontal);  // lesshint spaceAroundOperator: false
 
+      // 选择器选择区域样式
       &-selection {
         background-color: inherit;
         border: 1px solid transparent;
         margin: -1px;
       }
 
+      // 可见状态的选择器样式
       &-visible .#{$css-prefix}select-selection {
         box-shadow: none;
       }
     }
   }
 
-  // Reset rounded corners
+  // 重置圆角
   > span > .#{$inputClass}:first-child,
   > .#{$inputClass}:first-child,
   &-prepend {
     border-bottom-right-radius: 0 !important;
     border-top-right-radius: 0 !important;
 
-    // Reset Select's style in addon
+    // 重置附加元素中选择器的圆角
     .#{$css-prefix}-select .#{$css-prefix}-select-selection {
       border-bottom-right-radius: 0;
       border-top-right-radius: 0;
     }
   }
 
+  // 前置元素边框处理
   &-prepend {
     border-right: 0;
   }
 
+  // 后置元素边框处理
   &-append {
     border-left: 0;
   }
 
+  // 最后一个输入框和后置元素的圆角处理
   > .#{$inputClass}:last-child,
   &-append {
     border-bottom-left-radius: 0 !important;
     border-top-left-radius: 0 !important;
 
-    // Reset Select's style in addon
+    // 重置后置元素中选择器的圆角
     .#{$css-prefix}-select .#{$css-prefix}-select-selection {
       border-bottom-left-radius: 0;
       border-top-left-radius: 0;
     }
   }
 
-  // Sizing options
+  // 尺寸选项
   &-large .#{$inputClass},
   &-large > &-prepend,
   &-large > &-append {
@@ -267,11 +346,18 @@
   }
 }
 
+/**
+ * 输入框组错误状态混入
+ * 设置输入框组错误状态下的样式
+ */
 @mixin input-group-error() {
+  // 前置和后置元素的错误样式
   &-prepend,
   &-append {
     background-color: #fff;
     border: 1px solid $error-color;
+    
+    // 选择器的错误样式
     .#{$css-prefix}select {
       &-selection {
         background-color: inherit;
@@ -280,10 +366,12 @@
     }
   }
 
+  // 前置元素边框处理
   &-prepend {
     border-right: 0;
   }
 
+  // 后置元素边框处理
   &-append {
     border-left: 0;
   }

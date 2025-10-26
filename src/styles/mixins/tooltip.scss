@@ -1,3 +1,16 @@
+/**
+ * 工具提示混入模块
+ * 提供弹出框组件的样式混入，包括箭头定位和不同方向的布局
+ */
+
+/**
+ * 弹出框混入
+ * 设置弹出框的基础样式和箭头定位，支持四个方向的弹出
+ * @param {string} $arrow - 箭头类名
+ * @param {number} $arrow-width - 箭头宽度
+ * @param {number} $arrow-distance - 箭头距离
+ * @param {string} $bg - 背景颜色
+ */
 @mixin popper($arrow, $arrow-width, $arrow-distance, $bg) {
   display: block;
   font-size: $font-size-base;
@@ -6,82 +19,102 @@
   visibility: visible;
   z-index: $zindex-tooltip;
 
+  // 顶部方向的内边距
   &[x-placement^='top'] {
     padding: $arrow-width 0 $arrow-distance 0;
   }
 
+  // 右侧方向的内边距
   &[x-placement^='right'] {
     padding: 0 $arrow-width 0 $arrow-distance;
   }
 
+  // 底部方向的内边距
   &[x-placement^='bottom'] {
     padding: $arrow-distance 0 $arrow-width 0;
   }
 
+  // 左侧方向的内边距
   &[x-placement^='left'] {
     padding: 0 $arrow-distance 0 $arrow-width;
   }
 
+  // 顶部箭头样式
   &[x-placement^="top"] .#{$arrow} {
     border-top-color: $bg;
     border-width: $arrow-width $arrow-width 0;
     bottom: $arrow-distance - $arrow-width;
   }
+  // 顶部居中箭头位置
   &[x-placement="top"] .#{$arrow} {
     left: 50%;
     margin-left: -$arrow-width;
   }
+  // 顶部开始位置箭头
   &[x-placement="top-start"] .#{$arrow} {
     left: 16px;
   }
+  // 顶部结束位置箭头
   &[x-placement="top-end"] .#{$arrow} {
     right: 16px;
   }
 
+  // 右侧箭头样式
   &[x-placement^="right"] .#{$arrow} {
     border-right-color: $bg;
     border-width: $arrow-width $arrow-width $arrow-width 0;
     left: $arrow-distance - $arrow-width;
   }
+  // 右侧居中箭头位置
   &[x-placement="right"] .#{$arrow} {
     margin-top: -$arrow-width;
     top: 50%;
   }
+  // 右侧开始位置箭头
   &[x-placement="right-start"] .#{$arrow} {
     top: 8px;
   }
+  // 右侧结束位置箭头
   &[x-placement="right-end"] .#{$arrow} {
     bottom: 8px;
   }
 
+  // 左侧箭头样式
   &[x-placement^="left"] .#{$arrow} {
     border-left-color: $bg;
     border-width: $arrow-width 0 $arrow-width $arrow-width;
     right: $arrow-distance - $arrow-width;
   }
+  // 左侧居中箭头位置
   &[x-placement="left"] .#{$arrow} {
     margin-top: -$arrow-width;
     top: 50%;
   }
+  // 左侧开始位置箭头
   &[x-placement="left-start"] .#{$arrow} {
     top: 8px;
   }
+  // 左侧结束位置箭头
   &[x-placement="left-end"] .#{$arrow} {
     bottom: 8px;
   }
 
+  // 底部箭头样式
   &[x-placement^="bottom"] .#{$arrow} {
     border-bottom-color: $bg;
     border-width: 0 $arrow-width $arrow-width;
     top: $arrow-distance - $arrow-width;
   }
+  // 底部居中箭头位置
   &[x-placement="bottom"] .#{$arrow} {
     left: 50%;
     margin-left: -$arrow-width;
   }
+  // 底部开始位置箭头
   &[x-placement="bottom-start"] .#{$arrow} {
     left: 16px;
   }
+  // 底部结束位置箭头
   &[x-placement="bottom-end"] .#{$arrow} {
     right: 16px;
   }

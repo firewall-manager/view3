@@ -1,56 +1,95 @@
+/**
+ * 布局混入模块
+ * 提供网格系统的样式混入，包括列布局、偏移、排序等
+ */
+
+// 行和列的类名前缀
 $row-prefix-cls: unquote('#{$css-prefix}row');
 $col-prefix-cls: unquote('#{$css-prefix}col');
 
-// mixins for grid system
-
+/**
+ * 循环生成网格列样式
+ * 递归生成指定数量的网格列样式，包括跨度、偏移、排序等
+ * @param {number} $index - 当前列索引
+ * @param {string} $class - 类名修饰符（如响应式断点）
+ */
 @mixin loop-grid-columns($index, $class) {
+  // 当索引大于0时，递归生成列样式
   @if $index > 0 {
     @include loop-grid-columns(($index - 1), $class);
 
+    // 列跨度样式：设置列的宽度和最大宽度
     .#{$col-prefix-cls}-span#{$class}-#{$index} {
       display: block;
       flex: 0 0 percentage(($index / $grid-columns));
       max-width: percentage(($index / $grid-columns));
     }
+    
+    // 列推入样式：向左推入指定列数
     .#{$col-prefix-cls}#{$class}-push-#{$index} {
       left: percentage(($index / $grid-columns));
     }
+    
+    // 列拉出样式：向右拉出指定列数
     .#{$col-prefix-cls}#{$class}-pull-#{$index} {
       right: percentage(($index / $grid-columns));
     }
+    
+    // 列偏移样式：设置左边距偏移
     .#{$col-prefix-cls}#{$class}-offset-#{$index} {
       margin-left: percentage(($index / $grid-columns));
     }
+    
+    // 列排序样式：设置flex排序
     .#{$col-prefix-cls}#{$class}-order-#{$index} {
       order: $index;
     }
   }
 
+  // 当索引等于0时，生成特殊样式
   @if $index == 0 {
+    // 跨度为0时隐藏列
     .#{$col-prefix-cls}-span#{$class}-#{$index} {
       display: none;
     }
+    
+    // 推入0时重置位置
     .#{$col-prefix-cls}-push-#{$index} {
       left: auto;
     }
+    
+    // 拉出0时重置位置
     .#{$col-prefix-cls}-pull-#{$index} {
       right: auto;
     }
+    
+    // 带修饰符的推入0时重置位置
     .#{$col-prefix-cls}#{$class}-push-#{$index} {
       left: auto;
     }
+    
+    // 带修饰符的拉出0时重置位置
     .#{$col-prefix-cls}#{$class}-pull-#{$index} {
       right: auto;
     }
+    
+    // 偏移0时重置边距
     .#{$col-prefix-cls}#{$class}-offset-#{$index} {
       margin-left: 0;
     }
+    
+    // 排序0时重置顺序
     .#{$col-prefix-cls}#{$class}-order-#{$index} {
       order: 0;
     }
   }
 }
 
+/**
+ * 生成网格系统
+ * 生成完整的网格系统样式，包括所有列的组合
+ * @param {string} $class - 类名修饰符，默认为空字符串
+ */
 @mixin make-grid($class: '') {
   @include loop-grid-columns($grid-columns, $class);
 }

@@ -1,12 +1,25 @@
+/**
+ * 关闭按钮混入模块
+ * 提供关闭按钮的基础样式
+ */
+
+/**
+ * 关闭按钮基础混入
+ * 设置关闭按钮的通用样式和交互效果
+ * @param {number} $top - 顶部偏移量，默认为0
+ * @param {number} $icon-font-size - 图标字体大小，默认为22px
+ */
 @mixin close-base($top: 0, $icon-font-size: 22px) {
   color: $legend-color;
   font-size: $icon-font-size;
   position: relative;
   text-align: center;
   top: $top;
+  // 颜色过渡动画
   transition: color $transition-time ease;
   width: $icon-font-size;
 
+  // 悬停状态：颜色变深
   &:hover {
     color: #444;
   }

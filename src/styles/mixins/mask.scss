@@ -1,3 +1,12 @@
+/**
+ * 遮罩层混入模块
+ * 提供模态框、抽屉等组件的遮罩层样式
+ */
+
+/**
+ * 遮罩层混入
+ * 设置全屏遮罩层的样式，用于模态框、抽屉等组件的背景遮罩
+ */
 @mixin mask() {
   background-color: rgba(55, 55, 55, 0.6);
   bottom: 0;
@@ -8,6 +17,7 @@
   top: 0;
   z-index: $zindex-modal;
 
+  // 隐藏状态：完全隐藏遮罩层
   &-hidden {
     display: none;
   }

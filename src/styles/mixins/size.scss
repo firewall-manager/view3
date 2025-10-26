@@ -1,3 +1,14 @@
+/**
+ * 尺寸混入模块
+ * 提供元素尺寸设置的通用混入，包括基础尺寸、正方形、图标字体等
+ */
+
+/**
+ * 尺寸混入
+ * 设置元素的宽度和高度，包括最小尺寸限制
+ * @param {number} $width - 宽度
+ * @param {number} $height - 高度
+ */
 @mixin size($width, $height) {
   height: $height;
   width: $width;
@@ -5,19 +16,32 @@
   min-height: $height;
 }
 
+/**
+ * 正方形混入
+ * 设置正方形的尺寸，宽度和高度相等
+ * @param {number} $size - 正方形边长
+ */
 @mixin square($size) {
   @include size($size, $size);
 }
 
-// fix chrome 12px bug, support ie
+/**
+ * 小尺寸图标字体混入
+ * 修复Chrome 12px字体大小限制问题，支持IE浏览器
+ * 使用缩放变换实现小于12px的图标字体显示
+ * @param {number} $size - 目标字体大小
+ * @param {number} $rotate - 旋转角度，默认为0度
+ */
 @mixin iconfont-size-under-12px($size, $rotate: 0deg) {
+  // 计算缩放比例
   $font-scale: unit($size / $font-size-base);
   display: inline-block;
   font-size: $font-size-base;
-  font-size: '#{$size} \9'; // ie8-9
+  font-size: '#{$size} \9'; // IE8-9的字体大小设置
   transform: scale($font-scale) rotate($rotate);
 
+  // 重置IE9及以上版本的字体大小
   :root & {
-    font-size: $font-size-base; // reset ie9 and above
+    font-size: $font-size-base; // 重置IE9及以上版本
   }
 }

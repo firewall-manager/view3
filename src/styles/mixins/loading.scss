@@ -1,8 +1,20 @@
-// Loading for loop
+/**
+ * 加载状态混入模块
+ * 提供加载动画的样式定义
+ */
+
+/**
+ * 加载循环动画类
+ * 为加载图标提供旋转动画效果
+ */
 .ivu-load-loop {
   animation: ani-load-loop 1s linear infinite;
 }
 
+/**
+ * 加载循环动画关键帧
+ * 定义360度旋转的动画效果
+ */
 @keyframes ani-load-loop {
   from { transform: rotate(0deg);}
   50% { transform: rotate(180deg);}

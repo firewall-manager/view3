@@ -1,3 +1,16 @@
+/**
+ * 按钮混入模块
+ * 提供按钮组件的各种样式混入，包括尺寸、颜色、变体等
+ */
+
+/**
+ * 按钮尺寸混入
+ * 设置按钮的基本尺寸属性
+ * @param {number} $height - 按钮高度
+ * @param {string} $padding - 按钮内边距
+ * @param {number} $font-size - 字体大小
+ * @param {number} $border-radius - 边框圆角
+ */
 @mixin button-size($height, $padding, $font-size, $border-radius) {
   border-radius: $border-radius;
   font-size: $font-size;
@@ -5,24 +18,41 @@
   padding: $padding;
 }
 
+/**
+ * 按钮颜色混入
+ * 设置按钮的颜色属性
+ * @param {string} $color - 文字颜色
+ * @param {string} $background - 背景颜色
+ * @param {string} $border - 边框颜色
+ */
 @mixin button-color($color, $background, $border) {
   background-color: $background;
   border-color: $border;
   color: $color;
 }
 
+/**
+ * 按钮变体混入
+ * 设置按钮的完整样式变体，包括悬停、激活、禁用状态
+ * @param {string} $color - 文字颜色
+ * @param {string} $background - 背景颜色
+ * @param {string} $border - 边框颜色
+ */
 @mixin button-variant($color, $background, $border) {
   @include button-color($color, $background, $border);
 
+  // 悬停状态：颜色变亮20%
   &:hover {
     @include button-color(tint($color, 20%), tint($background, 20%), tint($border, 20%));
   }
 
+  // 激活状态：颜色变暗5%
   &:active,
   &.active {
     @include button-color(shade($color, 5%), shade($background, 5%), shade($background, 5%));
   }
 
+  // 禁用状态：使用禁用颜色
   &.disabled,
   &[disabled],
   fieldset[disabled] & {
@@ -36,91 +66,129 @@
   }
 }
 
+/**
+ * 按钮组基础混入
+ * 设置按钮组的基本布局和样式
+ * @param {string} $btnClassName - 按钮类名前缀
+ */
 @mixin button-group-base($btnClassName) {
   display: inline-block;
   position: relative;
   vertical-align: middle;
+  
+  // 按钮组内的按钮样式
   > .#{$btnClassName} {
     float: left;
     position: relative;
 
+    // 悬停和激活状态时提升层级
     &:hover,
-        
     &:active,
     &.active {
       z-index: 2;
     }
   }
 
+  // 圆形按钮组
   &-circle .#{$btnClassName} {
     border-radius: $btn-circle-size;
   }
 
+  // 大尺寸圆形按钮组
   &-large &-circle .#{$btnClassName} {
     border-radius: $btn-circle-size-large;
   }
 
+  // 大尺寸按钮组
   &-large {
     .#{$btnClassName} {
       @include button-size($btn-height-large, $btn-padding-large, $btn-font-size-large, $btn-border-radius);
     }
   }
 
+  // 小尺寸圆形按钮组
   &-small &-circle .#{$btnClassName} {
     border-radius: $btn-circle-size-small;
   }
 
+  // 小尺寸按钮组
   &-small {
     .#{$btnClassName} {
       @include button-size($btn-height-small, $btn-padding-small, $btn-font-size, $btn-border-radius-small);
+      // 图标字体大小调整
       > .#{$css-prefix-iconfont} {
         font-size: $btn-font-size;
       }
     }
   }
 
+  // 小尺寸仅图标按钮
   &-small .#{$btnClassName}-icon-only {
     @include square($btn-height-small);
     padding: 0;
   }
+  // 大尺寸仅图标按钮
   &-large .#{$btnClassName}-icon-only {
     @include square($btn-height-large);
     padding: 0;
   }
 }
 
+/**
+ * 垂直按钮组基础混入
+ * 设置垂直排列按钮组的基本样式
+ * @param {string} $btnClassName - 按钮类名前缀
+ */
 @mixin button-group-vertical-base($btnClassName) {
   display: inline-block;
   vertical-align: middle;
+  
+  // 垂直按钮组内的按钮样式
   > .#{$btnClassName} {
     display: block;
     float: none;
     max-width: 100%;
     min-width: $btn-height-base;
     width: 100%;
-
   }
+  
+  // 小尺寸垂直按钮组
   &.#{$btnClassName}-group-small > .#{$btnClassName} {
     min-width: $btn-height-small;
   }
+  
+  // 大尺寸垂直按钮组
   &.#{$btnClassName}-group-large > .#{$btnClassName} {
     min-width: $btn-height-large;
   }
 }
 
+/**
+ * 方形按钮混入
+ * 设置方形按钮的样式，通常用于图标按钮
+ * @param {string} $btnClassName - 按钮类名前缀
+ */
 @mixin btn-square($btnClassName) {
   @include square($btn-square-size);
   @include button-size($btn-square-size, 0, $font-size-base + 2px, $btn-border-radius);
+  
+  // 大尺寸方形按钮
   &.#{$btnClassName}-large {
     @include square($btn-square-size-large);
     @include button-size($btn-square-size-large, 0, $btn-font-size-large + 2px, $btn-border-radius);
   }
+  
+  // 小尺寸方形按钮
   &.#{$btnClassName}-small {
     @include square($btn-square-size-small);
     @include button-size($btn-square-size-small, 0, $font-size-base, $btn-border-radius);
   }
 }
 
+/**
+ * 基础按钮混入
+ * 设置按钮的基础样式和交互效果
+ */
 @mixin btn() {
   @include button-size($btn-height-base, $btn-padding-base, $btn-font-size, $btn-border-radius);
   background-image: none;
@@ -132,78 +200,101 @@
   margin-bottom: 0;
   text-align: center;
   touch-action: manipulation;
+  // 颜色过渡动画
   transition: color $transition-time linear, background-color $transition-time linear, border $transition-time linear, box-shadow $transition-time linear;
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
 
+  // 图标字体样式
   > .#{$css-prefix-iconfont} {
     line-height: $line-height-base;
   }
 
+  // 仅图标圆形按钮的图标对齐
   &-icon-only &-circle > .#{$css-prefix-iconfont} {
     vertical-align: baseline;
   }
 
+  // 内联元素样式
   > span,
   > i {
     display: inline-block;
   }
 
+  // 移除焦点轮廓
   &,
   &:active,
   &:focus {
     outline: 0;
   }
 
+  // 悬停状态
   &:not([disabled]):hover {
     text-decoration: none;
   }
 
+  // 激活状态
   &:not([disabled]):active {
     outline: 0;
   }
 
+  // 禁用状态
   &.disabled,
   &[disabled] {
     cursor: $cursor-disabled;
 
+    // 禁用所有子元素的鼠标事件
     > * {
       pointer-events: none;
     }
   }
 
+  // 大尺寸按钮
   &-large {
     @include button-size($btn-height-large, $btn-padding-large, $btn-font-size-large, $btn-border-radius);
   }
 
+  // 小尺寸按钮
   &-small {
     @include button-size($btn-height-small, $btn-padding-small, $btn-font-size, $btn-border-radius-small);
   }
 
+  // 仅图标按钮
   &-icon-only {
     @include btn-square($btn-prefix-cls);
   }
 }
 
+/**
+ * 默认按钮混入
+ * 设置默认样式的按钮
+ */
 @mixin btn-default() {
   @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
   @include active-btn-color($primary-color);
 
+  // 悬停时使用主色调
   &:hover {
     @include button-color(tint($primary-color, 20%), white, tint($primary-color, 20%));
   }
 
+  // 激活时使用主色调
   &:active,
   &.active {
     @include button-color(shade($primary-color, 5%), white, shade($primary-color, 5%));
   }
 }
 
+/**
+ * 主要按钮混入
+ * 设置主要操作按钮的样式
+ */
 @mixin btn-primary() {
   @include button-variant($btn-primary-color, $btn-primary-bg, $primary-color);
   @include active-btn-color($primary-color);
 
+  // 悬停和激活状态保持主要按钮颜色
   &:hover,
   &:active,
   &.active {
@@ -211,43 +302,56 @@
   }
 }
 
-// Ghost
+/**
+ * 幽灵按钮混入
+ * 设置透明背景的按钮样式
+ */
 @mixin btn-ghost() {
   @include button-variant($btn-ghost-color, $btn-ghost-bg, $btn-ghost-border);
   @include active-btn-color($primary-color);
 
+  // 悬停时使用主色调
   &:hover {
     @include button-color(tint($primary-color, 20%), $btn-ghost-bg, tint($primary-color, 20%));
   }
 
+  // 激活时使用主色调
   &:active,
   &.active {
     @include button-color(shade($primary-color, 5%), $btn-ghost-bg, shade($primary-color, 5%));
   }
 }
 
-// Dashed
+/**
+ * 虚线按钮混入
+ * 设置虚线边框的按钮样式
+ */
 @mixin btn-dashed() {
   @include button-variant($btn-ghost-color, $btn-ghost-bg, $btn-ghost-border);
   @include active-btn-color($primary-color);
   border-style: dashed;
 
+  // 悬停时使用主色调
   &:hover {
     @include button-color(tint($primary-color, 20%), $btn-ghost-bg, tint($primary-color, 20%));
   }
 
+  // 激活时使用主色调
   &:active,
   &.active {
     @include button-color(shade($primary-color, 5%), $btn-ghost-bg, shade($primary-color, 5%));
   }
 }
 
-// Text
+/**
+ * 文本按钮混入
+ * 设置纯文本样式的按钮
+ */
 @mixin btn-text() {
   @include button-variant($btn-ghost-color, transparent, transparent);
   @include active-btn-color($primary-color);
 
-  // for disabled
+  // 禁用状态样式
   &.disabled,
   &[disabled],
   fieldset[disabled] & {
@@ -260,28 +364,39 @@
     }
   }
 
+  // 悬停时使用主色调
   &:hover {
     @include button-color(tint($primary-color, 20%), $btn-ghost-bg, transparent);
   }
 
+  // 激活时使用主色调
   &:active,
   &.active {
     @include button-color(shade($primary-color, 5%), $btn-ghost-bg, transparent);
   }
 }
 
-// Color
-// for tabindex
+/**
+ * 按钮激活颜色混入
+ * 设置按钮获得焦点时的颜色效果
+ * @param {string} $color - 激活颜色
+ */
 @mixin active-btn-color($color) {
   &:focus {
     box-shadow: 0 0 0 2px rgba($color, 20%/100%);
   }
 }
+
+/**
+ * 自定义颜色按钮混入
+ * 设置自定义颜色的按钮样式
+ * @param {string} $color - 按钮颜色
+ */
 @mixin btn-color($color) {
   @include button-variant($btn-primary-color, $color, $color);
-
   @include active-btn-color($color);
 
+  // 悬停和激活状态保持主要按钮颜色
   &:hover,
   &:active,
   &.active {
@@ -289,27 +404,36 @@
   }
 }
 
-// Circle for Icon
+/**
+ * 圆形按钮混入
+ * 设置圆形按钮的样式，通常用于图标按钮
+ * @param {string} $btnClassName - 按钮类名前缀，默认为ivu-btn
+ */
 @mixin btn-circle($btnClassName: ivu-btn) {
   border-radius: $btn-circle-size;
 
+  // 大尺寸圆形按钮
   &.#{$btnClassName}-large {
     border-radius: $btn-circle-size-large;
   }
 
+  // 小尺寸圆形按钮
   &.#{$btnClassName}-size {
     border-radius: $btn-circle-size-small;
   }
 
+  // 仅图标圆形按钮
   &.#{$btnClassName}-icon-only {
     @include square($btn-circle-size);
     @include button-size($btn-height-base, 0, $font-size-base + 2, 50%);
 
+    // 大尺寸仅图标圆形按钮
     &.#{$btnClassName}-large {
       @include square($btn-circle-size-large);
       @include button-size($btn-height-large, 0, $btn-font-size-large + 2, 50%);
     }
 
+    // 小尺寸仅图标圆形按钮
     &.#{$btnClassName}-small {
       @include square($btn-circle-size-small);
       @include button-size($btn-height-small, 0, $font-size-base, 50%);
@@ -317,10 +441,15 @@
   }
 }
 
-// Group
+/**
+ * 水平按钮组混入
+ * 设置水平排列的按钮组样式
+ * @param {string} $btnClassName - 按钮类名前缀，默认为ivu-btn
+ */
 @mixin btn-group($btnClassName: ivu-btn) {
   @include button-group-base($btnClassName);
 
+  // 按钮之间的间距处理
   .#{$btnClassName} + .#{$btnClassName},
   .#{$btnClassName} + &,
   .#{$btnClassName},
@@ -328,10 +457,12 @@
     margin-left: -1px;
   }
 
+  // 中间按钮去除圆角
   .#{$btnClassName}:not(:first-child):not(:last-child) {
     border-radius: 0;
   }
 
+  // 第一个按钮的圆角处理
   &:not(&-vertical) > .#{$btnClassName}:first-child {
     margin-left: 0;
 
@@ -341,11 +472,13 @@
     }
   }
 
+  // 最后一个按钮的圆角处理
   &:not(&-vertical) > .#{$btnClassName}:last-child:not(:first-child) {
     border-bottom-left-radius: 0;
     border-top-left-radius: 0;
   }
 
+  // 嵌套按钮组处理
   & > & {
     float: left;
   }
@@ -354,6 +487,7 @@
     border-radius: 0;
   }
 
+  // 嵌套按钮组的圆角处理
   &:not(&-vertical) > &:first-child:not(:last-child) {
     > .#{$btnClassName}:last-child {
       border-bottom-right-radius: 0;
@@ -369,9 +503,15 @@
   }
 }
 
+/**
+ * 垂直按钮组混入
+ * 设置垂直排列的按钮组样式
+ * @param {string} $btnClassName - 按钮类名前缀，默认为ivu-btn
+ */
 @mixin btn-group-vertical($btnClassName: ivu-btn) {
   @include button-group-vertical-base($btnClassName);
 
+  // 垂直按钮之间的间距处理
   .#{$btnClassName} + .#{$btnClassName},
   .#{$btnClassName} + &,
   .#{$btnClassName},
@@ -380,6 +520,7 @@
     margin-top: -1px;
   }
 
+  // 第一个按钮的圆角处理
   > .#{$btnClassName}:first-child {
     margin-top: 0;
 
@@ -389,11 +530,13 @@
     }
   }
 
+  // 最后一个按钮的圆角处理
   > .#{$btnClassName}:last-child:not(:first-child) {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
 
+  // 嵌套垂直按钮组的圆角处理
   & > &:first-child:not(:last-child) {
     > .#{$btnClassName}:last-child {
       border-bottom-left-radius: 0;
@@ -404,7 +547,7 @@
 
   & > &:last-child:not(:first-child) > .#{$btnClassName}:first-child {
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
     padding-top: 8px;
   }
 }

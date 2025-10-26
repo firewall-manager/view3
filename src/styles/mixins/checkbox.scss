@@ -1,31 +1,44 @@
+/**
+ * 复选框混入模块
+ * 提供复选框组件的各种样式混入，包括不同状态、尺寸等
+ */
+
+/**
+ * 复选框功能混入
+ * 设置复选框的完整样式和交互效果
+ * @param {string} $checkbox-prefix-cls - 复选框类名前缀
+ */
 @mixin checkbox-fn($checkbox-prefix-cls: unquote('#{$css-prefix}checkbox')) {
   $checkbox-inner-prefix-cls: unquote('#{$checkbox-prefix-cls}-inner');
 
+  // 焦点状态：显示焦点环
   .#{$checkbox-prefix-cls}-focus {
     box-shadow: 0 0 0 2px rgba($primary-color, 20%/100%);
     z-index: 1;
   }
 
-  // 普通状态
+  // 复选框基础样式
   .#{$checkbox-prefix-cls} {
     cursor: pointer;
     display: inline-block;
-    //outline: none;
     line-height: 1;
     position: relative;
     vertical-align: middle;
     white-space: nowrap;
 
+    // 禁用状态
     &-disabled {
       cursor: $cursor-disabled;
     }
 
+    // 悬停状态：边框颜色变化
     &:hover {
       .#{$checkbox-inner-prefix-cls} {
         border-color: #bcbcbc;
       }
     }
 
+    // 复选框内部样式
     &-inner {
       background-color: #fff;
       border: 1px solid $border-color-base;
@@ -35,9 +48,11 @@
       left: 0;
       position: relative;
       top: 0;
+      // 边框、背景色、阴影过渡动画
       transition: border-color $transition-time $ease-in-out, background-color $transition-time $ease-in-out, box-shadow $transition-time $ease-in-out;
       width: 16px;
 
+      // 选中状态的勾选标记
       &::after {
         border: 2px solid #fff;
         border-left: 0;
@@ -54,11 +69,13 @@
       }
     }
 
+    // 大尺寸复选框
     &-large {
       .#{$checkbox-inner-prefix-cls} {
         height: 18px;
         width: 18px;
 
+        // 大尺寸勾选标记
         &::after {
           height: 9px;
           width: 5px;
@@ -66,12 +83,14 @@
       }
     }
 
+    // 小尺寸复选框
     &-small {
       font-size: $font-size-base;
       .#{$checkbox-inner-prefix-cls} {
         height: 14px;
         width: 14px;
 
+        // 小尺寸勾选标记位置调整
         &::after {
           left: 3px;
           top: 0;
@@ -79,6 +98,7 @@
       }
     }
 
+    // 隐藏的输入框
     &-input {
       bottom: 0;
       cursor: pointer;
@@ -91,11 +111,13 @@
       width: 100%;
       z-index: 1;
 
+      // 禁用状态的输入框
       &[disabled] {
         cursor: $cursor-disabled;
       }
     }
 
+    // 带边框的复选框样式
     &-border {
       border: 1px solid $border-color-base;
       border-radius: $btn-border-radius;
@@ -104,11 +126,15 @@
       padding: $btn-padding-base;
       transition: border $transition-time $ease-in-out;
     }
+    
+    // 小尺寸带边框复选框
     &-small &-border, .#{$checkbox-prefix-cls}-group.#{$checkbox-prefix-cls}-small &-border {
       height: $btn-height-small;
       line-height: $btn-height-small - 2px;
       padding: $btn-padding-small;
     }
+    
+    // 大尺寸带边框复选框
     &-large &-border, .#{$checkbox-prefix-cls}-group.#{$checkbox-prefix-cls}-large &-border {
       height: $btn-height-large;
       line-height: $btn-height-large - 4px;
@@ -116,25 +142,31 @@
     }
   }
 
+  // 选中状态的边框颜色
   .#{$checkbox-prefix-cls}-wrapper-checked.#{$checkbox-prefix-cls}-border {
     border-color: $primary-color;
   }
+  
+  // 禁用状态的边框颜色
   .#{$checkbox-prefix-cls}-wrapper-disabled.#{$checkbox-prefix-cls}-border {
     border-color: $btn-disable-border;
   }
 
-  // 选中状态
+  // 选中状态样式
   .#{$checkbox-prefix-cls}-checked {
+    // 悬停时边框颜色
     &:hover {
       .#{$checkbox-inner-prefix-cls} {
         border-color: $primary-color;
       }
     }
 
+    // 选中状态的内部样式
     .#{$checkbox-inner-prefix-cls} {
       background-color: $primary-color;
       border-color: $primary-color;
 
+      // 选中状态的勾选标记
       &::after {
         border: 2px solid #fff;
         border-left: 0;
@@ -151,9 +183,12 @@
       }
     }
   }
+  
+  // 大尺寸选中状态
   .#{$checkbox-prefix-cls}-large {
     .#{$checkbox-prefix-cls}-checked {
       .#{$checkbox-inner-prefix-cls} {
+        // 大尺寸勾选标记
         &::after {
           height: 10px;
           width: 6px;
@@ -161,9 +196,12 @@
       }
     }
   }
+  
+  // 小尺寸选中状态
   .#{$checkbox-prefix-cls}-small {
     .#{$checkbox-prefix-cls}-checked {
       .#{$checkbox-inner-prefix-cls} {
+        // 小尺寸勾选标记位置调整
         &::after {
           left: 4px;
           top: 1px;
@@ -172,19 +210,23 @@
     }
   }
 
-  // 禁用
+  // 禁用状态样式
   .#{$checkbox-prefix-cls}-disabled {
+    // 禁用且选中的状态
     &.#{$checkbox-prefix-cls}-checked {
+      // 悬停时保持禁用样式
       &:hover {
         .#{$checkbox-inner-prefix-cls} {
           border-color: $border-color-base;
         }
       }
 
+      // 禁用选中状态的内部样式
       .#{$checkbox-inner-prefix-cls} {
         background-color: #f3f3f3;
         border-color: $border-color-base;
 
+        // 禁用选中状态的勾选标记
         &::after {
           animation-name: none;
           border-color: #ccc;
@@ -192,34 +234,40 @@
       }
     }
 
+    // 悬停时保持禁用样式
     &:hover {
       .#{$checkbox-inner-prefix-cls} {
         border-color: $border-color-base;
       }
     }
 
+    // 禁用状态的内部样式
     .#{$checkbox-inner-prefix-cls} {
       background-color: #f3f3f3;
       border-color: $border-color-base;
 
+      // 禁用状态的勾选标记
       &::after {
         animation-name: none;
         border-color: #f3f3f3;
       }
     }
 
+    // 禁用状态的输入框
     .#{$checkbox-inner-prefix-cls}-input {
       cursor: default;
     }
 
+    // 禁用状态的文本
     span {
       color: #ccc;
       cursor: $cursor-disabled;
     }
   }
 
-  // 半选状态
+  // 半选状态样式
   .#{$checkbox-prefix-cls}-indeterminate {
+    // 半选状态的标记（短横线）
     .#{$checkbox-inner-prefix-cls}:after {
       content: '';
       height: 1px;
@@ -230,15 +278,20 @@
       width: 10px;
     }
 
+    // 悬停时边框颜色
     &:hover {
       .#{$checkbox-inner-prefix-cls} {
         border-color: $primary-color;
       }
     }
+    
+    // 半选状态的内部样式
     .#{$checkbox-inner-prefix-cls} {
       background-color: $primary-color;
       border-color: $primary-color;
     }
+    
+    // 禁用半选状态
     &.#{$checkbox-prefix-cls}-disabled {
       .#{$checkbox-inner-prefix-cls} {
         background-color: #f3f3f3;
@@ -249,6 +302,7 @@
       }
     }
   }
+  // 大尺寸半选状态
   .#{$checkbox-prefix-cls}-large {
     .#{$checkbox-prefix-cls}-indeterminate {
       .#{$checkbox-inner-prefix-cls}:after {
@@ -257,6 +311,8 @@
       }
     }
   }
+  
+  // 小尺寸半选状态
   .#{$checkbox-prefix-cls}-small {
     .#{$checkbox-prefix-cls}-indeterminate {
       .#{$checkbox-inner-prefix-cls}:after {
@@ -266,31 +322,35 @@
     }
   }
 
+  // 复选框包装器样式
   .#{$checkbox-prefix-cls}-wrapper {
     cursor: pointer;
     display: inline-block;
     font-size: $font-size-base;
     margin-right: 8px;
-    //outline: none;
 
+    // 禁用状态的包装器
     &-disabled {
       cursor: $cursor-disabled;
     }
 
+    // 大尺寸包装器
     &.#{$checkbox-prefix-cls}-large {
       font-size: $font-size-large;
     }
   }
 
+  // 复选框与文本的间距
   .#{$checkbox-prefix-cls}-wrapper + span,
   .#{$checkbox-prefix-cls} + span {
-    //margin-left: 4px;
     margin-right: 4px;
   }
 
+  // 复选框组样式
   .#{$checkbox-prefix-cls}-group {
     font-size: $font-size-base;
 
+    // 复选框组项目
     &-item {
       display: inline-block;
     }

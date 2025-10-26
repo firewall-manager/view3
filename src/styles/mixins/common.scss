@@ -1,20 +1,35 @@
+/**
+ * 通用混入模块
+ * 提供常用的样式混入，包括占位符、箭头、重置等
+ */
+
+/**
+ * 占位符样式混入
+ * 设置输入框占位符文本的样式，兼容不同浏览器
+ * @param {string} $color - 占位符颜色，默认为输入框占位符颜色
+ */
 @mixin placeholder($color: $input-placeholder-color) {
-  // Firefox
+  // Firefox浏览器占位符样式
   &::-moz-placeholder {
     color: $color;
-    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+    opacity: 1; // 覆盖Firefox的默认透明度；参考 https://github.com/twbs/bootstrap/pull/11526
   }
-  // Internet Explorer 10+
+  
+  // Internet Explorer 10+ 占位符样式
   &:-ms-input-placeholder {
     color: $color;
   }
-  // Safari and Chrome
+  
+  // Safari和Chrome浏览器占位符样式
   &::-webkit-input-placeholder {
     color: $color;
   }
 }
 
-// for select and input like component's arrow
+/**
+ * 内部箭头混入
+ * 用于选择框和输入框等组件的内部箭头样式
+ */
 @mixin inner-arrow() {
   color: $subsidiary-color;
   font-size: $font-size-base;
@@ -23,9 +38,14 @@
   right: 8px;
   top: 50%;
   transform: translateY(-50%);
+  // 所有属性的过渡动画
   transition: all $transition-time $ease-in-out;
 }
 
+/**
+ * 组件重置混入
+ * 重置组件的默认样式，提供统一的组件基础样式
+ */
 @mixin reset-component() {
   box-sizing: border-box;
   color: $text-color;
