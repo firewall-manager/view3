@@ -1,8 +1,19 @@
+/**
+ * 图标字体样式
+ * 提供Ionicons图标字体的导入和基础样式定义
+ */
+
+// 导入Ionicons变量和图标定义
 @import 'ionicons/dist/scss/ionicons-variables';
 @import 'ionicons/dist/scss/ionicons-icons';
 
+// 设置Ionicons字体文件路径
 $ionicons-font-path: 'ionicons/dist/fonts';
 
+/**
+ * Ionicons字体定义
+ * 定义Ionicons图标字体的各种格式，确保跨浏览器兼容性
+ */
 @font-face {
   font-family: 'Ionicons';
   font-style: normal;
@@ -15,6 +26,10 @@ $ionicons-font-path: 'ionicons/dist/fonts';
     url('#{$ionicons-font-path}/ionicons.svg?v=#{$ionicons-version}#Ionicons') format('svg');
 }
 
+/**
+ * Ionicons图标混入
+ * 提供图标的基础样式设置，包括字体、渲染优化等
+ */
 @mixin ion() {
   display: inline-block;
   font-family: 'Ionicons';
@@ -29,9 +44,18 @@ $ionicons-font-path: 'ionicons/dist/fonts';
   text-transform: none;
 }
 
+/**
+ * 图标组件基础样式
+ * 应用Ionicons图标混入到图标组件
+ */
 .#{$icon-prefix-cls} {
-  @include ion(); }
+  @include ion(); 
+}
 
+/**
+ * iOS加载图标特殊处理
+ * 使用特定的加载图标字符码
+ */
 .#{$icon-prefix-cls}-ios-loading:before {
   // content: "\f38b";
   content: '\f366';

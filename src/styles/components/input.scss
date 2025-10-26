@@ -1,16 +1,27 @@
+/**
+ * 输入框组件样式
+ * 提供各种输入框的样式定义，包括基础输入框、搜索框、前缀后缀等
+ */
+
+/**
+ * 输入框基础样式
+ * 设置输入框的整体布局和交互效果
+ */
 .#{$input-prefix-cls} {
   @include input;
 
+  // 输入框包装器：相对定位容器
   &-wrapper {
     display: inline-block;
 
-    // #2149 & #2219
+    // 修复行高问题 #2149 & #2219
     line-height: normal;
     position: relative;
     vertical-align: middle;
     width: 100%;
   }
 
+  // 输入框图标：右侧绝对定位
   &-icon {
     color: $subsidiary-color;
     font-size: 16px;
@@ -23,50 +34,58 @@
     z-index: 3;
   }
 
+  // 隐藏图标
   &-hide-icon &-icon {
     display: none;
   }
 
+  // 验证图标：默认隐藏
   &-icon-validate {
     display: none;
   }
 
+  // 清除图标：默认隐藏
   &-icon-clear {
     display: none;
   }
 
+  // 悬停时显示清除图标
   &-wrapper:hover {
     .#{$input-prefix-cls}-icon-clear {
       display: inline-block;
     }
   }
 
+  // 有图标时调整输入框右边距
   &-icon-normal + & {
     padding-right: 32px;
   }
-  // #554
+  // 修复隐藏图标时的内边距问题 #554
   &-hide-icon &-icon-normal + & {
     padding-right: $input-padding-horizontal;
   }
 
+  // 大尺寸图标
   &-wrapper-large .#{$input-prefix-cls}-icon {
     font-size: 18px;
     height: $input-height-large;
     line-height: $input-height-large;
   }
 
+  // 小尺寸图标
   &-wrapper-small .#{$input-prefix-cls}-icon {
     font-size: 14px;
     height: $input-height-small;
     line-height: $input-height-small;
     width: 24px;
 
+    // 小尺寸图标的内边距调整（已注释）
     //+ .#{$input-prefix-cls} {
     //    padding-right: 24px;
     //}
   }
 
-  // prefix & suffix
+  // 前缀和后缀样式
   &-prefix,
   &-suffix {
     height: 100%;
@@ -84,11 +103,13 @@
     }
   }
 
+  // 后缀：右侧定位
   &-suffix {
     left: auto;
     right: 0;
   }
 
+  // 小尺寸前缀后缀
   &-wrapper-small .#{$input-prefix-cls}-prefix,
   &-wrapper-small .#{$input-prefix-cls}-suffix {
     i {
@@ -97,6 +118,7 @@
     }
   }
 
+  // 大尺寸前缀后缀
   &-wrapper-large .#{$input-prefix-cls}-prefix,
   &-wrapper-large .#{$input-prefix-cls}-suffix {
     i {
@@ -105,15 +127,17 @@
     }
   }
 
+  // 有前缀时调整左边距
   &-with-prefix {
     padding-left: 32px;
   }
 
+  // 有后缀时调整右边距
   &-with-suffix {
     padding-right: 32px;
   }
 
-  // search
+  // 搜索按钮样式
   &-search {
     background: $primary-color !important;
     border-color: $primary-color !important;
@@ -128,16 +152,19 @@
       font-size: 16px;
     }
 
+    // 悬停状态：主色调变亮
     &:hover {
       background: tint($primary-color, 20%) !important;
       border-color: tint($primary-color, 20%) !important;
     }
 
+    // 激活状态：主色调变暗
     &:active {
       background: shade($primary-color, 5%) !important;
       border-color: shade($primary-color, 5%) !important;
     }
 
+    // 搜索图标样式
     &-icon {
       cursor: pointer;
       transition: color $transition-time $ease-in-out;
@@ -147,6 +174,7 @@
       }
     }
 
+    // 搜索按钮边框效果
     &::before {
       background: inherit;
       bottom: -1px;
@@ -159,6 +187,7 @@
     }
   }
 
+  // 小尺寸搜索按钮
   &-wrapper-small .#{$input-prefix-cls}-search {
     padding: 0 12px !important;
 
@@ -167,6 +196,7 @@
     }
   }
 
+  // 大尺寸搜索按钮
   &-wrapper-large .#{$input-prefix-cls}-search {
     padding: 0 20px !important;
 
@@ -175,6 +205,7 @@
     }
   }
 
+  // 带搜索功能的输入框
   &-with-search {
     &:hover {
       .#{$input-prefix-cls} {
@@ -183,6 +214,7 @@
     }
   }
 
+  // 字数统计
   &-word-count {
     align-items: center;
     background: #fff;
@@ -198,24 +230,35 @@
     z-index: 1;
   }
 
+  // 禁用状态下的字数统计
   &-wrapper-disabled .#{$input-prefix-cls}-word-count {
     background: $input-disabled-bg;
   }
 
+  // 文本域的字数统计
   &-type-textarea .#{$input-prefix-cls}-word-count {
     align-items: flex-end;
     top: auto;
   }
 }
 
+/**
+ * 输入框组合样式
+ * 使用输入框组合混入
+ */
 .#{$input-prefix-cls}-group {
   @include input-group(unquote('#{$input-prefix-cls}'));
 }
 
+/**
+ * 表单项错误状态
+ * 当表单项有错误时，输入框的样式调整
+ */
 .#{$form-item-prefix-cls}-error {
   .#{$input-prefix-cls} {
     @include input-error;
 
+    // 错误状态下的图标颜色
     &-icon {
       color: $error-color;
     }
@@ -233,11 +276,18 @@
     }
   }
 }
+
+/**
+ * 表单项验证状态
+ * 当表单项正在验证时，显示验证图标
+ */
 .#{$form-item-prefix-cls}-validating {
   .#{$input-prefix-cls} {
+    // 显示验证图标
     &-icon-validate {
       display: inline-block;
     }
+    // 有验证图标时调整右边距
     &-icon + .#{$input-prefix-cls} {
       padding-right: 32px;
     }

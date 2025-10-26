@@ -1,7 +1,17 @@
+/**
+ * 穿梭框组件样式
+ * 提供数据在两个列表间转移的组件样式定义
+ */
+
+/**
+ * 穿梭框基础样式
+ * 设置穿梭框的整体布局和样式
+ */
 .#{$transfer-prefix-cls} {
   line-height: $line-height-base;
   position: relative;
 
+  // 穿梭框列表样式
   &-list {
     display: inline-block;
     font-size: $font-size-base;
@@ -11,10 +21,12 @@
     vertical-align: middle;
     width: 180px;
 
+    // 带底部的列表
     &-with-footer {
       padding-bottom: 35px;
     }
 
+    // 列表头部
     &-header {
       background: $head-bg;
       border: 1px solid $border-color-base;
@@ -28,20 +40,24 @@
       top: 0;
       width: 100%;
 
+      // 标题：可点击
       &-title {
         cursor: pointer;
       }
 
+      // 标题文字：左边距
       & > span {
         padding-left: 4px;
       }
 
+      // 计数：右浮动
       &-count {
         float: right;
         margin: 0 !important;
       }
     }
 
+    // 列表主体
     &-body {
       border: 1px solid $border-color-base;
       border-radius: 0 0 $border-radius-base $border-radius-base;
@@ -50,20 +66,24 @@
       overflow: hidden;
       position: relative;
 
+      // 带搜索的主体
       &-with-search {
         padding-top: 34px;
       }
 
+      // 带底部的主体
       &-with-footer {
         border-radius: 0;
       }
     }
 
+    // 列表内容
     &-content {
       height: 100%;
       overflow: auto;
       padding: 4px 0;
 
+      // 列表项
       &-item {
         overflow: hidden;
         text-overflow: ellipsis;
@@ -74,21 +94,25 @@
         }
       }
 
+      // 未找到提示
       &-not-found {
         color: $btn-disable-color;
         display: none;
         text-align: center;
       }
 
+      // 只有未找到提示时显示
       li &-not-found:only-child {
         display: block;
       }
     }
 
+    // 带搜索的内容调整
     &-body-with-search &-content {
       padding: 6px 0 0;
     }
 
+    // 搜索框包装器
     &-body-search-wrapper {
       left: 0;
       padding: 8px 8px 0;
@@ -97,12 +121,13 @@
       top: 0;
     }
 
+    // 搜索框
     &-search {
       position: relative;
     }
 
+    // 列表底部
     &-footer {
-
       @include clearfix();
       border: 1px solid $border-color-base;
       border-radius: 0 0 $border-radius-base $border-radius-base;
@@ -114,16 +139,19 @@
     }
   }
 
+  // 操作按钮区域
   &-operation {
     display: inline-block;
     //overflow: hidden;
     margin: 0 16px;
     vertical-align: middle;
 
+    // 操作按钮样式
     .#{$btn-prefix-cls} {
       display: block;
       min-width: $btn-circle-size-small;
 
+      // 第一个按钮：底部边距
       &:first-child {
         margin-bottom: 12px;
       }
@@ -138,4 +166,9 @@
     }
   }
 }
+
+/**
+ * 穿梭框选项项样式
+ * 使用选择器选项项混入
+ */
 @include select-item($transfer-prefix-cls, $transfer-item-prefix-cls);

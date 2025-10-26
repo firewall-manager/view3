@@ -1,13 +1,30 @@
+/**
+ * 基础样式重置
+ * 提供全局的基础样式重置和通用样式定义
+ */
+
+/**
+ * 全局盒模型重置
+ * 设置所有元素使用border-box盒模型，移除点击高亮
+ */
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+/**
+ * 伪元素盒模型重置
+ * 确保所有伪元素也使用border-box盒模型
+ */
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/**
+ * 页面主体样式
+ * 设置页面的基础字体、颜色、背景等样式
+ */
 body {
   background-color: $body-background;
   color: $text-color;
@@ -18,6 +35,10 @@ body {
   line-height: $line-height-base;
 }
 
+/**
+ * 元素边距重置
+ * 重置所有HTML元素的默认边距和内边距
+ */
 body,
 div,
 dl,
@@ -58,6 +79,10 @@ section {
   padding: 0;
 }
 
+/**
+ * 表单元素字体继承
+ * 确保表单元素继承父元素的字体样式
+ */
 button,
 input,
 select,
@@ -67,11 +92,19 @@ textarea {
   line-height: inherit;
 }
 
+/**
+ * IE输入框清除按钮隐藏
+ * 隐藏IE浏览器输入框的清除和显示密码按钮
+ */
 input::-ms-clear,
 input::-ms-reveal {
   display: none;
 }
 
+/**
+ * 链接样式
+ * 设置链接的基础样式和交互效果
+ */
 a {
   background: transparent;
   color: $link-color;
@@ -80,20 +113,24 @@ a {
   text-decoration: none;
   transition: color $transition-time ease;
 
+  // 悬停状态：链接悬停颜色
   &:hover {
     color: $link-hover-color;
   }
 
+  // 激活状态：链接激活颜色
   &:active {
     color: $link-active-color;
   }
 
+  // 悬停和激活状态：移除轮廓和下划线
   &:active,
   &:hover {
     outline: 0;
     text-decoration: none;
   }
 
+  // 禁用状态：灰色文字，禁用鼠标事件
   &[disabled] {
     color: #ccc;
     cursor: $cursor-disabled;
@@ -101,6 +138,10 @@ a {
   }
 }
 
+/**
+ * 代码字体
+ * 设置代码相关元素的等宽字体
+ */
 code,
 kbd,
 pre,

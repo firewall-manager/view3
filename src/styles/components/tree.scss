@@ -1,15 +1,28 @@
+/**
+ * 树形控件组件样式
+ * 提供树形结构数据展示的组件样式定义
+ */
+
+/**
+ * 树形控件基础样式
+ * 设置树形控件的整体布局和交互效果
+ */
 .#{$tree-prefix-cls} {
   position: relative;
 
+  // 树形列表样式
   ul {
     font-size: $font-size-base;
     list-style: none;
     margin: 0;
     padding: 0;
+    
+    // 下拉菜单样式
     &.#{$dropdown-prefix-cls}-menu {
       padding: 0;
     }
 
+    // 列表项样式
     li {
       list-style: none;
       margin: 8px 0;
@@ -17,6 +30,7 @@
       padding: 0;
       white-space: nowrap;
 
+      // 下拉菜单项样式
       &.#{$dropdown-item-prefix-cls} {
         margin: 0;
         padding: 7px 16px;
@@ -25,6 +39,7 @@
     }
   }
 
+  // 嵌套列表：左边距缩进
   li {
     ul {
       margin: 0;
@@ -32,6 +47,7 @@
     }
   }
 
+  // 树节点标题
   &-title {
     border-radius: $btn-border-radius-small;
     color: $text-color;
@@ -42,16 +58,19 @@
     transition: all $transition-time $ease-in-out;
     vertical-align: top;
 
+    // 悬停状态：浅色背景
     &:hover {
       background-color: tint($primary-color, 90%);
     }
 
+    // 选中状态：深色背景
     &-selected,
     &-selected:hover {
       background-color: tint($primary-color, 80%);
     }
   }
 
+  // 展开/收起箭头
   &-arrow {
     cursor: pointer;
     display: inline-block;
@@ -64,27 +83,34 @@
       vertical-align: middle;
     }
 
+    // 展开状态：箭头旋转90度
     &-open {
       i {
         transform: rotate(90deg);
       }
     }
+    
+    // 隐藏箭头（已注释）
     //&-hidden{
     //    cursor: auto;
     //    i{
     //        display: none;
     //    }
     //}
-    &-disabled {
-      //cursor: $cursor-disabled;
-    }
+    
+    // 禁用状态（已注释）
+    // &-disabled {
+    //   cursor: $cursor-disabled;
+    // }
   }
 
+  // 复选框包装器：左右边距
   .#{$checkbox-prefix-cls}-wrapper {
     margin-left: 4px;
     margin-right: 4px;
   }
 
+  // 右键菜单
   &-context-menu {
     position: absolute;
   }

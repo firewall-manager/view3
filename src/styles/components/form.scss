@@ -1,4 +1,14 @@
+/**
+ * 表单组件样式
+ * 提供表单和表单项的样式定义，包括标签、验证、布局等
+ */
+
+/**
+ * 表单容器样式
+ * 设置表单的整体布局和标签样式
+ */
 .#{$form-prefix-cls} {
+  // 表单项标签样式
   .#{$form-item-prefix-cls}-label {
     box-sizing: border-box;
     color: $text-color;
@@ -9,15 +19,20 @@
     text-align: right;
     vertical-align: middle;
   }
+  
+  // 左对齐标签
   &-label-left .#{$form-item-prefix-cls}-label {
     text-align: left;
   }
+  
+  // 顶部标签：块级显示，无浮动
   &-label-top .#{$form-item-prefix-cls}-label {
     display: inline-block;
     float: none;
     padding: 0 0 10px;
   }
 
+  // 内联表单：表单项水平排列
   &-inline {
     .#{$form-item-prefix-cls} {
       display: inline-block;
@@ -27,25 +42,33 @@
   }
 }
 
+/**
+ * 表单项样式
+ * 设置单个表单项的布局和样式
+ */
 .#{$form-item-prefix-cls} {
   @include clearfix();
   margin-bottom: 24px;
   vertical-align: top;
 
+  // 表单项内容区域
   &-content {
     font-size: $font-size-base;
     line-height: 32px;
     position: relative;
   }
 
+  // 嵌套表单项：移除底部边距
   & & {
     margin-bottom: 0;
   }
 
+  // 嵌套表单项内容：重置左边距
   & & &-content {
     margin-left: 0 !important;
   }
 
+  // 错误提示：红色文字，绝对定位
   &-error-tip {
     color: $error-color;
     left: 0;
@@ -55,6 +78,7 @@
     top: 100%;
   }
 
+  // 必填项标识：红色星号
   &-required {
     .#{$form-item-prefix-cls}-label:before {
       color: $error-color;
@@ -67,11 +91,16 @@
     }
   }
 
+  // 错误状态（待实现）
   &-error {
     // todo
   }
 }
 
+/**
+ * 隐藏必填标记
+ * 当表单设置为隐藏必填标记时，隐藏星号
+ */
 .#{$form-prefix-cls}-hide-required-mark .#{$form-item-prefix-cls}-required {
   .#{$form-item-prefix-cls}-label:before {
     display: none;

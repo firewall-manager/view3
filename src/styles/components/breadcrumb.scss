@@ -1,30 +1,45 @@
+/**
+ * 面包屑组件样式
+ * 提供页面导航路径显示的组件样式定义
+ */
+
+/**
+ * 面包屑组件基础样式
+ * 设置面包屑导航的整体布局和交互效果
+ */
 .#{$breadcrumb-prefix-cls} {
   color: #999;
   font-size: $font-size-base;
 
+  // 面包屑链接样式
   a {
     color: $text-color;
     transition: color $transition-time $ease-in-out;
 
+    // 悬停状态：主色调变亮
     &:hover {
       color: tint($primary-color, 20%);
     }
   }
 
+  // 最后一个面包屑项：当前页面，加粗显示
   & > span:last-child {
     color: $text-color;
     font-weight: bold;
   }
 
+  // 最后一个面包屑项隐藏分隔符
   & > span:last-child &-item-separator {
     display: none;
   }
 
+  // 面包屑项分隔符：灰色竖线或斜杠
   &-item-separator {
     color: $border-color-base;
     margin: 0 8px;
   }
 
+  // 带链接的面包屑项：图标和文字间距
   &-item-link {
     > .ivu-icon + span {
       margin-left: 4px;

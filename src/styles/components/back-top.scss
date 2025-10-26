@@ -1,24 +1,37 @@
+/**
+ * 回到顶部组件样式
+ * 提供页面回到顶部按钮的样式定义
+ */
+
+/**
+ * 回到顶部组件基础样式
+ * 设置回到顶部按钮的外观和交互效果
+ */
 .#{$backtop-prefix-cls} {
   cursor: pointer;
   display: none;
   position: fixed;
   z-index: $zindex-back-top;
 
+  // 显示状态：当需要显示时显示按钮
   &.#{$backtop-prefix-cls}-show {
     display: block;
   }
 
+  // 按钮内部容器：背景和阴影效果
   &-inner {
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: all $transition-time $ease-in-out;
 
+    // 悬停状态：背景色加深
     &:hover {
       background-color: rgba(0, 0, 0, 0.7);
     }
   }
 
+  // 图标样式：白色图标，适当的内边距
   i {
     color: #fff;
     font-size: 24px;

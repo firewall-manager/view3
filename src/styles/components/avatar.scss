@@ -1,20 +1,36 @@
+/**
+ * 头像组件样式
+ * 提供用户头像显示的样式定义，包括不同尺寸和形状
+ */
+
+/**
+ * 头像尺寸混入
+ * 设置头像的尺寸和字体大小
+ * @param {number} $size - 头像尺寸
+ * @param {number} $font-size - 字体大小
+ */
 @mixin avatar-size($size, $font-size) {
   border-radius: 50%;
   height: $size;
   line-height: $size;
   width: $size;
 
+  // 子元素行高设置（已注释）
   //& > * {
   //    line-height: $size;
   //}
 
+  // 图标头像的字体大小
   &.#{$avatar-prefix-cls}-icon {
     font-size: $font-size;
   }
 }
 
+/**
+ * 头像组件基础样式
+ * 设置头像的基础外观和布局
+ */
 .#{$avatar-prefix-cls} {
-
   @include avatar-size($avatar-size-base, $avatar-font-size-base);
   background: $avatar-bg;
   color: $avatar-color;
@@ -25,32 +41,39 @@
   vertical-align: middle;
   white-space: nowrap;
 
+  // 图片头像：透明背景
   &-image {
     background: transparent;
   }
 
+  // 图标位置微调
   .ivu-icon {
     position: relative;
     top: -1px;
   }
 
+  // 大尺寸头像
   &-large {
     @include avatar-size($avatar-size-lg, $avatar-font-size-lg);
 
+    // 大尺寸图标的额外位置调整
     .ivu-icon {
       position: relative;
       top: -2px;
     }
   }
 
+  // 小尺寸头像
   &-small {
     @include avatar-size($avatar-size-sm, $avatar-font-size-sm);
   }
 
+  // 方形头像：使用自定义圆角
   &-square {
     border-radius: $avatar-border-radius;
   }
 
+  // 图片元素：填满整个头像容器
   & > img {
     height: 100%;
     width: 100%;

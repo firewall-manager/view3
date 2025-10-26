@@ -1,11 +1,23 @@
+/**
+ * 上传组件样式
+ * 提供文件上传功能的组件样式定义
+ */
+
+/**
+ * 上传组件基础样式
+ * 设置上传组件的整体布局和交互效果
+ */
 .#{$upload-prefix-cls} {
+  // 隐藏原生文件输入框
   input[type='file'] {
     display: none;
   }
 
+  // 文件列表样式
   &-list {
     margin-top: 8px;
 
+    // 文件项样式
     &-file {
       border-radius: $border-radius-small;
       color: $text-color;
@@ -14,10 +26,12 @@
       position: relative;
       transition: background-color $transition-time $ease-in-out;
 
+      // 文件信息区域
       & > span {
         cursor: pointer;
         transition: color $transition-time $ease-in-out;
 
+        // 文件图标
         i {
           color: $text-color;
           display: inline-block;
@@ -27,6 +41,7 @@
         }
       }
 
+      // 悬停状态：背景色变化，显示删除按钮
       &:hover {
         background: $input-disabled-bg;
 
@@ -43,6 +58,7 @@
       }
     }
 
+    // 删除按钮
     &-remove {
       color: $legend-color;
       cursor: pointer;
@@ -52,16 +68,19 @@
       opacity: 0;
       transition: all $transition-time ease;
 
+      // 悬停状态：颜色变深
       &:hover {
         color: #444;
       }
     }
   }
 
+  // 选择按钮
   &-select {
     display: inline-block;
   }
     
+  // 拖拽上传区域
   &-drag {
     background: #fff;
     border: 1px dashed $border-color-base;
@@ -72,11 +91,13 @@
     text-align: center;
     transition: border-color $transition-time ease;
 
+    // 悬停状态：边框变为主色调
     &:hover {
       border: 1px dashed $primary-color;
     }
   }
 
+  // 拖拽悬停状态：边框加粗
   &-dragOver {
     border: 2px dashed $primary-color;
   }

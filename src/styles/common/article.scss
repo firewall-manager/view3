@@ -1,34 +1,50 @@
+/**
+ * 文章内容样式
+ * 提供文章内容区域的通用样式定义，包括标题、段落、列表等元素
+ */
+
+/**
+ * 文章容器样式
+ * 设置文章内容区域的各种文本元素的样式
+ */
 .ivu-article {
+  // 一级标题：大字体，正常字重
   h1 {
     font-size: 26px;
     font-weight: normal;
   }
 
+  // 二级标题：中等字体，正常字重
   h2 {
     font-size: 20px;
     font-weight: normal;
   }
 
+  // 三级标题：标准字体，正常字重
   h3 {
     font-size: 16px;
     font-weight: normal;
   }
 
+  // 四级标题：小字体，正常字重
   h4 {
     font-size: 14px;
     font-weight: normal;
   }
 
+  // 五级标题：更小字体，正常字重
   h5 {
     font-size: 12px;
     font-weight: normal;
   }
 
+  // 六级标题：最小字体，正常字重
   h6 {
     font-size: 12px;
     font-weight: normal;
   }
 
+  // 引用块：左边框，灰色文字，增加行高
   blockquote {
     border-left: 4px solid #ddd;
     color: #666;
@@ -38,26 +54,31 @@
     padding: 5px 5px 3px 10px;
   }
 
+  // 无序列表：圆点样式，左边距缩进
   ul:not([class^='ivu-']) {
     list-style-type: disc;
     padding-left: 40px;
   }
 
+  // 列表项：标准字体，底部边距
   li:not([class^='ivu-']) {
     font-size: 14px;
     margin-bottom: 5px;
   }
 
+  // 嵌套列表：空心圆点样式
   ul ul:not([class^='ivu-']),
   ol ul:not([class^='ivu-']) {
     list-style-type: circle;
   }
 
+  // 段落：标准字体，小边距
   p {
     font-size: 14px;
     margin: 5px;
   }
 
+  // 外部链接：添加外部链接图标
   a:not([class^='ivu-'])[target='_blank']::after {
     color: #aaa;
     content: '\F3F2';

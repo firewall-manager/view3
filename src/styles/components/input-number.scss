@@ -1,9 +1,22 @@
+/**
+ * 数字输入框组件样式
+ * 提供带增减按钮的数字输入框样式定义
+ */
+
+/**
+ * 处理器禁用状态混入
+ * 设置增减按钮禁用时的样式
+ */
 @mixin handler-disabled() {
   color: #ccc !important;
   cursor: $cursor-disabled;
   opacity: 0.72;
 }
 
+/**
+ * 数字输入框基础样式
+ * 设置数字输入框的整体布局和交互效果
+ */
 .#{$input-number-prefix-cls} {
   $radius-wrap: 0 $btn-border-radius $btn-border-radius 0;
 
@@ -19,6 +32,7 @@
   vertical-align: middle;
   width: 80px;
 
+  // 增减按钮容器：右侧绝对定位
   &-handler-wrap {
     background: #fff;
     border-left: 1px solid $border-color-base;
@@ -32,10 +46,12 @@
     width: 22px;
   }
 
+  // 悬停时显示增减按钮
   &:hover &-handler-wrap {
     opacity: 1;
   }
 
+  // 增加按钮
   &-handler-up {
     cursor: pointer;
 
@@ -44,12 +60,14 @@
     }
   }
 
+  // 减少按钮：顶部边框分割
   &-handler-down {
     border-top: 1px solid $border-color-base;
     cursor: pointer;
     top: -1px;
   }
 
+  // 按钮通用样式
   &-handler {
     color: #999;
     display: block;
@@ -60,12 +78,14 @@
     text-align: center;
     width: 100%;
 
+    // 悬停时按钮图标变为主色调
     &:hover &-up-inner,
     &:hover &-down-inner {
       color: tint($primary-color, 20%);
     }
   }
 
+  // 按钮图标样式
   &-handler-up-inner,
   &-handler-down-inner {
     color: #999;
@@ -79,23 +99,28 @@
     width: 12px;
   }
 
+  // 悬停状态
   &:hover {
     @include hover();
   }
 
+  // 焦点状态
   &-focused {
     @include active();
   }
 
+  // 禁用状态
   &-disabled {
     @include disabled();
   }
 
+  // 输入框容器
   &-input-wrap {
     height: $input-height-base;
     overflow: hidden;
   }
 
+  // 输入框样式
   &-input {
     -moz-appearance: textfield;
     border: 0;
@@ -109,15 +134,18 @@
     transition: all $transition-time linear;
     width: 100%;
 
+    // 禁用状态
     &[disabled] {
       @include disabled();
     }
 
+    // 占位符样式
     &::placeholder {
       color: $input-placeholder-color;
     }
   }
 
+  // 大尺寸样式
   &-large {
     padding: 0;
     .#{$input-number-prefix-cls}-input-wrap {
@@ -140,6 +168,7 @@
     }
   }
 
+  // 小尺寸样式
   &-small {
     padding: 0;
     .#{$input-number-prefix-cls}-input-wrap {
@@ -163,8 +192,7 @@
     }
   }
 
-
-
+  // 按钮禁用状态
   &-handler-down-disabled,
   &-handler-up-disabled,
   &-disabled {
@@ -174,6 +202,7 @@
     }
   }
 
+  // 整体禁用状态
   &-disabled {
     .#{$input-number-prefix-cls}-input {
       background-color: #f3f3f3;
@@ -188,6 +217,7 @@
     }
   }
 
+  // 外部控制按钮样式
   &-controls-outside {
     padding: 0 32px;
     width: 80px + 32px * 2;
@@ -195,6 +225,7 @@
       border-radius: 0;
     }
 
+    // 外部控制按钮
     &-btn {
       background-color: $input-group-bg;
       color: $input-color;
@@ -211,10 +242,12 @@
         font-size: 16px;
       }
 
+      // 悬停时图标变为主色调
       &:hover i {
         color: $primary-color;
       }
 
+      // 禁用状态
       &-disabled,
       &-disabled:hover {
         cursor: $cursor-disabled;
@@ -225,17 +258,20 @@
       }
     }
 
+    // 右侧增加按钮
     &-up {
       border-left: 1px solid $input-border-color;
       right: 0;
     }
 
+    // 左侧减少按钮
     &-down {
       border-right: 1px solid $input-border-color;
       left: 0;
     }
   }
 
+  // 禁用状态下的外部控制按钮
   &-disabled &-controls-outside {
     .#{$input-number-prefix-cls}-controls-outside-btn {
       cursor: $cursor-disabled;
@@ -246,6 +282,7 @@
     }
   }
 
+  // 大尺寸外部控制按钮
   &-large &-controls-outside {
     padding: 0 40px;
     width: 80px + 40px *2;
@@ -260,6 +297,7 @@
     }
   }
 
+  // 小尺寸外部控制按钮
   &-small &-controls-outside {
     padding: 0 24px;
     width: 80px + 24px *2;
@@ -275,6 +313,10 @@
   }
 }
 
+/**
+ * 表单项错误状态
+ * 当表单项有错误时，数字输入框的样式调整
+ */
 .#{$form-item-prefix-cls}-error {
   .#{$input-number-prefix-cls} {
     @include input-error;

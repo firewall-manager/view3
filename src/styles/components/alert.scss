@@ -1,3 +1,12 @@
+/**
+ * 警告提示组件样式
+ * 提供各种类型的警告提示消息的样式定义
+ */
+
+/**
+ * 警告提示组件基础样式
+ * 设置警告提示的基础外观和布局
+ */
 .#{$alert-prefix-cls} {
   border-radius: $border-radius-small;
   color: $text-color;
@@ -7,10 +16,12 @@
   padding: 8px 48px 8px 16px;
   position: relative;
 
+  // 带图标的警告提示：调整内边距为图标留出空间
   &.#{$alert-prefix-cls}-with-icon {
     padding: 8px 48px 8px 38px;
   }
 
+  // 警告提示图标样式
   &-icon {
     font-size: $font-size-large;
     left: 12px;
@@ -18,6 +29,7 @@
     top: 6px;
   }
 
+  // 警告提示描述文字：默认隐藏
   &-desc {
     color: $text-color;
     display: none;
@@ -26,6 +38,7 @@
     text-align: justify;
   }
 
+  // 成功类型警告提示：绿色主题
   &-success {
     background-color: tint($success-color, 90%);
     border: $border-width-base $border-style-base shade($success-color, 90%);
@@ -34,6 +47,7 @@
     }
   }
 
+  // 信息类型警告提示：蓝色主题
   &-info {
     background-color: tint($primary-color, 90%);
     border: $border-width-base $border-style-base shade($primary-color, 90%);
@@ -42,6 +56,7 @@
     }
   }
 
+  // 警告类型警告提示：橙色主题
   &-warning {
     background-color: tint($warning-color, 90%);
     border: $border-width-base $border-style-base shade($warning-color, 90%);
@@ -50,6 +65,7 @@
     }
   }
 
+  // 错误类型警告提示：红色主题
   &-error {
     background-color: tint($error-color, 90%);
     border: $border-width-base $border-style-base shade($error-color, 90%);
@@ -58,10 +74,12 @@
     }
   }
 
+  // 关闭按钮样式
   &-close {
     @include content-close(-3px);
   }
 
+  // 带描述的警告提示：更大的内边距和布局
   &-with-desc {
     border-radius: $border-radius-small;
     color: $text-color;
@@ -71,14 +89,17 @@
     position: relative;
   }
 
+  // 带描述和图标的警告提示：调整内边距
   &-with-desc.#{$alert-prefix-cls}-with-icon {
     padding: 16px 16px 16px 69px;
   }
 
+  // 带描述时显示描述文字
   &-with-desc &-desc {
     display: block;
   }
 
+  // 带描述时的消息标题样式
   &-with-desc &-message {
     color: $title-color;
     display: block;
@@ -86,6 +107,7 @@
     margin-bottom: 4px;
   }
 
+  // 带描述时的图标样式：更大尺寸，垂直居中
   &-with-desc &-icon {
     font-size: 28px;
     left: 24px;
@@ -93,6 +115,7 @@
     top: 50%;
   }
 
+  // 横幅样式：去除圆角
   &-with-banner {
     border-radius: 0;
   }

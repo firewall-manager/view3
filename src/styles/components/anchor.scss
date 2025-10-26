@@ -1,20 +1,33 @@
+/**
+ * 锚点组件样式
+ * 提供页面锚点导航的样式定义，包括链接和指示器
+ */
+
+/**
+ * 锚点组件基础样式
+ * 设置锚点导航的整体布局和交互效果
+ */
 .#{$anchor-prefix} {
+  // 锚点包装器：处理滚动和边距
   &-wrapper {
     margin-left: -4px;
     overflow: auto;
     padding-left: 4px;
   }
 
+  // 锚点容器：相对定位，为指示器留出空间
   & {
     padding-left: $anchor-border-width;
     position: relative;
 
+    // 锚点指示器容器
     &-ink {
       height: 100%;
       left: 0;
       position: absolute;
       top: 0;
 
+      // 指示器背景线：垂直分割线
       &::before {
         background-color: $border-color-split;
         content: ' ';
@@ -25,6 +38,7 @@
         width: $anchor-border-width;
       }
 
+      // 指示器圆球：当前激活位置的指示器
       &-ball {
         background-color: $body-background;
         border: 2px solid $primary-color;
@@ -39,15 +53,18 @@
       }
     }
 
+    // 固定模式时隐藏指示器圆球
     &.fixed &-ink &-ink-ball {
       display: none;
     }
   }
 
+  // 锚点链接样式
   &-link {
     line-height: 1;
     padding: 8px 0 8px 16px;
 
+    // 链接标题：文本样式和交互效果
     &-title {
       color: $text-color;
       display: block;
@@ -58,16 +75,19 @@
       transition: all 0.3s;
       white-space: nowrap;
 
+      // 只有标题时去除下边距
       &:only-child {
         margin-bottom: 0;
       }
     }
 
+    // 激活状态的链接标题：主色调
     &-active > &-title {
       color: $primary-color;
     }
   }
 
+  // 嵌套链接：调整内边距
   &-link &-link {
     padding-bottom: 6px;
     padding-top: 6px;

@@ -1,108 +1,123 @@
+/**
+ * 栅格布局系统
+ * 提供基于Flexbox的响应式栅格布局系统
+ */
+
+/**
+ * 行容器样式
+ * 设置栅格行的Flexbox布局和排列方式
+ */
 .#{$row-prefix-cls} {
   display: flex;
   flex-flow: row wrap;
 
+  // 伪元素：确保Flexbox正常工作
   &::before,
   &::after {
     display: flex;
   }
 
-  // No wrap of flex
+  // 不换行：强制所有列在一行显示
   &-no-wrap {
     flex-wrap: nowrap;
   }
 
-  // x轴原点
+  // 主轴对齐方式
+  // 左对齐：从起始位置开始排列
   &-start {
     justify-content: flex-start;
   }
-  // x轴居中
+  // 居中对齐：在主轴中心排列
   &-center {
     justify-content: center;
   }
-  //x轴反方向
+  // 右对齐：从结束位置开始排列
   &-end {
     justify-content: flex-end;
   }
-  // x轴平分
+  // 两端对齐：首尾贴边，中间平分
   &-space-between {
     justify-content: space-between;
   }
-  // x轴有间隔地平分
+  // 环绕对齐：首尾有间距，中间平分
   &-space-around {
     justify-content: space-around;
   }
-  // 顶部对齐
+
+  // 交叉轴对齐方式
+  // 顶部对齐：从交叉轴起始位置对齐
   &-top {
     align-items: flex-start;
   }
-  // 居中对齐
+  // 居中对齐：在交叉轴中心对齐
   &-middle {
     align-items: center;
   }
-  // 底部对齐
+  // 底部对齐：从交叉轴结束位置对齐
   &-bottom {
     align-items: flex-end;
   }
 }
 
+/**
+ * 列容器样式
+ * 设置栅格列的基础样式和约束
+ */
 .#{$col-prefix-cls} {
   max-width: 100%;
-  // Prevent columns from collapsing when empty
+  // 防止空列塌陷：设置最小高度
   min-height: 1px;
   position: relative;
 }
 
+/**
+ * 基础栅格系统
+ * 生成默认的栅格列、偏移、推送、拉取样式
+ */
 @include make-grid();
 
-// Extra small grid
-//
-// Columns, offsets, pushes, and pulls for extra small devices like
-// smartphones.
-
+/**
+ * 超小屏幕栅格
+ * 为智能手机等超小设备生成栅格样式
+ */
 @include make-grid(-xs);
 
-// Small grid
-//
-// Columns, offsets, pushes, and pulls for the small device range, from phones
-// to tablets.
-
+/**
+ * 小屏幕栅格
+ * 为手机到平板设备范围生成栅格样式
+ */
 @media (min-width: $screen-sm-min) {
   @include make-grid(-sm);
 }
 
-
-// Medium grid
-//
-// Columns, offsets, pushes, and pulls for the desktop device range.
-
+/**
+ * 中等屏幕栅格
+ * 为桌面设备范围生成栅格样式
+ */
 @media (min-width: $screen-md-min) {
   @include make-grid(-md);
 }
 
-
-// Large grid
-//
-// Columns, offsets, pushes, and pulls for the wide desktop device range.
-
+/**
+ * 大屏幕栅格
+ * 为宽屏桌面设备范围生成栅格样式
+ */
 @media (min-width: $screen-lg-min) {
   @include make-grid(-lg);
 }
 
-
-// Extra large grid
-//
-// Columns, offsets, pushes, and pulls for the full hd desktop device range.
-
+/**
+ * 超大屏幕栅格
+ * 为全高清桌面设备范围生成栅格样式
+ */
 @media (min-width: $screen-xl-min) {
   @include make-grid(-xl);
 }
 
-
-// Extra extra large grid
-//
-// Columns, offsets, pushes, and pulls for the large desktop device range.
-
+/**
+ * 超超大屏幕栅格
+ * 为大尺寸桌面设备范围生成栅格样式
+ */
 @media (min-width: $screen-xxl-min) {
   @include make-grid(-xxl);
 }

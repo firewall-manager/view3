@@ -1,7 +1,17 @@
+/**
+ * 徽章组件样式
+ * 提供数字徽章、点状徽章和状态徽章的样式定义
+ */
+
+/**
+ * 徽章组件基础样式
+ * 设置徽章的基础布局和定位
+ */
 .#{$badge-prefix-cls} {
   display: inline-block;
   position: relative;
 
+  // 数字徽章样式
   &-count {
     background: $error-color;
     border: 1px solid transparent;
@@ -25,6 +35,7 @@
     white-space: nowrap;
     z-index: 10;
 
+    // 自定义徽章：透明背景，继承文字颜色
     &-custom {
       background: transparent;
       border-color: transparent;
@@ -32,11 +43,13 @@
       color: inherit;
     }
 
+    // 链接样式：保持白色文字
     a,
     a:hover {
       color: #fff;
     }
 
+    // 独立徽章：块级显示，不进行位移
     &-alone {
       display: block;
       position: relative;
@@ -44,32 +57,39 @@
       transform: translateX(0);
     }
 
+    // 主色调徽章
     &-primary {
       background: $primary-color;
     }
 
+    // 成功状态徽章
     &-success {
       background: $success-color;
     }
 
+    // 错误状态徽章
     &-error {
       background: $error-color;
     }
 
+    // 警告状态徽章
     &-warning {
       background: $warning-color;
     }
 
+    // 信息状态徽章
     &-info {
       background: $info-color;
     }
 
+    // 普通状态徽章：灰色背景，深色文字
     &-normal {
       background: $normal-color;
       color: $subsidiary-color;
     }
   }
 
+  // 点状徽章样式
   &-dot {
     background: $error-color;
     border-radius: 100%;
@@ -84,7 +104,9 @@
     z-index: 10;
   }
 
+  // 状态徽章样式
   &-status {
+    // 遍历颜色调色板生成状态徽章
     @each $name, $colors in $colors-pallete {
       &-#{$name} {
         background-color: map-get($colors, '6');
@@ -94,6 +116,7 @@
     line-height: inherit;
     vertical-align: baseline;
 
+    // 状态点：小圆点指示器
     &-dot {
       border-radius: 50%;
       display: inline-block;
@@ -104,14 +127,17 @@
       width: 6px;
     }
 
+    // 成功状态
     &-success {
       background-color: $success-color;
     }
 
+    // 处理中状态：带脉冲动画
     &-processing {
       background-color: $processing-color;
       position: relative;
 
+      // 脉冲动画效果
       &::after {
         animation: aniStatusProcessing 1.2s infinite ease-in-out;
         border: 1px solid $processing-color;
@@ -125,18 +151,22 @@
       }
     }
 
+    // 默认状态
     &-default {
       background-color: $normal-color;
     }
 
+    // 错误状态
     &-error {
       background-color: $error-color;
     }
 
+    // 警告状态
     &-warning {
       background-color: $warning-color;
     }
 
+    // 状态文字：显示状态描述
     &-text {
       color: $text-color;
       display: inline-block;
@@ -146,6 +176,10 @@
   }
 }
 
+/**
+ * 状态处理动画
+ * 为处理中状态提供脉冲效果
+ */
 @keyframes aniStatusProcessing {
   0% {
     opacity: 0.5;

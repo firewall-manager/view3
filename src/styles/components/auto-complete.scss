@@ -1,19 +1,37 @@
+/**
+ * 自动完成组件样式
+ * 提供输入框自动完成功能的样式定义
+ */
+
+/**
+ * 自动完成组件基础样式
+ * 设置自动完成输入框的样式和交互效果
+ */
 .#{$auto-complete-prefix-cls} {
+  // 选择器组件样式调整
   .#{$select-prefix-cls} {
+    // 隐藏"未找到"提示
     &-not-found {
       display: none;
     }
   }
+  
+  // 关闭图标：默认隐藏
   .#{$icon-prefix-cls}-ios-close {
     display: none;
   }
+  
+  // 悬停时显示关闭图标
   &:hover .#{$icon-prefix-cls}-ios-close {
     display: inline-block;
   }
+  
+  // 下拉框样式：移除最大高度限制
   &.#{$select-dropdown-prefix-cls} {
     max-height: none;
   }
 
+  // 移除焦点轮廓
   &:focus,
   & div {
     outline: none;
