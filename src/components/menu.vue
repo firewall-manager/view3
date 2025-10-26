@@ -1,4 +1,5 @@
 <template>
+  <!-- 菜单容器 -->
   <ul
     :class="classes"
     :style="styles"
@@ -12,35 +13,45 @@ import Emitter from '../mixins/emitter'
 
 const prefixCls = 'ivu-menu'
 
+/**
+ * 菜单组件
+ * 用于创建导航菜单的容器组件
+ */
 export default {
   name: 'Menu',
   mixins: [Emitter],
   props: {
+    // 菜单模式
     mode: {
       validator (value) {
         return oneOf(value, ['horizontal', 'vertical'])
       },
       default: 'vertical'
     },
+    // 菜单主题
     theme: {
       validator (value) {
         return oneOf(value, ['light', 'dark', 'primary'])
       },
       default: 'light'
     },
+    // 当前激活的菜单项名称
     activeName: {
       type: [String, Number]
     },
+    // 展开的菜单项名称数组
     openNames: {
       type: Array,
       default () {
         return []
       }
     },
+    // 是否手风琴模式
     accordion: {
       type: Boolean,
       default: false
     },
+    // 菜单宽度
     width: {
       type: String,
       default: '240px'

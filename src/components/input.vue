@@ -1,6 +1,9 @@
 <template>
+  <!-- 输入框容器 -->
   <div :class="wrapClasses">
+    <!-- 普通输入框 -->
     <template v-if="type !== 'textarea'">
+      <!-- 前置内容 -->
       <div
         v-if="prepend"
         v-show="slotReady"
@@ -8,24 +11,28 @@
       >
         <slot name="prepend" />
       </div>
+      <!-- 清除按钮 -->
       <i
         v-if="clearable && currentValue && !itemDisabled"
         class="ion"
         :class="['ion-ios-close-circle', prefixCls + '-icon', prefixCls + '-icon-clear' , prefixCls + '-icon-normal']"
         @click="handleClear"
       />
+      <!-- 图标 -->
       <i
         v-else-if="icon"
         class="ion"
         :class="['ion-' + icon, prefixCls + '-icon', prefixCls + '-icon-normal']"
         @click="handleIconClick"
       />
+      <!-- 搜索图标 -->
       <i
         v-else-if="search && enterButton === false"
         class="ion ion-ios-search"
         :class="[prefixCls + '-icon', prefixCls + '-icon-normal', prefixCls + '-search-icon']"
         @click="handleSearch"
       />
+      <!-- 后缀内容 -->
       <span
         v-else-if="showSuffix"
         class="ivu-input-suffix"
@@ -34,10 +41,12 @@
         class="ion"
         :class="['ion-' + suffix]"
       /></slot></span>
+      <!-- 字数限制 -->
       <span
         v-else-if="showWordLimit"
         class="ivu-input-word-count"
       >{{ textLength }}/{{ upperLimit }}</span>
+      <!-- 密码显示切换 -->
       <span
         v-else-if="password"
         class="ivu-input-suffix"
@@ -52,6 +61,7 @@
           class="ion ion-ios-eye-outline"
         />
       </span>
+      <!-- 验证图标 -->
       <transition v-if="false" name="fade">
         <i
           v-if="!icon"
@@ -59,6 +69,7 @@
           :class="[prefixCls + '-icon', prefixCls + '-icon-validate']"
         />
       </transition>
+      <!-- 输入框 -->
       <input
         :id="elementId"
         ref="input"
@@ -86,6 +97,7 @@
         @input="handleInput"
         @change="handleChange"
       >
+      <!-- 后置内容 -->
       <div
         v-if="append"
         v-show="slotReady"
@@ -93,6 +105,7 @@
       >
         <slot name="append" />
       </div>
+      <!-- 搜索按钮 -->
       <div
         v-else-if="search && enterButton"
         :class="[prefixCls + '-group-append', prefixCls + '-search']"
@@ -106,6 +119,7 @@
           {{ enterButton }}
         </template>
       </div>
+      <!-- 前缀内容 -->
       <span
         v-else-if="showPrefix"
         class="ivu-input-prefix"
@@ -115,6 +129,7 @@
         :class="['ion-' + prefix]"
       /></slot></span>
     </template>
+    <!-- 文本域 -->
     <template v-else>
       <textarea
         :id="elementId"
@@ -143,6 +158,7 @@
         @compositionend="handleComposition"
         @input="handleInput"
       />
+      <!-- 字数限制 -->
       <span
         v-if="showWordLimit"
         class="ivu-input-word-count"

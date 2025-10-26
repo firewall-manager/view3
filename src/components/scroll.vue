@@ -1,8 +1,10 @@
 <template>
+  <!-- 滚动容器包装器 -->
   <div
     :class="wrapClasses"
     style="touch-action: none;"
   >
+    <!-- 滚动容器 -->
     <div
       ref="scrollContainer"
       :class="scrollContainerClasses"
@@ -11,6 +13,7 @@
       @wheel="onWheel"
       @touchstart="onPointerDown"
     >
+      <!-- 顶部加载器 -->
       <div
         ref="toploader"
         :class="loaderClasses"
@@ -21,12 +24,14 @@
           :active="showTopLoader"
         />
       </div>
+      <!-- 滚动内容区域 -->
       <div
         ref="scrollContent"
         :class="slotContainerClasses"
       >
         <slot />
       </div>
+      <!-- 底部加载器 -->
       <div
         ref="bottomLoader"
         :class="loaderClasses"
@@ -54,28 +59,39 @@ const dragConfig = {
 
 const noop = () => Promise.resolve()
 
+/**
+ * 滚动组件
+ * 支持上拉下拉刷新的滚动容器组件
+ */
 export default {
   name: 'Scroll',
   components: { loader },
   mixins: [Locale],
   props: {
+    // 滚动容器高度
     height: {
       type: [Number, String],
       default: 300
     },
+    // 到达顶部回调
     onReachTop: {
       type: Function
     },
+    // 到达底部回调
     onReachBottom: {
       type: Function
     },
+    // 到达边缘回调
     onReachEdge: {
       type: Function
     },
+    // 加载文本
     loadingText: {
       type: String
     },
+    // 距离边缘的阈值
     distanceToEdge: [Number, Array],
+    // 是否停止滑动
     stopSlide: {
       type: Boolean,
       default: false
@@ -84,31 +100,48 @@ export default {
   data () {
     const distanceToEdge = this.calculateProximityThreshold()
     return {
+      // 显示顶部加载器
       showTopLoader: false,
+      // 显示底部加载器
       showBottomLoader: false,
+      // 显示主体加载器
       showBodyLoader: false,
+      // 上次滚动位置
       lastScroll: 0,
+      // 到达顶部滚动限制
       reachedTopScrollLimit: true,
+      // 到达底部滚动限制
       reachedBottomScrollLimit: false,
+      // 顶部橡皮筋内边距
       topRubberPadding: 0,
+      // 底部橡皮筋内边距
       bottomRubberPadding: 0,
+      // 橡皮筋回弹超时
       rubberRollBackTimeout: false,
+      // 是否正在加载
       isLoading: false,
+      // 触摸按下位置
       pointerTouchDown: null,
+      // 触摸滚动状态
       touchScroll: false,
+      // 滚动处理函数
       handleScroll: () => {},
+      // 指针抬起处理函数
       pointerUpHandler: () => {},
+      // 指针移动处理函数
       pointerMoveHandler: () => {},
 
-      // near to edge detectors
+      // 接近边缘检测器
       topProximityThreshold: distanceToEdge[0],
       bottomProximityThreshold: distanceToEdge[1]
     }
   },
   computed: {
+    // 包装器CSS类名
     wrapClasses () {
       return `${prefixCls}-wrapper`
     },
+    // 滚动容器CSS类名
     scrollContainerClasses () {
       return [
                     `${prefixCls}-container`,
@@ -117,6 +150,7 @@ export default {
                     }
       ]
     },
+    // 插槽容器CSS类名
     slotContainerClasses () {
       return [
                     `${prefixCls}-content`,
@@ -125,15 +159,18 @@ export default {
                     }
       ]
     },
+    // 加载器CSS类名
     loaderClasses () {
       return `${prefixCls}-loader`
     },
+    // 包装器内边距
     wrapperPadding () {
       return {
         paddingTop: this.topRubberPadding + 'px',
         paddingBottom: this.bottomRubberPadding + 'px'
       }
     },
+    // 本地化加载文本
     localeLoadingText () {
       if (this.loadingText === undefined) {
         return this.t('i.select.loading')
@@ -148,13 +185,14 @@ export default {
     this.pointerMoveHandler = throttle(this.onPointerMove, 50, { leading: false })
   },
   methods: {
-    // just to improve feeling of loading and avoid scroll trailing events fired by the browser
+    // 等待一秒（改善加载感觉，避免浏览器滚动尾随事件）
     waitOneSecond () {
       return new Promise(resolve => {
         setTimeout(resolve, 1000)
       })
     },
 
+    // 计算接近阈值
     calculateProximityThreshold () {
       const dte = this.distanceToEdge
       if (typeof dte === 'undefined') return [20, 20]

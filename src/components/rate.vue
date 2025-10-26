@@ -1,13 +1,16 @@
 <template>
+  <!-- 评分组件容器 -->
   <div
     :class="classes"
     @mouseleave="handleMouseleave"
   >
+    <!-- 隐藏输入框 -->
     <input
       type="hidden"
       :name="name"
       :value="currentValue"
     >
+    <!-- 评分星星 -->
     <div
       v-for="item in count"
       :key="item"
@@ -15,12 +18,14 @@
       @mousemove="handleMousemove(item, $event)"
       @click="handleClick(item)"
     >
+      <!-- 默认星星 -->
       <template v-if="!showCharacter">
         <span
           :class="[prefixCls + '-star-content']"
           type="half"
         />
       </template>
+      <!-- 自定义字符或图标 -->
       <template v-else>
         <span
           :class="[prefixCls + '-star-first']"
@@ -42,6 +47,7 @@
         </span>
       </template>
     </div>
+    <!-- 评分文本 -->
     <div
       v-if="showText"
       v-show="currentValue > 0"
@@ -60,46 +66,60 @@ import Icon from './icon'
 
 const prefixCls = 'ivu-rate'
 
+/**
+ * 评分组件
+ * 用于评分的星星组件
+ */
 export default {
   name: 'Rate',
   components: { Icon },
   mixins: [Locale, Emitter, mixinsForm],
   props: {
+    // 星星总数
     count: {
       type: Number,
       default: 5
     },
+    // 绑定值
     value: {
       type: Number,
       default: 0
     },
+    // 是否允许半星
     allowHalf: {
       type: Boolean,
       default: false
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否显示文本
     showText: {
       type: Boolean,
       default: false
     },
+    // 原生name属性
     name: {
       type: String
     },
+    // 是否可清除
     clearable: {
       type: Boolean,
       default: false
     },
+    // 自定义字符
     character: {
       type: String,
       default: ''
     },
+    // 图标类型
     icon: {
       type: String,
       default: ''
     },
+    // 自定义图标
     customIcon: {
       type: String,
       default: ''
@@ -108,13 +128,18 @@ export default {
   data () {
     return {
       prefixCls: prefixCls,
+      // 悬停索引
       hoverIndex: -1,
+      // 是否悬停
       isHover: false,
+      // 是否半星
       isHalf: this.allowHalf && this.value.toString().indexOf('.') >= 0,
+      // 当前值
       currentValue: this.value
     }
   },
   computed: {
+    // 评分组件CSS类名
     classes () {
       return [
                     `${prefixCls}`,
@@ -123,6 +148,7 @@ export default {
                     }
       ]
     },
+    // 图标CSS类名
     iconClasses () {
       return [
         'ivu-icon',
@@ -132,19 +158,23 @@ export default {
         }
       ]
     },
+    // 是否显示自定义字符
     showCharacter () {
       return this.character !== '' || this.icon !== '' || this.customIcon !== ''
     }
   },
   watch: {
+    // 监听绑定值变化
     value (val) {
       this.currentValue = val
     },
+    // 监听当前值变化
     currentValue (val) {
       this.setHalf(val)
     }
   },
   methods: {
+    // 星星CSS类名
     starCls (value) {
       const hoverIndex = this.hoverIndex
       const currentIndex = this.isHover ? hoverIndex : this.currentValue
@@ -170,6 +200,7 @@ export default {
         }
       ]
     },
+    // 处理鼠标移动
     handleMousemove (value, event) {
       if (this.itemDisabled) return
 
@@ -182,6 +213,7 @@ export default {
       }
       this.hoverIndex = value
     },
+    // 处理鼠标离开
     handleMouseleave () {
       if (this.itemDisabled) return
 
@@ -189,9 +221,11 @@ export default {
       this.setHalf(this.currentValue)
       this.hoverIndex = -1
     },
+    // 设置半星状态
     setHalf (val) {
       this.isHalf = this.allowHalf && val.toString().indexOf('.') >= 0
     },
+    // 处理点击
     handleClick (value) {
       if (this.itemDisabled) return
       // value++;

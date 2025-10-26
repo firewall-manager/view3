@@ -1,4 +1,5 @@
 <template>
+  <!-- 通知过渡动画 -->
   <transition
     :name="transitionName"
     appear
@@ -9,6 +10,7 @@
       :class="classes"
       :style="styles"
     >
+      <!-- 通知类型 -->
       <template v-if="type === 'notice'">
         <div
           ref="content"
@@ -20,6 +22,7 @@
             :render="renderFunc"
           />
         </div>
+        <!-- 关闭按钮 -->
         <a
           v-if="closable"
           :class="[baseClass + '-close']"
@@ -28,6 +31,7 @@
           <i class="ivu-icon ivu-icon-ios-close" />
         </a>
       </template>
+      <!-- 消息类型 -->
       <template v-if="type === 'message'">
         <div
           ref="content"
@@ -42,6 +46,7 @@
               :render="renderFunc"
             />
           </div>
+          <!-- 关闭按钮 -->
           <a
             v-if="closable"
             :class="[baseClass + '-close']"

@@ -1,8 +1,10 @@
 <template>
+  <!-- 通知容器 -->
   <div
     :class="classes"
     :style="wrapStyles"
   >
+    <!-- 通知列表 -->
     <Notice
       v-for="notice in notices"
       :key="notice.name"
@@ -32,17 +34,27 @@ const prefixCls = 'ivu-notification'
 let seed = 0
 const now = Date.now()
 
+/**
+ * 生成唯一ID
+ * @returns {String} 唯一标识符
+ */
 function getUuid () {
   return 'ivuNotification_' + now + '_' + (seed++)
 }
 
+/**
+ * 通知组件
+ * 用于显示全局通知消息的容器组件
+ */
 export default {
   components: { Notice },
   props: {
+    // 样式前缀
     prefixCls: {
       type: String,
       default: prefixCls
     },
+    // 容器样式
     styles: {
       type: Object,
       default: function () {
@@ -52,9 +64,11 @@ export default {
         }
       }
     },
+    // 通知内容
     content: {
       type: String
     },
+    // 自定义类名
     className: {
       type: String
     }

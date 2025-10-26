@@ -1,11 +1,14 @@
 <template>
+  <!-- 选项组容器 -->
   <li
     v-show="!hidden"
     :class="[prefixCls + '-wrap']"
   >
+    <!-- 选项组标题 -->
     <div :class="[prefixCls + '-title']">
       {{ label }}
     </div>
+    <!-- 选项组内容 -->
     <ul>
       <li
         ref="options"
@@ -19,9 +22,14 @@
 <script>
 const prefixCls = 'ivu-select-group'
 
+/**
+ * 选项组组件
+ * 用于对选择器选项进行分组的组件
+ */
 export default {
   name: 'OptionGroup',
   props: {
+    // 选项组标签
     label: {
       type: String,
       default: ''
@@ -30,7 +38,7 @@ export default {
   data () {
     return {
       prefixCls: prefixCls,
-      hidden: false // for search
+      hidden: false // 用于搜索时隐藏
     }
   },
   mounted () {
@@ -43,6 +51,7 @@ export default {
     this.$off('on-query-change')
   },
   methods: {
+    // 查询变化处理
     queryChange () {
       this.$nextTick(() => {
         const options = this.$refs.options.querySelectorAll('.ivu-select-item')

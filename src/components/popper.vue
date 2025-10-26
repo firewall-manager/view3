@@ -2,30 +2,43 @@
 const isServer = false
 const Popper = isServer ? function() {} : require('popper.js/dist/umd/popper.js');  // eslint-disable-line
 
+/**
+ * Popper组件
+ * 基于popper.js的弹出定位组件
+ */
 export default {
   props: {
+    // 是否启用事件
     eventsEnabled: {
       type: Boolean,
       default: false
     },
+    // 弹出位置
     placement: {
       type: String,
       default: 'bottom'
     },
+    // 边界内边距
     boundariesPadding: {
       type: Number,
       default: 5
     },
+    // 参考元素
     reference: Object,
+    // 弹出元素
     popper: Object,
+    // 偏移量
     offset: {
       default: 0
     },
+    // 是否显示
     modelValue: {
       type: Boolean,
       default: false
     },
+    // 过渡动画
     transition: String,
+    // Popper选项
     options: {
       type: Object,
       default () {
@@ -41,10 +54,6 @@ export default {
         }
       }
     }
-    // visible: {
-    //     type: Boolean,
-    //     default: false
-    // }
   },
   emits: ['on-popper-show', 'on-popper-hide', 'created'],
   data () {

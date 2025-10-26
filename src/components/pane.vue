@@ -1,4 +1,5 @@
 <template>
+  <!-- 标签页面板 -->
   <div
     v-show="show"
     :class="prefixCls"
@@ -10,38 +11,46 @@
 <script>
 const prefixCls = 'ivu-tabs-tabpane'
 
+/**
+ * 标签页面板组件
+ * 标签页中的内容面板组件
+ */
 export default {
   name: 'TabPane',
   inject: ['TabsInstance'],
   props: {
+    // 标签页名称
     name: {
       type: String
     },
+    // 标签页标题
     label: {
       type: [String, Function],
       default: ''
     },
+    // 标签页图标
     icon: {
       type: String
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否可关闭
     closable: {
       type: Boolean,
       default: null
     },
-    // Tabs 嵌套时，用 tab 区分层级，指向对应的 Tabs 的 name
+    // 嵌套标签页时用于区分层级
     tab: {
       type: String
     },
-    // 在 TabPane 使用 v-if 时，并不会按照预先的顺序渲染，这时可设置 index，并从小到大排序
-    // 数值需大于 0
+    // 标签页索引（用于v-if时的排序）
     index: {
       type: Number
     },
-    // 4.3.0
+    // 是否支持右键菜单
     contextMenu: {
       type: Boolean,
       default: false

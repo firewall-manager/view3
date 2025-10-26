@@ -1,4 +1,5 @@
 <template>
+  <!-- 选项项 -->
   <li
     :class="classes"
     @click.stop="select"
@@ -14,32 +15,41 @@ import { findComponentUpward } from '../utils/assist'
 
 const prefixCls = 'ivu-select-item'
 
+/**
+ * 选项组件
+ * 选择器中的单个选项组件
+ */
 export default {
   name: 'VOption',
   componentName: 'select-item',
   mixins: [Emitter, mixinsForm],
   inject: ['selectComponent'],
   props: {
+    // 选项值
     value: {
       type: [String, Number],
       required: true
     },
+    // 选项标签
     label: {
       type: [String, Number]
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否选中
     selected: {
       type: Boolean,
       default: false
     },
+    // 是否聚焦
     isFocused: {
       type: Boolean,
       default: false
     },
-    // 4.0.0
+    // 标签值
     tag: {
       type: [String, Number]
     }

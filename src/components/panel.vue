@@ -1,5 +1,7 @@
 <template>
+  <!-- 折叠面板项 -->
   <div :class="itemClasses">
+    <!-- 面板头部 -->
     <div
       :class="headerClasses"
       @click="toggle"
@@ -11,6 +13,7 @@
       {{ ' ' }}
       <slot />
     </div>
+    <!-- 面板内容折叠过渡 -->
     <collapse-transition v-if="mounted">
       <div
         v-show="isActive"
@@ -28,14 +31,20 @@ import Icon from './icon'
 import CollapseTransition from './collapse-transition'
 const prefixCls = 'ivu-collapse'
 
+/**
+ * 折叠面板组件
+ * 折叠面板中的单个面板项组件
+ */
 export default {
   name: 'Panel',
   components: { Icon, CollapseTransition },
   props: {
+    // 面板名称
     name: {
       type: String,
       default: ''
     },
+    // 是否隐藏箭头
     hideArrow: {
       type: Boolean,
       default: false

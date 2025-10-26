@@ -1,10 +1,12 @@
 <template>
+  <!-- 气泡提示容器 -->
   <div
     v-click-outside="handleClose"
     :class="classes"
     @mouseenter="handleMouseenter"
     @mouseleave="handleMouseleave"
   >
+    <!-- 触发器 -->
     <div
       ref="reference"
       :class="[prefixCls + '-rel']"
@@ -14,6 +16,7 @@
     >
       <slot />
     </div>
+    <!-- 气泡内容过渡动画 -->
     <transition name="fade">
       <div
         v-show="visible"
@@ -27,7 +30,9 @@
         @mouseleave="handleMouseleave"
       >
         <div :class="[prefixCls + '-content']">
+          <!-- 气泡箭头 -->
           <div :class="[prefixCls + '-arrow']" />
+          <!-- 确认模式 -->
           <div
             v-if="confirm"
             :class="[prefixCls + '-inner']"
@@ -40,6 +45,7 @@
                 </slot>
               </div>
             </div>
+            <!-- 确认按钮 -->
             <div :class="[prefixCls + '-footer']">
               <VButton
                 type="text"
@@ -57,10 +63,12 @@
               </VButton>
             </div>
           </div>
+          <!-- 普通模式 -->
           <div
             v-if="!confirm"
             :class="[prefixCls + '-inner']"
           >
+            <!-- 气泡标题 -->
             <div
               v-if="showTitle"
               ref="title"
@@ -73,6 +81,7 @@
                 </div>
               </slot>
             </div>
+            <!-- 气泡内容 -->
             <div
               :class="[prefixCls + '-body']"
               :style="contentPaddingStyle"

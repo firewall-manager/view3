@@ -1,4 +1,5 @@
 <template>
+  <!-- 色相选择器容器 -->
   <div
     :class="[prefixCls + '-hue']"
     tabindex="0"
@@ -9,6 +10,7 @@
     @keydown.up="handleUp"
     @keydown.down="handleDown"
   >
+    <!-- 色相选择器轨道 -->
     <div
       ref="container"
       :class="[prefixCls + '-hue-container']"
@@ -16,6 +18,7 @@
       @touchmove="handleChange"
       @touchstart="handleChange"
     >
+      <!-- 色相选择器指针 -->
       <div
         :style="{top: 0, left: `${percent}%`}"
         :class="[prefixCls + '-hue-pointer']"
@@ -31,6 +34,10 @@ import HASMixin from '../mixins/color-hsa'
 import Prefixes from '../mixins/color-prefix'
 import { clamp } from '../utils/color'
 
+/**
+ * 色相选择器组件
+ * 用于选择颜色的色相值
+ */
 export default {
   name: 'Hue',
 

@@ -1,10 +1,12 @@
 <template>
+  <!-- 树节点折叠过渡动画 -->
   <collapse-transition :appear="appear">
     <ul :class="classes">
       <li
         @contextmenu.stop="handleContextmenu(data, $event)"
         @selectstart.stop="handlePreventSelect(data, $event)"
       >
+        <!-- 展开/收起箭头 -->
         <span
           :class="arrowClasses"
           @click="handleExpand"
@@ -21,6 +23,7 @@
             class="ivu-load-loop"
           />
         </span>
+        <!-- 复选框 -->
         <Checkbox
           v-if="showCheckbox"
           :model-value="data.checked"
@@ -28,6 +31,7 @@
           :disabled="data.disabled || data.disableCheckbox"
           @click.native.prevent="handleCheck"
         />
+        <!-- 节点标题 -->
         <span
           :class="titleClasses"
           @click="handleClickNode"
@@ -46,6 +50,7 @@
           />
           <template v-else>{{ data.title }}</template>
         </span>
+        <!-- 子节点递归渲染 -->
         <Tree-node
           v-for="(item, i) in children"
           v-if="data.expand"

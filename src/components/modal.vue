@@ -1,8 +1,10 @@
 <template>
+  <!-- 模态框容器 -->
   <div
     v-transfer-dom
     :data-transfer="transfer"
   >
+    <!-- 遮罩层过渡动画 -->
     <transition :name="transitionNames[1]">
       <div
         v-show="visible"
@@ -12,11 +14,13 @@
         @click="handleMask"
       />
     </transition>
+    <!-- 模态框包装器 -->
     <div
       :class="wrapClasses"
       :style="wrapStyles"
       @click="handleWrapClick"
     >
+      <!-- 模态框主体过渡动画 -->
       <transition
         :name="transitionNames[0]"
         @after-leave="animationFinish"
@@ -27,13 +31,16 @@
           :style="mainStyles"
           @mousedown="handleMousedown"
         >
+          <!-- 模态框内容 -->
           <div
             ref="content"
             :class="contentClasses"
             :style="contentStyles"
             @click="handleClickModal"
           >
+            <!-- 模态框头部 -->
             <div class="ivu-modal-header-content">
+              <!-- 关闭按钮 -->
               <a
                 v-if="closable"
                 :class="[prefixCls + '-close']"
@@ -43,6 +50,7 @@
                   <Icon type="ios-close" />
                 </slot>
               </a>
+              <!-- 头部内容 -->
               <div
                 v-if="showHead"
                 :class="[prefixCls + '-header']"
@@ -55,9 +63,11 @@
                 </slot>
               </div>
             </div>
+            <!-- 模态框主体 -->
             <div :class="[prefixCls + '-body']">
               <slot />
             </div>
+            <!-- 模态框底部 -->
             <div
               v-if="!footerHide"
               :class="[prefixCls + '-footer']"

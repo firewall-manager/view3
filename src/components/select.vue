@@ -1,10 +1,12 @@
 <template>
+  <!-- 选择器容器 -->
   <div
     v-click-outside:[capture]="onClickOutside"
     v-click-outside:[capture].mousedown="onClickOutside"
     v-click-outside:[capture].touchstart="onClickOutside"
     :class="classes"
   >
+    <!-- 选择器头部 -->
     <div
       ref="reference"
 
@@ -26,11 +28,13 @@
       @mouseleave="hasMouseHoverHead = false"
     >
       <slot name="input">
+        <!-- 隐藏输入框 -->
         <input
           type="hidden"
           :name="name"
           :value="publicValue"
         >
+        <!-- 选择器头部组件 -->
         <SelectHead
           :filterable="filterable"
           :multiple="multiple"
@@ -61,6 +65,7 @@
         </SelectHead>
       </slot>
     </div>
+    <!-- 下拉框过渡动画 -->
     <transition name="transition-drop">
       <SelectDropdown
         v-show="dropVisible"
@@ -71,6 +76,7 @@
         :data-transfer="transfer"
         :transfer="transfer"
       >
+        <!-- 无匹配项提示 -->
         <ul
           v-show="showNotFoundLabel && !allowCreate"
           :class="[prefixCls + '-not-found']"
@@ -78,6 +84,7 @@
           <li>{{ localeNotFoundText }}</li>
         </ul>
 
+        <!-- 功能选项列表 -->
         <FunctionalOptions
           v-if="(!remote) || (remote && !loading)"
           :options="selectOptions"
@@ -85,6 +92,7 @@
           :slot-options="slotOptions"
           :class="prefixCls + '-dropdown-list'"
         >
+          <!-- 创建新项 -->
           <li
             v-if="showCreateItem"
             :class="prefixCls + '-item'"
@@ -97,10 +105,12 @@
             />
           </li>
         </FunctionalOptions>
+        <!-- 远程加载选项列表 -->
         <ul
           v-else
           :class="prefixCls + '-dropdown-list'"
         >
+          <!-- 创建新项 -->
           <li
             v-if="showCreateItem"
             :class="prefixCls + '-item'"
@@ -114,6 +124,7 @@
           </li>
         </ul>
 
+        <!-- 加载状态 -->
         <ul
           v-show="loading"
           :class="[prefixCls + '-loading']"

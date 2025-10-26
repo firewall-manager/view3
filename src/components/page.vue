@@ -1,9 +1,11 @@
 <template>
+  <!-- 简单分页模式 -->
   <ul
     v-if="simple"
     :class="simpleWrapClasses"
     :style="styles"
   >
+    <!-- 上一页按钮 -->
     <li
       :title="t('i.page.prev')"
       :class="prevClasses"
@@ -11,6 +13,7 @@
     >
       <a><i class="ion ion--ios-arrow-back" /></a>
     </li>
+    <!-- 页码输入框 -->
     <div
       :class="simplePagerClasses"
       :title="currentPage + '/' + allPages"
@@ -28,6 +31,7 @@
       <span>/</span>
       {{ allPages }}
     </div>
+    <!-- 下一页按钮 -->
     <li
       :title="t('i.page.next')"
       :class="nextClasses"
@@ -36,17 +40,20 @@
       <a><i class="ion ion-ios-arrow-forward" /></a>
     </li>
   </ul>
+  <!-- 完整分页模式 -->
   <ul
     v-else
     :class="wrapClasses"
     :style="styles"
   >
+    <!-- 总数显示 -->
     <span
       v-if="showTotal"
       :class="[prefixCls + '-total']"
     >
       <slot>{{ total }} <template v-if="total <= 1">{{ t('i.page.item') }}</template><template v-else>{{ t('i.page.items') }}</template></slot>
     </span>
+    <!-- 上一页按钮 -->
     <li
       :title="t('i.page.prev')"
       :class="prevClasses"
@@ -57,6 +64,7 @@
         class="ion ion-ios-arrow-back"
       /></a>
     </li>
+    <!-- 第一页 -->
     <li
       title="1"
       :class="firstPageClasses"
@@ -64,6 +72,7 @@
     >
       <a>1</a>
     </li>
+    <!-- 快速向前跳转 -->
     <li
       v-if="currentPage > 5"
       :title="t('i.page.prev5')"
@@ -72,6 +81,7 @@
     >
       <a><i class="ion ion-ios-arrow-back" /><i class="ion ion-ios-more" /></a>
     </li>
+    <!-- 页码3 -->
     <li
       v-if="currentPage === 5"
       :title="currentPage - 3"
@@ -80,6 +90,7 @@
     >
       <a>{{ currentPage - 3 }}</a>
     </li>
+    <!-- 页码2 -->
     <li
       v-if="currentPage - 2 > 1"
       :title="currentPage - 2"
@@ -88,6 +99,7 @@
     >
       <a>{{ currentPage - 2 }}</a>
     </li>
+    <!-- 页码1 -->
     <li
       v-if="currentPage - 1 > 1"
       :title="currentPage - 1"
@@ -96,6 +108,7 @@
     >
       <a>{{ currentPage - 1 }}</a>
     </li>
+    <!-- 当前页 -->
     <li
       v-if="currentPage != 1 && currentPage != allPages"
       :title="currentPage"
@@ -103,6 +116,7 @@
     >
       <a>{{ currentPage }}</a>
     </li>
+    <!-- 页码+1 -->
     <li
       v-if="currentPage + 1 < allPages"
       :title="currentPage + 1"
@@ -111,6 +125,7 @@
     >
       <a>{{ currentPage + 1 }}</a>
     </li>
+    <!-- 页码+2 -->
     <li
       v-if="currentPage + 2 < allPages"
       :title="currentPage + 2"
@@ -119,6 +134,7 @@
     >
       <a>{{ currentPage + 2 }}</a>
     </li>
+    <!-- 页码+3 -->
     <li
       v-if="allPages - currentPage === 4"
       :title="currentPage + 3"
@@ -127,6 +143,7 @@
     >
       <a>{{ currentPage + 3 }}</a>
     </li>
+    <!-- 快速向后跳转 -->
     <li
       v-if="allPages - currentPage >= 5"
       :title="t('i.page.next5')"
@@ -135,6 +152,7 @@
     >
       <a><i class="ion ion-ios-arrow-forward" /><i class="ion ion-ios-more" /></a>
     </li>
+    <!-- 最后一页 -->
     <li
       v-if="allPages > 1"
       :title="allPages"
@@ -143,6 +161,7 @@
     >
       <a>{{ allPages }}</a>
     </li>
+    <!-- 下一页按钮 -->
     <li
       :title="t('i.page.next')"
       :class="nextClasses"
@@ -153,6 +172,7 @@
         class="ion ion-ios-arrow-forward"
       /></a>
     </li>
+    <!-- 分页选项 -->
     <PageOptions
       :show-sizer="showSizer"
       :page-size="currentPageSize"

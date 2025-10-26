@@ -1,9 +1,12 @@
 <template>
+  <!-- 数字输入框容器 -->
   <div :class="wrapClasses">
+    <!-- 内置控制按钮 -->
     <div
       v-if="!controlsOutside"
       :class="handlerClasses"
     >
+      <!-- 增加按钮 -->
       <a
         :class="upClasses"
         @click="up"
@@ -13,6 +16,7 @@
           @click="preventDefault"
         />
       </a>
+      <!-- 减少按钮 -->
       <a
         :class="downClasses"
         @click="down"
@@ -23,6 +27,7 @@
         />
       </a>
     </div>
+    <!-- 外部控制按钮 - 减少 -->
     <div
       v-if="controlsOutside"
       class="ivu-input-number-controls-outside-btn ivu-input-number-controls-outside-down"
@@ -31,6 +36,7 @@
     >
       <i class="ion ion-ios-remove" />
     </div>
+    <!-- 外部控制按钮 - 增加 -->
     <div
       v-if="controlsOutside"
       class="ivu-input-number-controls-outside-btn ivu-input-number-controls-outside-up"
@@ -39,6 +45,7 @@
     >
       <i class="ion ion-ios-add" />
     </div>
+    <!-- 输入框包装器 -->
     <div :class="inputWrapClasses">
       <input
         :id="elementId"
@@ -69,6 +76,12 @@ import mixinsForm from '../mixins/form'
 const prefixCls = 'ivu-input-number'
 const iconPrefixCls = 'ion'
 
+/**
+ * 精确的浮点数加法运算
+ * @param {Number} num1 - 第一个数
+ * @param {Number} num2 - 第二个数
+ * @returns {Number} 计算结果
+ */
 function addNum (num1, num2) {
   let sq1, sq2, m
   try {
@@ -81,40 +94,44 @@ function addNum (num1, num2) {
   } catch (e) {
     sq2 = 0
   }
-  //        if (sq1 === 0 || sq2 === 0) {
-  //            return num1 + num2;
-  //        } else {
-  //            m = Math.pow(10, Math.max(sq1, sq2));
-  //            return (num1 * m + num2 * m) / m;
-  //        }
   m = Math.pow(10, Math.max(sq1, sq2))
   return (Math.round(num1 * m) + Math.round(num2 * m)) / m
 }
 
+/**
+ * 数字输入框组件
+ * 支持步进、格式化、精度控制等功能的数字输入框
+ */
 export default {
   name: 'InputNumber',
   mixins: [Emitter, mixinsForm],
   props: {
+    // 最大值
     max: {
       type: Number,
       default: Infinity
     },
+    // 最小值
     min: {
       type: Number,
       default: -Infinity
     },
+    // 步长
     step: {
       type: Number,
       default: 1
     },
+    // 是否实时触发变化
     activeChange: {
       type: Boolean,
       default: true
     },
+    // 绑定值
     modelValue: {
       type: [Number, String],
       default: 1
     },
+    // 尺寸
     size: {
       validator (value) {
         return oneOf(value, ['small', 'large', 'default'])
@@ -123,42 +140,52 @@ export default {
         return 'default'
       }
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false
     },
+    // 是否自动聚焦
     autofocus: {
       type: Boolean,
       default: false
     },
+    // 是否只读
     readonly: {
       type: Boolean,
       default: false
     },
+    // 是否可编辑
     editable: {
       type: Boolean,
       default: true
     },
+    // 原生name属性
     name: {
       type: String
     },
+    // 精度
     precision: {
       type: Number
     },
+    // 原生id属性
     elementId: {
       type: String
     },
+    // 格式化函数
     formatter: {
       type: Function
     },
+    // 解析函数
     parser: {
       type: Function
     },
+    // 占位符
     placeholder: {
       type: String,
       default: ''
     },
-    // 4.5.0
+    // 控制按钮是否在外部
     controlsOutside: {
       type: Boolean,
       default: false

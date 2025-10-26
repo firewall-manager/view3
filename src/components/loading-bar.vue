@@ -1,10 +1,12 @@
 <template>
+  <!-- 加载条过渡动画 -->
   <transition name="fade">
     <div
       v-show="show"
       :class="classes"
       :style="outerStyles"
     >
+      <!-- 加载条内部进度 -->
       <div
         :class="innerClasses"
         :style="styles"
@@ -17,36 +19,28 @@
 
 const prefixCls = 'ivu-loading-bar'
 
+/**
+ * 加载条组件
+ * 用于显示页面加载进度的条状组件
+ */
 export default {
   name: 'LoadingBar',
   props: {
-    //            percent: {
-    //                type: Number,
-    //                default: 0
-    //            },
+    // 进度条颜色
     color: {
       type: String,
       default: 'primary'
     },
+    // 失败状态颜色
     failedColor: {
       type: String,
       default: 'error'
     },
+    // 进度条高度
     height: {
       type: Number,
       default: 2
     }
-    //            status: {
-    //                type: String,
-    //                validator (value) {
-    //                    return oneOf(value, ['success', 'error']);
-    //                },
-    //                default: 'success'
-    //            },
-    //            show: {
-    //                type: Boolean,
-    //                default: false
-    //            }
   },
   data () {
     return {

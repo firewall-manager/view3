@@ -1,4 +1,5 @@
 <template>
+  <!-- 链接菜单项 -->
   <a
     v-if="to"
     :href="linkUrl"
@@ -9,6 +10,7 @@
     @click.ctrl="handleClickItem($event, true)"
     @click.meta="handleClickItem($event, true)"
   ><slot /></a>
+  <!-- 普通菜单项 -->
   <li
     v-else
     :class="classes"
@@ -26,14 +28,20 @@ import mixinsLink from '../mixins/link'
 
 const prefixCls = 'ivu-menu'
 
+/**
+ * 菜单项组件
+ * 菜单中的单个菜单项组件
+ */
 export default {
   name: 'MenuItem',
   mixins: [Emitter, mixin, mixinsLink],
   props: {
+    // 菜单项名称
     name: {
       type: [String, Number],
       required: true
     },
+    // 是否禁用
     disabled: {
       type: Boolean,
       default: false

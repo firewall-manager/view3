@@ -1,8 +1,10 @@
 <template>
+  <!-- 分页选项容器 -->
   <div
     v-if="showSizer || showElevator"
     :class="optsClasses"
   >
+    <!-- 页面大小选择器 -->
     <div
       v-if="showSizer"
       :class="sizerClasses"
@@ -25,6 +27,7 @@
         </VOption>
       </VSelect>
     </div>
+    <!-- 快速跳转输入框 -->
     <div
       v-if="showElevator"
       :class="ElevatorClasses"
@@ -49,25 +52,45 @@ import VOption from './option'
 
 const prefixCls = 'ivu-page'
 
+/**
+ * 检查值是否为数字
+ * @param {*} value - 要检查的值
+ * @returns {Boolean} 是否为数字
+ */
 function isValueNumber (value) {
   return (/^[1-9][0-9]*$/).test(value + '')
 }
 
+/**
+ * 分页选项组件
+ * 用于提供分页大小选择和快速跳转功能的组件
+ */
 export default {
   name: 'PageOption',
   components: { VSelect, VOption },
   mixins: [Locale],
   props: {
+    // 页面大小选项数组
     pageSizeOpts: Array,
+    // 是否显示页面大小选择器
     showSizer: Boolean,
+    // 是否显示快速跳转
     showElevator: Boolean,
+    // 当前页码
     current: Number,
+    // 当前页码（内部使用）
     _current: Number,
+    // 页面大小
     pageSize: Number,
+    // 总页数
     allPages: Number,
+    // 是否小尺寸
     isSmall: Boolean,
+    // 下拉框位置
     placement: String,
+    // 是否转移DOM
     transfer: Boolean,
+    // 是否禁用
     disabled: Boolean
   },
   emits: ['on-size'],
